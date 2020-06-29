@@ -1,15 +1,14 @@
 import grpcWeb from 'grpc-web';
-import { GreeterClient } from './definitions/HelloworldServiceClientPb';
+import { SpaceApiClient } from './definitions/SpaceServiceClientPb';
 import {
-  HelloReply,
-  HelloRequest,
-  RepeatHelloRequest,
-} from './definitions/helloworld_pb';
+  ListDirectoriesRequest,
+  ListDirectoriesResponse,
+} from './definitions/space_pb';
 
 interface SpaceClientOpts {
   url: string;
-  options?: GreeterClient['options_'];
-  credentials?: GreeterClient['credentials_'];
+  options?: SpaceApiClient['options_'];
+  credentials?: SpaceApiClient['credentials_'];
 }
 
 class SpaceClient {
@@ -22,38 +21,26 @@ class SpaceClient {
       credentials,
     } = opts;
 
-    this.instance = new GreeterClient(url, credentials, options);
+    this.instance = new SpaceApiClient(url, credentials, options);
   }
 
-  sayHello(
-    name: string,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<HelloReply> {
+  listDirectories(metadata: grpcWeb.Metadata = {}): Promise<ListDirectoriesResponse> {
     return new Promise((resolve, reject) => {
-      const request = new HelloRequest();
-      request.setName(name);
+      const request = new ListDirectoriesRequest();
 
-      this.instance.sayHello(request, metadata, (err: grpcWeb.Error, res: HelloReply) => {
-        if (err) {
-          reject(err);
-          return;
-        }
+      this.instance.ListDirectories(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ListDirectoriesResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
 
-        resolve(res);
-      });
+          resolve(res);
+        },
+      );
     });
-  }
-
-  sayRepeatHello(
-    name: string,
-    count: number = 5,
-    metadata: grpcWeb.Metadata = {},
-  ): grpcWeb.ClientReadableStream<HelloReply> {
-    const streamRequest = new RepeatHelloRequest();
-    streamRequest.setName(name);
-    streamRequest.setCount(count);
-
-    return this.instance.sayRepeatHello(streamRequest, metadata);
   }
 }
 
