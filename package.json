@@ -1,0 +1,47 @@
+{
+  "name": "@fleekhq/space-client",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "jsnext:main": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "sideEffects": false,
+  "scripts": {
+    "build": "yarn clean && yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc --module commonjs --target es2015 --outDir ./dist",
+    "build:esm": "tsc --module es2015 --target es5 --outDir ./dist/esm -d false",
+    "clean": "rimraf ./dist",
+    "lint": "eslint --ext .ts ./src/**",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FleekHQ/space-client.git"
+  },
+  "keywords": [
+    "package",
+    "typescript"
+  ],
+  "author": "Fleek Labs Inc.",
+  "bugs": {
+    "url": "https://github.com/FleekHQ/space-client/issues"
+  },
+  "homepage": "https://github.com/FleekHQ/space-client#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "eslint-config-airbnb-typescript": "^7.2.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint": "^7.3.1",
+    "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "lint-staged": "^9.5.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5"
+  }
+}
