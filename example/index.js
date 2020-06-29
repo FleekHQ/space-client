@@ -6,15 +6,9 @@ const client = new SpaceClient({
 });
 
 const main = async () => {
-  const res = await client.sayHello('MySuperTest');
+  const res = await client.listDirectories();
 
   console.log(res.getMessage());
-
-  const stream = client.sayRepeatHello('Test', 10);
-
-  stream.on('data', (res) => {
-    console.log(res.getMessage());
-  });
 };
 
 main();
