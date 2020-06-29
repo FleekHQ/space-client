@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es2017",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
     "declaration": true,
     "types": [],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "removeComments": true,
+    "strict": true,
+    "rootDir": "src",
+    "lib": ["es2015"],
   },
-  "lib": [
-    "es2015"
-  ],
   "include": [
     "src/**/*"
   ],
