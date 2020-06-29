@@ -12,7 +12,7 @@ interface SpaceClientOpts {
 }
 
 class SpaceClient {
-  instance: any;
+  instance: SpaceApiClient;
 
   constructor(opts: SpaceClientOpts) {
     const {
@@ -28,7 +28,7 @@ class SpaceClient {
     return new Promise((resolve, reject) => {
       const request = new ListDirectoriesRequest();
 
-      this.instance.ListDirectories(
+      this.instance.listDirectories(
         request,
         metadata,
         (err: grpcWeb.Error, res: ListDirectoriesResponse) => {
