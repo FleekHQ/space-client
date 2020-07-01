@@ -6,9 +6,35 @@ const client = new SpaceClient({
 });
 
 const main = async () => {
-  const res = await client.listDirectories();
+  /**
+   * List directories
+   */
+  const directoriesRes = await client.listDirectories();
+  const entriesList = directoriesRes.getEntriesList();
+  console.log(entriesList);
 
-  console.log(res.getMessage());
+  /**
+   * Create a new bucket
+   */
+  const createBucketRes = await client.createBucket({ slug: 'testBucket' });
+  const bucket = createBucketRes.getBucket();
+  console.log(bucket);
+
+  /**
+   * Subscribe to Textile Events
+   */
+  const txlStream = client.txlSubscribe();
+  txlStream.on('data', (res) => {
+    console.log(res.getBucket());
+  });
+
+  /**
+   * Open a File
+   */
+  const openFileRes = await client.openFile({
+    path: entriesList[0].getPath(),
+  });
+  console.log(openFileRes.getLocation());
 };
 
 main();
