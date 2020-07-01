@@ -2,7 +2,7 @@
 const { SpaceClient } = require('../dist');
 
 const client = new SpaceClient({
-  url: `http://${window.location.hostname}:8080`,
+  url: `http://0.0.0.0:9998`,
 });
 
 const main = async () => {
@@ -35,6 +35,34 @@ const main = async () => {
     path: entriesList[0].getPath(),
   });
   console.log(openFileRes.getLocation());
+
+  /**
+   * Share bucket via email
+   */
+  const shareEmailRes = await client.shareBucketViaEmail({
+    bucket: bucket.getKey(),
+    email: 'test_email@gmail.com',
+  });
+  console.log(shareEmailRes);
+
+  /**
+   * Share buvket via identity
+   */
+  const shareIdentityRes = await client.shareBucketViaIdentity({
+    bucket: bucket.getKey(),
+    identityType: 'USERNAME',
+    identityValue: 'user123',
+  });
+  console.log(shareIdentityRes);
+
+  /**
+   * Generate File Share link
+   */
+  const shareLinkRes = await client.generateFileShareLink({
+    bucket: bucket.getKey(),
+    filePath: 'path/to/file.js',
+  });
+  console.log(shareLinkRes.getLink());
 };
 
 main();
