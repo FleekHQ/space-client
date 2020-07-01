@@ -1,6 +1,7 @@
 import grpcWeb from 'grpc-web';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { SpaceApiClient } from './definitions/SpaceServiceClientPb';
+import { OpenFilePayload, CreateBucketPayload } from './types';
 import {
   TextileEventResponse,
   ListDirectoriesRequest,
@@ -11,7 +12,7 @@ import {
   CreateBucketResponse,
 } from './definitions/space_pb';
 
-interface SpaceClientOpts {
+export interface SpaceClientOpts {
   url: string;
   options?: SpaceApiClient['options_'];
   credentials?: SpaceApiClient['credentials_'];
@@ -58,12 +59,12 @@ class SpaceClient {
   }
 
   openFile(
-    path: string,
+    payload: OpenFilePayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<OpenFileResponse> {
     return new Promise((resolve, reject) => {
       const request = new OpenFileRequest();
-      request.setPath(path);
+      request.setPath(payload.path);
 
       this.instance.openFile(
         request,
@@ -81,12 +82,12 @@ class SpaceClient {
   }
 
   createBucket(
-    slug: string,
+    payload: CreateBucketPayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<CreateBucketResponse> {
     return new Promise((resolve, reject) => {
       const request = new CreateBucketRequest();
-      request.setSlug(slug);
+      request.setSlug(payload.slug);
 
       this.instance.createBucket(
         request,

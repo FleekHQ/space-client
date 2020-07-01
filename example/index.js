@@ -16,7 +16,7 @@ const main = async () => {
   /**
    * Create a new bucket
    */
-  const createBucketRes = await client.createBucket('testBucket');
+  const createBucketRes = await client.createBucket({ slug: 'testBucket' });
   const bucket = createBucketRes.getBucket();
   console.log(bucket);
 
@@ -31,7 +31,9 @@ const main = async () => {
   /**
    * Open a File
    */
-  const openFileRes = await client.openFile(entriesList[0].getPath());
+  const openFileRes = await client.openFile({
+    path: entriesList[0].getPath(),
+  });
   console.log(openFileRes.getLocation());
 };
 
