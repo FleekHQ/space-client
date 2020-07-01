@@ -39,10 +39,6 @@ Returns a Promise that resolves to an array of Directories representing all the 
   };
 ```
 
-[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto#L8)
-
-
-
 #### .txlSubscribe()
 
 Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the Bucket).
@@ -55,11 +51,6 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
     console.log(bucket);
   });
 ```
-
-[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto#L13)
-
-[Readable Stream Reference](https://nodejs.org/dist/latest-v12.x/docs/api/stream.html#stream_class_stream_readable)
-
 
 #### .openFile(path: string)
 
@@ -76,9 +67,6 @@ const asyncFunc = async () => {
   console.log(location); // "/path/to/the/copied/file"
 };
 ```
-
-[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto#L14)
-
 
 #### .createBucket(slug: string)
 
@@ -108,6 +96,90 @@ Creates a new bucket. Returns a Promise that resolves to the new bucket
 
     console.log(bucket.getName());
     ...
+  };
+```
+
+#### .addItems({ targetPath: string, sourcePaths: string[] })
+
+Add new items. Returns a readable stream to resolves the new items
+
+```js
+  const stream = client.addItems({
+    targetPath: '/',
+    sourcePaths: ['/path-to-my-folder-or-file-to-upload']
+  });
+    
+  stream.on('data', (data) => {
+    console.log(data);
+  });
+  
+  stream.on('error', error) => {
+    console.error(error)
+  });
+```
+
+#### .createFolder({ path: string })
+
+Creates a new empty folder. Returns a Promise that resolves to the new folder
+
+```js
+  client
+    .createFolder({ path: '/' })
+    .then(() => {
+      console.log('folder created in path "/"');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.createFolder({ path: '/' });
+  };
+```
+
+#### .createUsernameAndEmail({ username: string, email?: string })
+
+Create a new username with/out email. Returns a Promise that resolves to the username
+
+```js
+  client
+    .createUsernameAndEmail({ username: 'myusername' })
+    .then(() => {
+      console.log('username created');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.createUsernameAndEmail({ username: 'myusername', email: 'my-email@mydomain.com' });
+  };
+```
+
+#### .getIdentityByUsername({ username: string, email?: string })
+
+Get an indentity based on a username. Returns a Promise that resolves if a username already exists
+
+```js
+  client
+    .getIdentityByUsername({ username: 'myusername' })
+    .then((res) => {
+      console.log(res.getIdentity());
+    })
+    .catch(() => {
+      console.log('Username doesnt exists.');
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getIdentityByUsername({ username: 'myusername' });
+    
+    console.log(res.getIdentity());
   };
 ```
 
