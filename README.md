@@ -183,4 +183,4 @@ Get an indentity based on a username. Returns a Promise that resolves if a usern
   };
 ```
 
-[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto#L19)
+[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto)
