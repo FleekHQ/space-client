@@ -1,7 +1,14 @@
-import grpcWeb from 'grpc-web';
+import grpcWeb, { ClientReadableStream } from 'grpc-web';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { SpaceApiClient } from './definitions/SpaceServiceClientPb';
-import { OpenFilePayload, CreateBucketPayload } from './types';
+import {
+  OpenFilePayload,
+  CreateBucketPayload,
+  AddItemsPayload,
+  CreateFolderPayload,
+  GetIdentityByUsernamePayload,
+  CreateUsernameAndEmailPayload,
+} from './types';
 import {
   TextileEventResponse,
   ListDirectoriesRequest,
@@ -10,6 +17,14 @@ import {
   OpenFileResponse,
   CreateBucketRequest,
   CreateBucketResponse,
+  AddItemsRequest,
+  AddItemsResponse,
+  CreateFolderRequest,
+  CreateFolderResponse,
+  GetIdentityByUsernameRequest,
+  GetIdentityByUsernameResponse,
+  CreateUsernameAndEmailRequest,
+  CreateUsernameAndEmailResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -93,6 +108,88 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: CreateBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  addItems(
+    payload: AddItemsPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): ClientReadableStream<AddItemsResponse> {
+    const request = new AddItemsRequest();
+    request.setTargetpath(payload.targetPath);
+    request.setSourcepathsList(payload.sourcePaths);
+    const stream = this.instance.addItems(request, metadata);
+
+    return stream;
+  }
+
+  createFolder(
+    payload: CreateFolderPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<CreateFolderResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new CreateFolderRequest();
+      request.setPath(payload.path);
+
+      this.instance.createFolder(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: CreateFolderResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  createUsernameAndEmail(
+    payload: CreateUsernameAndEmailPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<CreateUsernameAndEmailResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new CreateUsernameAndEmailRequest();
+      request.setEmail(payload.email || '');
+      request.setUsername(payload.username);
+
+      this.instance.createUsernameAndEmail(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: CreateUsernameAndEmailResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getIdentityByUsername(
+    payload: GetIdentityByUsernamePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetIdentityByUsernameResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetIdentityByUsernameRequest();
+      request.setUsername(payload.username);
+
+      this.instance.getIdentityByUsername(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetIdentityByUsernameResponse) => {
           if (err) {
             reject(err);
             return;
