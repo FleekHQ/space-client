@@ -12,6 +12,10 @@ import {
   ShareBucketViaEmailPayload,
   ShareBucketViaIdentityPayload,
   GenerateFileShareLinkPayload,
+  BackupKeysByPassphrasePayload,
+  RecoverKeysByPassphrasePayload,
+  ToggleFusePayload,
+  GetFuseDriveStatusPayload,
 } from './types';
 
 import {
@@ -36,6 +40,12 @@ import {
   ShareBucketViaIdentityResponse,
   GenerateFileShareLinkRequest,
   GenerateFileShareLinkResponse,
+  BackupKeysByPassphraseRequest,
+  BackupKeysByPassphraseResponse,
+  RecoverKeysByPassphraseRequest,
+  RecoverKeysByPassphraseResponse,
+  ToggleFuseRequest,
+  FuseDriveResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -274,6 +284,97 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GenerateFileShareLinkResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  backupKeysByPassphrase(
+    payload: BackupKeysByPassphrasePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<BackupKeysByPassphraseResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new BackupKeysByPassphraseRequest();
+      request.setPassphrase(payload.passphrase);
+
+      this.instance.backupKeysByPassphrase(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: BackupKeysByPassphraseResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  recoverKeysByPassphrase(
+    payload: RecoverKeysByPassphrasePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<RecoverKeysByPassphraseResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new RecoverKeysByPassphraseRequest();
+      request.setPassphrase(payload.passphrase);
+
+      this.instance.recoverKeysByPassphrase(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: RecoverKeysByPassphraseResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  toggleFuseDrive(
+    payload: ToggleFusePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<FuseDriveResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ToggleFuseRequest();
+      request.setMountdrive(payload.mountDrive);
+
+      this.instance.toggleFuseDrive(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: FuseDriveResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getFuseDriveStatus(
+    payload: GetFuseDriveStatusPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<FuseDriveResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new Empty();
+
+      this.instance.getFuseDriveStatus(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: FuseDriveResponse) => {
           if (err) {
             reject(err);
             return;
