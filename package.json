@@ -17,7 +17,7 @@
     "test": "jest",
     "copy-dts": "copyfiles -u 1 \"src/**/*.d.ts\" dist",
     "build-client-example": "webpack example/client.js -o example/main.js",
-    "example": "npm run build && npm run build-client-example && http-server example -p 3001"
+    "example": "npm run build && npm run build-client-example && npx http-server example -p 3001"
   },
   "repository": {
     "type": "git",
@@ -41,7 +41,6 @@
     "eslint-config-airbnb-typescript": "^7.2.1",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.22.0",
-    "http-server": "^0.12.3",
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "lint-staged": "^9.5.0",
