@@ -183,4 +183,91 @@ Get an indentity based on a username. Returns a Promise that resolves if a usern
   };
 ```
 
-[Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto)
+#### .shareBucketViaEmail({ bucket: string, email: string })
+
+Shares a bucket via email
+
+```js
+  client
+    .shareBucketViaEmail({ bucket: 'my-bucket-slug', email: 'email@gmail.com' })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Asyn/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.shareBucketViaEmail({
+      bucket: 'my-bucket-slug',
+      email: 'email@gmail.com',
+    });
+    
+    console.log(res);
+  };
+```
+
+
+#### .shareBucketViaIdentity({ identityType: 'USERNAME' | 'EMAIL', identityValue: string, bucket: string })
+
+Shares a bucket via identity
+
+```js
+  client
+    .shareBucketViaIdentity({
+      bucket: 'my-bucket-slug',
+      identityType: 'USERNAME',
+      identityValue: 'user123',
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.shareBucketViaIdentity({
+      bucket: 'my-bucket-slug',
+      identityType: 'USERNAME',
+      identityValue: 'user123',
+    });
+    
+    console.log(res);
+  };
+```
+
+#### .generateFileShareLink({ bucket: string, filePath: string })
+
+Generates a share link
+
+```js
+  client
+    .generateFileShareLink({
+      bucket: 'my-bucket-slug',
+      filePath: 'path/to/file.js',
+    })
+    .then((res) => {
+      console.log(res.getLink());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.generateFileShareLink({
+      bucket: 'my-bucket-slug',
+      filePath: 'path/to/file.js',
+    });
+    
+    console.log(res.getLink());
+  };
+```
+
+## [Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto)

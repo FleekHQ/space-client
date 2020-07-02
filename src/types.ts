@@ -1,3 +1,5 @@
+import { IdentityType } from './definitions/space_pb';
+
 export interface OpenFilePayload {
   path: string;
 }
@@ -22,4 +24,20 @@ export interface GetIdentityByUsernamePayload {
 export interface CreateUsernameAndEmailPayload {
   email?: string;
   username: string;
+}
+
+export interface ShareBucketViaEmailPayload {
+  bucket: string;
+  email: string;
+}
+
+export interface ShareBucketViaIdentityPayload {
+  identityType: IdentityType;
+  identityValue: string;
+  bucket: string;
+}
+
+export interface GenerateFileShareLinkPayload {
+  bucket: string;
+  filePath: string;
 }

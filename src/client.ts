@@ -1,6 +1,7 @@
 import grpcWeb, { ClientReadableStream } from 'grpc-web';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import { SpaceApiClient } from './definitions/SpaceServiceClientPb';
+
 import {
   OpenFilePayload,
   CreateBucketPayload,
@@ -8,7 +9,11 @@ import {
   CreateFolderPayload,
   GetIdentityByUsernamePayload,
   CreateUsernameAndEmailPayload,
+  ShareBucketViaEmailPayload,
+  ShareBucketViaIdentityPayload,
+  GenerateFileShareLinkPayload,
 } from './types';
+
 import {
   TextileEventResponse,
   ListDirectoriesRequest,
@@ -25,6 +30,12 @@ import {
   GetIdentityByUsernameResponse,
   CreateUsernameAndEmailRequest,
   CreateUsernameAndEmailResponse,
+  ShareBucketViaEmailRequest,
+  ShareBucketViaEmailResponse,
+  ShareBucketViaIdentityRequest,
+  ShareBucketViaIdentityResponse,
+  GenerateFileShareLinkRequest,
+  GenerateFileShareLinkResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -190,6 +201,79 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GetIdentityByUsernameResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareBucketViaEmail(
+    payload: ShareBucketViaEmailPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareBucketViaEmailResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ShareBucketViaEmailRequest();
+      request.setEmail(payload.email);
+      request.setBucket(payload.bucket);
+
+      this.instance.shareBucketViaEmail(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareBucketViaEmailResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareBucketViaIdentity(
+    payload: ShareBucketViaIdentityPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareBucketViaIdentityResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ShareBucketViaIdentityRequest();
+      request.setIdentitytype(payload.identityType);
+      request.setIdentityvalue(payload.identityValue);
+      request.setBucket(payload.bucket);
+
+      this.instance.shareBucketViaIdentity(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareBucketViaIdentityResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  generateFileShareLink(
+    payload: GenerateFileShareLinkPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GenerateFileShareLinkResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GenerateFileShareLinkRequest();
+      request.setBucket(payload.bucket);
+      request.setFilepath(payload.filePath);
+
+      this.instance.generateFileShareLink(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GenerateFileShareLinkResponse) => {
           if (err) {
             reject(err);
             return;
