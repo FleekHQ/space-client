@@ -110,11 +110,15 @@ Add new items. Returns a readable stream to resolves the new items
   });
     
   stream.on('data', (data) => {
-    console.log(data);
+    console.log('data: ', data);
   });
   
-  stream.on('error', error) => {
-    console.error(error)
+  stream.on('error', (error) => {
+    console.error('error: ', error);
+  });
+
+  stream.on('end', () => {
+    console.log('end');
   });
 ```
 
