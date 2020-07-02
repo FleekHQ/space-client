@@ -41,3 +41,18 @@ export interface GenerateFileShareLinkPayload {
   bucket: string;
   filePath: string;
 }
+
+export interface BackupKeysByPassphrasePayload {
+  passphrase: string;
+}
+
+export interface RecoverKeysByPassphrasePayload {
+  passphrase: string;
+}
+
+export interface ToggleFusePayload {
+  mountDrive: boolean;
+}
+
+export interface GetFuseDriveStatusPayload {
+}

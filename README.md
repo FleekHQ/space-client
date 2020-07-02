@@ -110,11 +110,15 @@ Add new items. Returns a readable stream to resolves the new items
   });
     
   stream.on('data', (data) => {
-    console.log(data);
+    console.log('data: ', data);
   });
   
-  stream.on('error', error) => {
-    console.error(error)
+  stream.on('error', (error) => {
+    console.error('error: ', error);
+  });
+
+  stream.on('end', () => {
+    console.log('end');
   });
 ```
 
@@ -267,6 +271,106 @@ Generates a share link
     });
     
     console.log(res.getLink());
+  };
+```
+
+#### .backupKeysByPassphrase({ passphrase: string })
+
+Backup keys by passphrase
+
+```js
+  client
+    .backupKeysByPassphrase({
+      passphrase: 'my-passphrase',
+    })
+    .then(() => {
+      console.log('keys backup');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.backupKeysByPassphrase({
+      passphrase: 'my-passphrase',
+    });
+  };
+```
+
+#### .recoverKeysByPassphrase({ passphrase: string })
+
+Recovery keys by passphrase
+
+```js
+  client
+    .recoverKeysByPassphrase({
+      passphrase: 'my-passphrase',
+    })
+    .then(() => {
+      console.log('recovery keys');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.recoverKeysByPassphrase({
+      passphrase: 'my-passphrase',
+    });
+  };
+```
+
+#### .toggleFuseDrive({ mountDrive: boolean })
+
+Toggle Fuse drive
+
+```js
+  client
+    .toggleFuseDrive({
+      mountDrive: true || false,
+    })
+    .then((res) => {
+      console.log(res.getFusedrivemounted());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.toggleFuseDrive({
+      mountDrive: true || false,
+    });
+    
+    console.log(res.getFusedrivemounted());
+  };
+```
+
+#### .getFuseDriveStatus({})
+
+Get Fuse drive status
+
+```js
+  client
+    .getFuseDriveStatus({})
+    .then((res) => {
+      console.log(res.getFusedrivemounted());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getFuseDriveStatus({});
+    
+    console.log(res.getFusedrivemounted());
   };
 ```
 
