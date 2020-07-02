@@ -1,5 +1,55 @@
 # Space Client
 
+## Overview
+Space Client it's a [grpc-web](https://www.npmjs.com/package/grpc-web) wrapper that allows you to connect with the space daemon and intract with it.
+
+
+#### Initialaze client
+
+Please have in mind that daemon only supports local connections for now, that means that you just can connect through your localhost. You can't connect through a dns or try to connect to a daemon running on a different machine.
+
+```js
+  import { SpaceClient } from '@fleekhq/space-client';
+
+  // default port exposed by the daemon for client connection is 9998
+  const client = new SpaceClient({
+    url: `http://0.0.0.0:9998`,
+  });
+
+  ...
+```
+
+If you are running the client on the server-side, you need to declare `XMLHttpRequest` module as global. (this is because client is based on [grpc-web](https://www.npmjs.com/package/grpc-web), which is supposed to be used on client-side).
+
+install `XMLHttpRequest`
+
+```bash
+  yarn add xmlhttprequest
+
+```
+
+Or using npm
+
+```bash
+  npm install xmlhttprequest
+```
+
+
+then to initialize the client
+
+```js
+  global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+  const { SpaceClient } = require('@fleekhq/space-client');
+
+  // default port exposed by the daemon for client connection is 9998
+  const client = new SpaceClient({
+    url: `http://0.0.0.0:9998`,
+  });
+
+  ...
+```
+
 ## API
 
 #### .listDirectories()
@@ -52,7 +102,7 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   });
 ```
 
-#### .openFile(path: string)
+#### .openFile({ path: string })
 
 Copies the file referenced by the path arg to a temp folder and returns a Promise that resolves to the file location
 
@@ -68,7 +118,7 @@ const asyncFunc = async () => {
 };
 ```
 
-#### .createBucket(slug: string)
+#### .createBucket({ slug: string })
 
 Creates a new bucket. Returns a Promise that resolves to the new bucket
 
@@ -374,4 +424,43 @@ Get Fuse drive status
   };
 ```
 
-## [Proto File Reference](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto)
+#### .subscribe()
+
+Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the event type + the entry affected).
+
+```js
+  const subscribeStream = client.subscribe();
+
+  subscribeStream.on('data', (res) => {
+    const eventType = res.getType();
+    const entry = res.getEntry();
+
+    console.log('eventType', eventType.toString());
+    console.log('path', entry.getPath());
+    console.log('name', entry.getName());
+    console.log('isDir', entry.getIsdir());
+    console.log('created', entry.getCreated());
+    console.log('updated', entry.getUpdated());
+    console.log('ipfsHash', entry.getIpfshash());
+    console.log('sizeInBytes', entry.getSizeinbytes());
+    console.log('fileExtension', entry.getFileextension());
+  });
+```
+
+
+## Example
+You can check the example included in the `example` folder.
+
+To run the example you need to download and run the daemon first
+
+Then you can run the example by
+
+```bash
+  npm run example
+```
+
+then on your web browser go to `localhost:3001`
+
+## Proto File Reference
+
+If you need more information about the available methods, you can check the [Proto File Schema](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto).

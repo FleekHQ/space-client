@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body div {
+      margin-bottom: 20px;
+    };
+  </style>
+</head>
+<body>
+  <h4>Open the devtools to see the results</h4>
+  <div>
+    <button id="add-file">Add File</button>
+    <input id="add-file-input" type="text" placeholder="/absolute/path/to/your/file.txt">
+  </div>
+
+  <div>
+    <button id="list-entries">List entries</button>
+  </div>
+
+  <div>
+    <button id="create-bucket">
+      Create bucket
+    </button>
+    <input type="text" id="create-bucket-name" placeholder="bucket-name">
+  </div>
+
+  <div>
+    <button id="open-file">Open File</button>
+    <input type="text" id="open-file-input" placeholder="/bucket/path/of/your/file">
+  </div>
+
+  <div>
+    <button id="share-email">Share bucket via email</button>
+    <input type="text" id="share-email-bucket" placeholder="bucket">
+    <input type="text" id="share-email-input" placeholder="email">
+  </div>
+
+  <div>
+    <button id="share-identity">Share bucket via identity</button>
+    <input type="text" id="share-identity-bucket" placeholder="bucket">
+    <select name="identity-type" id="identity-type">
+      <option value="USERNAME">USERNAME</option>
+      <option value="EMAIL">EMAIL</option>
+    </select>
+    <input type="text" id="share-identity-value" placeholder="value">
+  </div>
+
+  <div>
+    <button id="share-link">Share link</button>
+    <input type="text" id="share-link-bucket" placeholder="bucket">
+    <input type="text" id="share-link-filepath" placeholder="/bucket/path/of/your/file">
+  </div>
+</body>
+<script src="main.js"></script>
+</html>

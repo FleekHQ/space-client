@@ -46,6 +46,8 @@ import {
   RecoverKeysByPassphraseResponse,
   ToggleFuseRequest,
   FuseDriveResponse,
+  FileEventResponse,
+  IdentityType,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -252,7 +254,7 @@ class SpaceClient {
   ): Promise<ShareBucketViaIdentityResponse> {
     return new Promise((resolve, reject) => {
       const request = new ShareBucketViaIdentityRequest();
-      request.setIdentitytype(payload.identityType);
+      request.setIdentitytype(IdentityType[payload.identityType]);
       request.setIdentityvalue(payload.identityValue);
       request.setBucket(payload.bucket);
 
@@ -384,6 +386,14 @@ class SpaceClient {
         },
       );
     });
+  }
+
+  subscribe(
+    metadata: grpcWeb.Metadata = {},
+  ): grpcWeb.ClientReadableStream<FileEventResponse> {
+    const request = new Empty();
+
+    return this.instance.subscribe(request, metadata);
   }
 }
 

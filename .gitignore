@@ -111,4 +111,6 @@ sketch
 
 core
 dist/
+
+example/main.js
 # End of https://www.gitignore.io/api/node,react
