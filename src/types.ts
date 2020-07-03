@@ -1,5 +1,6 @@
 export interface ListDirectoryPayload {
   path: string;
+  bucket: string;
 }
 
 export interface OpenFilePayload {
@@ -12,12 +13,14 @@ export interface CreateBucketPayload {
 }
 
 export interface AddItemsPayload {
+  bucket: string;
   targetPath: string;
   sourcePaths: string[];
 }
 
 export interface CreateFolderPayload {
   path: string;
+  bucket: string;
 }
 
 export interface GetIdentityByUsernamePayload {
