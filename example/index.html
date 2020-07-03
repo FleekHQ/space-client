@@ -14,44 +14,53 @@
   <h4>Open the devtools to see the results</h4>
 
   <div>
-    <button id="list-buckets">List Buckets</button>
+    <button id="list-buckets">ListBuckets</button>
   </div>
 
   <div>
-    <button id="list-directory">List Directory</button>
+    <button id="list-directory">ListDirectory</button>
     <input type="text" id="list-directory-input" placeholder="path">
+    <input type="text" id="list-directory-bucket" placeholder="bucket">
   </div>
 
   <div>
-    <button id="list-entries">List entries</button>
+    <button id="list-entries">ListDirectories</button>
     <input type="text" id="list-entries-bucket" placeholder="bucket">
   </div>
 
   <div>
-    <button id="add-file">Add File</button>
+    <button id="add-file">AddItems</button>
     <input id="add-file-input" type="text" placeholder="/absolute/path/to/your/file.txt">
+    <input id="add-file-bucket" type="text" placeholder="bucket">
+  </div>
+
+  <div>
+    <button id="create-folder">CreateFolder</button>
+    <input type="text" id="create-folder-path" placeholder="/path/new/folder">
+    <input type="text" id="create-folder-bucket" placeholder="bucket">
   </div>
 
   <div>
     <button id="create-bucket">
-      Create bucket
+      CreateBucket
     </button>
     <input type="text" id="create-bucket-name" placeholder="bucket-name">
   </div>
 
   <div>
-    <button id="open-file">Open File</button>
+    <button id="open-file">OpenFile</button>
     <input type="text" id="open-file-input" placeholder="/bucket/path/of/your/file">
+    <input type="text" id="open-file-bucket" placeholder="bucket">
   </div>
 
   <div>
-    <button id="share-email">Share bucket via email</button>
+    <button id="share-email">ShareBucketViaEmail</button>
     <input type="text" id="share-email-bucket" placeholder="bucket">
     <input type="text" id="share-email-input" placeholder="email">
   </div>
 
   <div>
-    <button id="share-identity">Share bucket via identity</button>
+    <button id="share-identity">ShareBucketViaIdentity</button>
     <input type="text" id="share-identity-bucket" placeholder="bucket">
     <select name="identity-type" id="identity-type">
       <option value="USERNAME">USERNAME</option>
@@ -61,9 +70,29 @@
   </div>
 
   <div>
-    <button id="share-link">Share link</button>
+    <button id="share-link">GenerateFileShareLink</button>
     <input type="text" id="share-link-bucket" placeholder="bucket">
     <input type="text" id="share-link-filepath" placeholder="/bucket/path/of/your/file">
+  </div>
+
+  <div>
+    <button id="get-identity">GetIdentityByUsername</button>
+    <input type="text" id="get-identity-username" placeholder="username">
+  </div>
+
+  <div>
+    <button id="create-user">CreateUsernameAndEmail</button>
+    <input type="text" id="create-user-username" placeholder="username">
+    <input type="text" id="create-user-email" placeholder="email">
+  </div>
+
+  <div>
+    <button id="toggle-fuse-drive">ToggleFuseDrive</button>
+    <input type="checkbox" id="toggle-fuse-drive-input">
+  </div>
+
+  <div>
+    <button id="get-fuse-drive-status">GetFuseDriveStatus</button>
   </div>
 </body>
 <script src="main.js"></script>
