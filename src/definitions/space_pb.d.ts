@@ -3,6 +3,9 @@ import * as jspb from "google-protobuf"
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
 export class ListDirectoriesRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): ListDirectoriesRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoriesRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoriesRequest): ListDirectoriesRequest.AsObject;
@@ -13,6 +16,7 @@ export class ListDirectoriesRequest extends jspb.Message {
 
 export namespace ListDirectoriesRequest {
   export type AsObject = {
+    bucket: string,
   }
 }
 
@@ -86,6 +90,9 @@ export class ListDirectoryRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): ListDirectoryRequest;
 
+  getBucket(): string;
+  setBucket(value: string): ListDirectoryRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoryRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoryRequest): ListDirectoryRequest.AsObject;
@@ -97,6 +104,7 @@ export class ListDirectoryRequest extends jspb.Message {
 export namespace ListDirectoryRequest {
   export type AsObject = {
     path: string,
+    bucket: string,
   }
 }
 
@@ -296,6 +304,9 @@ export class OpenFileRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): OpenFileRequest;
 
+  getBucket(): string;
+  setBucket(value: string): OpenFileRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OpenFileRequest.AsObject;
   static toObject(includeInstance: boolean, msg: OpenFileRequest): OpenFileRequest.AsObject;
@@ -307,6 +318,7 @@ export class OpenFileRequest extends jspb.Message {
 export namespace OpenFileRequest {
   export type AsObject = {
     path: string,
+    bucket: string,
   }
 }
 
@@ -337,6 +349,9 @@ export class AddItemsRequest extends jspb.Message {
   getTargetpath(): string;
   setTargetpath(value: string): AddItemsRequest;
 
+  getBucket(): string;
+  setBucket(value: string): AddItemsRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): AddItemsRequest.AsObject;
   static toObject(includeInstance: boolean, msg: AddItemsRequest): AddItemsRequest.AsObject;
@@ -349,6 +364,7 @@ export namespace AddItemsRequest {
   export type AsObject = {
     sourcepathsList: Array<string>,
     targetpath: string,
+    bucket: string,
   }
 }
 
@@ -418,6 +434,9 @@ export class CreateFolderRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): CreateFolderRequest;
 
+  getBucket(): string;
+  setBucket(value: string): CreateFolderRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateFolderRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateFolderRequest): CreateFolderRequest.AsObject;
@@ -429,6 +448,7 @@ export class CreateFolderRequest extends jspb.Message {
 export namespace CreateFolderRequest {
   export type AsObject = {
     path: string,
+    bucket: string,
   }
 }
 
@@ -762,12 +782,46 @@ export namespace FuseDriveResponse {
   }
 }
 
-export enum EventType {
+export class ListBucketsRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListBucketsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ListBucketsRequest): ListBucketsRequest.AsObject;
+  static serializeBinaryToWriter(message: ListBucketsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListBucketsRequest;
+  static deserializeBinaryFromReader(message: ListBucketsRequest, reader: jspb.BinaryReader): ListBucketsRequest;
+}
+
+export namespace ListBucketsRequest {
+  export type AsObject = {
+  }
+}
+
+export class ListBucketsResponse extends jspb.Message {
+  getBucketsList(): Array<Bucket>;
+  setBucketsList(value: Array<Bucket>): ListBucketsResponse;
+  clearBucketsList(): ListBucketsResponse;
+  addBuckets(value?: Bucket, index?: number): Bucket;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ListBucketsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ListBucketsResponse): ListBucketsResponse.AsObject;
+  static serializeBinaryToWriter(message: ListBucketsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ListBucketsResponse;
+  static deserializeBinaryFromReader(message: ListBucketsResponse, reader: jspb.BinaryReader): ListBucketsResponse;
+}
+
+export namespace ListBucketsResponse {
+  export type AsObject = {
+    bucketsList: Array<Bucket.AsObject>,
+  }
+}
+
+export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
   ENTRY_UPDATED = 2,
 }
-export enum IdentityType {
+export enum IdentityType { 
   USERNAME = 0,
   EMAIL = 1,
 }
