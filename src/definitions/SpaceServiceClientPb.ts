@@ -6,6 +6,7 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
+
 /* eslint-disable */
 // @ts-nocheck
 
@@ -36,6 +37,8 @@ import {
   GetIdentityByUsernameResponse,
   ListDirectoriesRequest,
   ListDirectoriesResponse,
+  ListDirectoryRequest,
+  ListDirectoryResponse,
   OpenFileRequest,
   OpenFileResponse,
   RecoverKeysByPassphraseRequest,
@@ -103,6 +106,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoListDirectories);
+  }
+
+  methodInfoListDirectory = new grpcWeb.AbstractClientBase.MethodInfo(
+    ListDirectoryResponse,
+    (request: ListDirectoryRequest) => {
+      return request.serializeBinary();
+    },
+    ListDirectoryResponse.deserializeBinary
+  );
+
+  listDirectory(
+    request: ListDirectoryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListDirectoryResponse>;
+
+  listDirectory(
+    request: ListDirectoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ListDirectoryResponse) => void): grpcWeb.ClientReadableStream<ListDirectoryResponse>;
+
+  listDirectory(
+    request: ListDirectoryRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ListDirectoryResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ListDirectory', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoListDirectory,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ListDirectory',
+    request,
+    metadata || {},
+    this.methodInfoListDirectory);
   }
 
   methodInfoGetConfigInfo = new grpcWeb.AbstractClientBase.MethodInfo(

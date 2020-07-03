@@ -1,3 +1,4 @@
 node_modules
 dist
 example
+src/definitions/**
