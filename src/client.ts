@@ -16,6 +16,7 @@ import {
   RecoverKeysByPassphrasePayload,
   ToggleFusePayload,
   GetFuseDriveStatusPayload,
+  ListDirectoryPayload,
 } from './types';
 
 import {
@@ -48,6 +49,8 @@ import {
   FuseDriveResponse,
   FileEventResponse,
   IdentityType,
+  ListDirectoryRequest,
+  ListDirectoryResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -67,6 +70,29 @@ class SpaceClient {
     } = opts;
 
     this.instance = new SpaceApiClient(url, credentials, options);
+  }
+
+  listDirectory(
+    payload: ListDirectoryPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ListDirectoryResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ListDirectoryRequest();
+      request.setPath(payload.path);
+
+      this.instance.listDirectories(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ListDirectoryResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
   }
 
   listDirectories(metadata: grpcWeb.Metadata = {}): Promise<ListDirectoriesResponse> {

@@ -52,6 +52,43 @@ then to initialize the client
 
 ## API
 
+#### .listDirectory({ path: string })
+
+Returns the folder or files in the path directory.
+
+```js
+  client
+    .listDirectory({ path: '/' })
+    .then((res) => {
+      const entries = res.getEntriesList();
+
+      entries.forEach((entry) => {
+        console.log(entry.getPath());
+        console.log(entry.getName());
+        console.log(entry.getIsdir());
+        console.log(entry.getCreated());
+        console.log(entry.getUpdated());
+        console.log(entry.getIpfshash());
+        console.log(entry.getSizeinbytes());
+        console.log(entry.getFileextension());
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.listDirectory({ path: '/' });
+    const entries = res.getEntriesList();
+
+    entries.forEach((entry) => {
+      ...
+    });
+  };
+```
+
 #### .listDirectories()
 
 Returns a Promise that resolves to an array of Directories representing all the folders and files inside the bucket.
