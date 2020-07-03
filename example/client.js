@@ -32,15 +32,20 @@ subscribe.on('data', (res) => {
 
 
 document.getElementById("add-file").onclick = async () => {
+  const bucket = document.getElementById('add-file-bucket').value;
   const filepath = document.getElementById('add-file-input').value;
 
   try {
-    console.log('uploading file...');
-
-    const uploadRes = client.addItems({
+    const payload = {
+      bucket,
       targetPath: '/',
       sourcePaths: [filepath],
-    })
+    };
+
+    console.log('payload', payload);
+    console.log('uploading file...');
+
+    const uploadRes = client.addItems(payload)
 
     uploadRes.on('data', (data) => {
       const addItemResult = data.getResult();
@@ -66,11 +71,16 @@ document.getElementById("add-file").onclick = async () => {
 document.getElementById('list-entries').onclick = async () => {
   const bucket = document.getElementById('list-entries-bucket').value;
 
+  const payload = {
+    bucket,
+  };
+
+  console.log('payload', payload);
+
   try {
     console.log('getting entries...');
-    const directoriesRes = await client.listDirectories({
-      bucket,
-    });
+
+    const directoriesRes = await client.listDirectories(payload);
 
     const entriesList = directoriesRes.getEntriesList();
 
@@ -101,8 +111,12 @@ document.getElementById('create-bucket').onclick = async () => {
   const bucketname = document.getElementById('create-bucket-name').value;
 
   try {
+    const payload = { slug: bucketname };
+
+    console.log('payload', payload);
     console.log('creating bucket...');
-    const createBucketRes = await client.createBucket({ slug: bucketname });
+
+    const createBucketRes = await client.createBucket(payload);
     const bucket = createBucketRes.getBucket();
 
     const bucketObj = {
@@ -122,9 +136,15 @@ document.getElementById('create-bucket').onclick = async () => {
 
 document.getElementById('open-file').onclick = async () => {
   const pathfile = document.getElementById('open-file-input').value;
+  const bucket = document.getElementById('open-file-bucket').value;
 
+  const payload = { path: pathfile, bucket };
+
+  console.log('payload', payload);
+
+  console.log('opening file...');
   try {
-    const openFileRes = await client.openFile({ path: pathfile })
+    const openFileRes = await client.openFile(payload)
     console.log('temp file location:', openFileRes.getLocation());
   } catch (error) {
     console.error(error);
@@ -186,6 +206,7 @@ document.getElementById('share-link').onclick = async () => {
 
 document.getElementById('list-buckets').onclick = async () => {
   try {
+    console.log('listing buckets...');
     const res = await client.listBuckets();
     const buckets = res.getBucketsList();
 
@@ -210,13 +231,16 @@ document.getElementById('list-buckets').onclick = async () => {
 
 
 document.getElementById('list-directory').onclick = async () => {
-  console.log('fetching directory...');
   const path = document.getElementById('list-directory-input').value;
+  const bucket = document.getElementById('list-directory-bucket').value;
 
   try {
-    const res = await client.listDirectory({
-      path,
-    });
+    const payload = { path, bucket };
+
+    console.log('payload:', payload);
+
+    console.log('fetching directory...');
+    const res = await client.listDirectory(payload);
 
     const entriesList = res.getEntriesList();
 
@@ -237,6 +261,90 @@ document.getElementById('list-directory').onclick = async () => {
     }, []);
 
     console.log('listDirectory res:', entries);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('create-folder').onclick = async () => {
+  const path = document.getElementById('create-folder-path').value;
+  const bucket = document.getElementById('create-folder-bucket').value;
+
+  const payload = {
+    path,
+    bucket,
+  };
+
+  console.log('payload', payload);
+  console.log('creating folder...');
+
+  try {
+    const res = await client.createFolder(payload);
+
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('toggle-fuse-drive').onclick = async () => {
+  const mountDrive = document.getElementById('toggle-fuse-drive-input').checked;
+
+  const payload = { mountDrive };
+  console.log('payload', payload);
+
+  try {
+    const res = await client.toggleFuseDrive(payload);
+    console.log('driveFuseMounted:', res.getFusedrivemounted());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('get-fuse-drive-status').onclick = async () => {
+  try {
+    const res = await client.getFuseDriveStatus();
+    console.log('driveFuseMounted:', res.getFusedrivemounted());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('get-identity').onclick = async () => {
+  const username = document.getElementById('get-identity-username').value;
+  const payload = { username };
+  console.log('payload', payload);
+
+  try {
+    const res = await client.getIdentityByUsername(payload);
+    const identity = res.getIdentity();
+
+    console.log('identity:', {
+      address: identity.getAddress(),
+      publicKey: identity.getPublickey(),
+      username: identity.getUsername(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+
+document.getElementById('create-user').onclick = async () => {
+  const email = document.getElementById('create-user-email').value;
+  const username = document.getElementById('create-user-username').value;
+
+  const payload = { email, username };
+
+  console.log('payload', payload);
+
+  try {
+    const res = await client.createUsernameAndEmail(payload);
+    console.log(res);
   } catch (error) {
     console.error(error);
   }
