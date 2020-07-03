@@ -1,3 +1,7 @@
+export interface ListDirectoryPayload {
+  path: string;
+}
+
 export interface OpenFilePayload {
   path: string;
   bucket: string;
