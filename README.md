@@ -53,13 +53,13 @@ then to initialize the client:
 
 ## API
 
-#### .listDirectory({ path: string })
+#### .listDirectory({ path: string, bucket: string })
 
 Returns the folder or files in the path directory.
 
 ```js
   client
-    .listDirectory({ path: '/' })
+    .listDirectory({ path: '/', bucket: 'my-bucket' })
     .then((res) => {
       const entries = res.getEntriesList();
 
@@ -81,7 +81,7 @@ Returns the folder or files in the path directory.
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    const res = await client.listDirectory({ path: '/' });
+    const res = await client.listDirectory({ path: '/', bucket: 'my-bucket' });
     const entries = res.getEntriesList();
 
     entries.forEach((entry) => {
@@ -195,12 +195,13 @@ Creates a new bucket. Returns a Promise that resolves to the new bucket
   };
 ```
 
-#### .addItems({ targetPath: string, sourcePaths: string[] })
+#### .addItems({ bucket: string, targetPath: string, sourcePaths: string[] })
 
 Add new items. Returns a readable stream to resolves the new items
 
 ```js
   const stream = client.addItems({
+    bucket: 'my-bucket',
     targetPath: '/',
     sourcePaths: ['/path-to-my-folder-or-file-to-upload']
   });
@@ -218,13 +219,13 @@ Add new items. Returns a readable stream to resolves the new items
   });
 ```
 
-#### .createFolder({ path: string })
+#### .createFolder({ path: string, bucket: string })
 
 Creates a new empty folder. Returns a Promise that resolves to the new folder
 
 ```js
   client
-    .createFolder({ path: '/' })
+    .createFolder({ path: '/', bucket: 'my-bucket' })
     .then(() => {
       console.log('folder created in path "/"');
     })
@@ -235,7 +236,7 @@ Creates a new empty folder. Returns a Promise that resolves to the new folder
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    await client.createFolder({ path: '/' });
+    await client.createFolder({ path: '/', bucket: 'my-bucket' });
   };
 ```
 
