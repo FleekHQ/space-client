@@ -12,7 +12,7 @@
     "build:cjs": "tsc --module commonjs --target es2015 --outDir ./dist",
     "build:esm": "tsc --module es2015 --target es5 --outDir ./dist/esm -d false",
     "clean": "rimraf ./dist",
-    "lint": "eslint --ext .ts ./src/**",
+    "lint": "eslint ./ --ext .ts",
     "lint:fix": "yarn lint -- --fix",
     "test": "jest",
     "copy-dts": "copyfiles -u 1 \"src/**/*.d.ts\" dist",
