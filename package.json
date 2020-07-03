@@ -1,6 +1,6 @@
 {
   "name": "@fleekhq/space-client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "jsnext:main": "dist/esm/index.js",
@@ -21,7 +21,8 @@
     "test": "jest",
     "copy-dts": "copyfiles -u 1 \"src/**/*.d.ts\" dist",
     "build-client-example": "webpack example/client.js -o example/main.js",
-    "example": "npm run build && npm run build-client-example && npx http-server example -p 3001"
+    "example": "npm run build && npm run build-client-example && npx http-server example -p 3001",
+    "prepublishOnly": "yarn build"
   },
   "repository": {
     "type": "git",
