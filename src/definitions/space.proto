@@ -4,32 +4,112 @@ import "google/protobuf/empty.proto";
 
 package space;
 
+option go_package = ".;pb";
+
+// SpaceApi service
 service SpaceApi {
-  rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {}
-  rpc GetConfigInfo(google.protobuf.Empty) returns (ConfigInfoResponse) {}
-  rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {}
-  rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {}
-  rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {}
-  rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {}
-  rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {}
-  rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {}
-  rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {}
-  rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {}
-  rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {}
-  rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {}
+  // Get all folder or files in the default bucket. It fetches all subdirectories too.
+  rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {
 
-  // Identities
-  rpc GetIdentityByUsername(GetIdentityByUsernameRequest) returns (GetIdentityByUsernameResponse) {}
-  rpc CreateUsernameAndEmail(CreateUsernameAndEmailRequest) returns (CreateUsernameAndEmailResponse) {}
+  }
 
-  // Vault
-  rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {}
-  rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {}
+  // Get the folder or files in the path directory.
+  // Unlike ListDirectories, this only returns immediate children at path.
+  rpc ListDirectory(ListDirectoryRequest) returns (ListDirectoryResponse) {
 
-  // Sharing
-  rpc ShareBucketViaEmail(ShareBucketViaEmailRequest) returns (ShareBucketViaEmailResponse) {}
-  rpc ShareBucketViaIdentity(ShareBucketViaIdentityRequest) returns (ShareBucketViaIdentityResponse) {}
-  rpc GenerateFileShareLink(GenerateFileShareLinkRequest) returns (GenerateFileShareLinkResponse) {}
+  }
+
+  // Get Config information installed daemon
+  rpc GetConfigInfo(google.protobuf.Empty) returns (ConfigInfoResponse) {
+
+  }
+
+  // Generate Key Pair for current account.
+  // This will return error if daemon account already has keypairs
+  rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
+
+  }
+
+  // Force Generation of KeyPair. This will override existing keys stored in daemon.
+  rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
+
+  }
+
+  // Subscribe to file events. This streams responses to the caller
+  rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
+
+  }
+
+  // Subscribe to textile events. This streams responses to the caller
+  rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {
+
+  }
+
+  // Open a file in the daemon.
+  // Daemon keeps track of all open files and closes them if no activity is noticed after a while
+  rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
+
+  }
+
+  // Adds items (files/folders) to be uploaded to the bucket.
+  rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {
+
+  }
+
+  // Creates a folder/directory at the specified path
+  rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
+
+  }
+
+  // Toggle FUSE drive to be mounted or unmounted
+  rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {
+
+  }
+
+  // Get status of FUSE drive. If mounted or unmounted
+  rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {
+
+  }
+
+  // Create a new bucket owned by current user (aka keypair)
+  rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {
+
+  }
+
+  // Get Identity by Username
+  rpc GetIdentityByUsername(GetIdentityByUsernameRequest) returns (GetIdentityByUsernameResponse) {
+
+  }
+
+  // Create a new user identity. Username and Email required.
+  rpc CreateUsernameAndEmail(CreateUsernameAndEmailRequest) returns (CreateUsernameAndEmailResponse) {
+
+  }
+
+  // Backup Key by Passphrase
+  rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
+
+  }
+
+  // Recover Keys by Passphrase
+  rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
+
+  }
+
+  // Share bucket via email
+  rpc ShareBucketViaEmail(ShareBucketViaEmailRequest) returns (ShareBucketViaEmailResponse) {
+
+  }
+
+  // Share bucket via identity information
+  rpc ShareBucketViaIdentity(ShareBucketViaIdentityRequest) returns (ShareBucketViaIdentityResponse) {
+
+  }
+
+  // Generate sharing link for file in bucket
+  rpc GenerateFileShareLink(GenerateFileShareLinkRequest) returns (GenerateFileShareLinkResponse) {
+
+  }
 }
 
 message ListDirectoriesRequest {}
@@ -47,6 +127,14 @@ message ListDirectoryEntry {
 
 
 message ListDirectoriesResponse {
+  repeated ListDirectoryEntry entries = 1;
+}
+
+message ListDirectoryRequest {
+  string path = 1;
+}
+
+message ListDirectoryResponse {
   repeated ListDirectoryEntry entries = 1;
 }
 
@@ -103,8 +191,10 @@ message OpenFileResponse {
 }
 
 message AddItemsRequest {
-  repeated string sourcePaths = 1; // full paths to file or Folder on FS. Needs to be a location available to the daemon
-  string targetPath = 2; // target path in bucket.
+  // full paths to file or Folder on FS. Needs to be a location available to the daemon
+  repeated string sourcePaths = 1;
+  // target path in bucket.
+  string targetPath = 2;
 }
 
 message AddItemResult {
@@ -122,7 +212,8 @@ message AddItemsResponse {
 }
 
 message CreateFolderRequest {
-  string path = 1; // target path in bucket to add new empty folder
+  // target path in bucket to add new empty folder
+  string path = 1;
 }
 // not sure we need to return anything other than an error if we failed
 message CreateFolderResponse {
@@ -144,7 +235,8 @@ message GetIdentityByUsernameResponse {
 
 message CreateUsernameAndEmailRequest {
   string username = 1;
-  string email = 2; // Optional. Send "" to skip.
+  // Optional. Send "" to skip.
+  string email = 2;
 }
 
 message CreateUsernameAndEmailResponse {}
@@ -174,8 +266,10 @@ enum IdentityType {
 }
 
 message ShareBucketViaIdentityRequest {
+  // identityType is either USERNAME or EMAIL
   IdentityType identityType = 1;
-  string identityValue = 2; // E.g. if identityType is USERNAME, identityValue is the actual username
+  // E.g. if identityType is USERNAME, identityValue is the actual username
+  string identityValue = 2;
   string bucket = 3;
 }
 
