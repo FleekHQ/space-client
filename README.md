@@ -1,12 +1,14 @@
 # Space Client
 
 ## Overview
-Space Client it's a [grpc-web](https://www.npmjs.com/package/grpc-web) wrapper that allows you to connect with the space daemon and intract with it.
+Space Client it's a [grpc-web](https://www.npmjs.com/package/grpc-web) wrapper that allows you to connect with the [space daemon](https://github.com/FleekHQ/space-daemon) and interact with it.
 
 
 #### Initialaze client
+> Before initialize the client you need to have the [space-daemon](https://github.com/FleekHQ/space-daemon) up and running. You can find the daemon installation docs [here](https://github.com/FleekHQ/space-daemon#installation)
 
-Please have in mind that daemon only supports local connections for now, that means that you just can connect through your localhost. You can't connect through a dns or try to connect to a daemon running on a different machine.
+
+Please have in mind that [daemon](https://github.com/FleekHQ/space-daemon) only supports local connections for now, that means that you just can connect through your localhost. You can't connect through a dns or try to connect to a [daemon](https://github.com/FleekHQ/space-daemon) running on a different machine.
 
 ```js
   import { SpaceClient } from '@fleekhq/space-client';
@@ -25,7 +27,6 @@ install `XMLHttpRequest`
 
 ```bash
   yarn add xmlhttprequest
-
 ```
 
 Or using npm
@@ -35,7 +36,7 @@ Or using npm
 ```
 
 
-then to initialize the client
+then to initialize the client:
 
 ```js
   global.XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -89,13 +90,13 @@ Returns the folder or files in the path directory.
   };
 ```
 
-#### .listDirectories()
+#### .listDirectories({ bucket: string })
 
 Returns a Promise that resolves to an array of Directories representing all the folders and files inside the bucket.
 
 ```js
   client
-    .listDirectories()
+    .listDirectories({ bucket: 'my-bucket' })
     .then((res) => {
       const entries = res.getEntriesList();
 
@@ -117,7 +118,7 @@ Returns a Promise that resolves to an array of Directories representing all the 
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    const res = await client.listDirectories();
+    const res = await client.listDirectories({ bucket: 'my-bucket' });
     const entries = res.getEntriesList();
 
     entries.forEach((entry) => {
@@ -139,18 +140,26 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   });
 ```
 
-#### .openFile({ path: string })
+#### .openFile({ path: string, bucket: string })
 
 Copies the file referenced by the path arg to a temp folder and returns a Promise that resolves to the file location
 
 ```js
 const asyncFunc = async () => {
-  const dirRes = await client.listDirectories();
-  const entries = dirRes.getEntriesList();
+  const bucket = 'my-bucket';
 
-  const openFileRes = await client.openFile(entriesList[0].getPath());
+  const dirRes = await client.listDirectories({
+    bucket,
+  });
+
+  const entriesList = dirRes.getEntriesList();
+
+  const openFileRes = await client.openFile({
+    bucket,
+    path: entriesList[0].getPath(),
+  });
+
   const location = openFileRes.getLocation();
-  
   console.log(location); // "/path/to/the/copied/file"
 };
 ```
@@ -484,11 +493,43 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   });
 ```
 
+#### .listBuckets()
+
+Returns all the buckets available
+
+```js
+  client
+    .listBuckets()
+    .then((res) => {
+      const buckets = res.getBucketsList();
+      
+      buckets.forEach((bucket) => {
+        console.log('key:', bucket.getKey());
+        console.log('name:', bucket.getName());
+        console.log('path:', bucket.getPath());
+        console.log('createdAt:', bucket.getCreatedat());
+        console.log('updatedAt:', bucket.getUpdatedat());
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.listBuckets();
+    const buckets = res.getBucketsList();
+
+    ...
+  };
+```
+
 
 ## Example
 You can check the example included in the `example` folder.
 
-To run the example you need to download and run the daemon first
+To run the example you need to download and run the [daemon](https://github.com/FleekHQ/space-daemon#installation) first
 
 Then you can run the example by
 
@@ -501,3 +542,8 @@ then on your web browser go to `localhost:3001`
 ## Proto File Reference
 
 If you need more information about the available methods, you can check the [Proto File Schema](https://github.com/FleekHQ/space-client/blob/develop/src/definitions/space.proto).
+
+
+## Daemon
+
+You can find more information related to the daemon [here](https://github.com/FleekHQ/space-daemon)

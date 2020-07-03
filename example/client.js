@@ -18,15 +18,15 @@ subscribe.on('data', (res) => {
   const eventType = res.getType();
   const entry = res.getEntry();
 
-  console.log('eventType', eventType.toString());
-  console.log('path', entry.getPath());
-  console.log('name', entry.getName());
-  console.log('isDir', entry.getIsdir());
-  console.log('created', entry.getCreated());
-  console.log('updated', entry.getUpdated());
-  console.log('ipfsHash', entry.getIpfshash());
-  console.log('sizeInBytes', entry.getSizeinbytes());
-  console.log('fileExtension', entry.getFileextension());
+  console.log('eventType:', eventType.toString());
+  console.log('path:', entry.getPath());
+  console.log('name:', entry.getName());
+  console.log('isDir:', entry.getIsdir());
+  console.log('created:', entry.getCreated());
+  console.log('updated:', entry.getUpdated());
+  console.log('ipfsHash:', entry.getIpfshash());
+  console.log('sizeInBytes:', entry.getSizeinbytes());
+  console.log('fileExtension:', entry.getFileextension());
 });
 
 
@@ -35,7 +35,7 @@ document.getElementById("add-file").onclick = async () => {
   const filepath = document.getElementById('add-file-input').value;
 
   try {
-    console.log('uploading file....');
+    console.log('uploading file...');
 
     const uploadRes = client.addItems({
       targetPath: '/',
@@ -45,14 +45,17 @@ document.getElementById("add-file").onclick = async () => {
     uploadRes.on('data', (data) => {
       const addItemResult = data.getResult();
 
-      console.log('upload data event:');
-      console.log('sourcePath', addItemResult.getSourcepath());
-      console.log('bucketPath', addItemResult.getBucketpath());
-      console.log('error', addItemResult.getError());
-      console.log('totalFiles:', data.getTotalfiles());
-      console.log('totalBytes:', data.getTotalbytes());
-      console.log('completedFiles:', data.getCompletedfiles());
-      console.log('completedBytes:', data.getCompletedbytes());
+      const resultObj = {
+        sourcePath: addItemResult.getSourcepath(),
+        bucketPath: addItemResult.getBucketpath(),
+        error: addItemResult.getError(),
+        totalFiles: data.getTotalfiles(),
+        totalBytes: data.getTotalbytes(),
+        completedFiles: data.getCompletedfiles(),
+        completedBytes: data.getCompletedbytes(),
+      };
+
+      console.log(resultObj);
     });
   } catch (error) {
     console.error(error);
@@ -61,22 +64,33 @@ document.getElementById("add-file").onclick = async () => {
 
 
 document.getElementById('list-entries').onclick = async () => {
+  const bucket = document.getElementById('list-entries-bucket').value;
+
   try {
     console.log('getting entries...');
-    const directoriesRes = await client.listDirectories();
+    const directoriesRes = await client.listDirectories({
+      bucket,
+    });
+
     const entriesList = directoriesRes.getEntriesList();
 
-    entriesList.forEach((entry) => {
-      console.log('-----------------------');
-      console.log('path', entry.getPath());
-      console.log('name', entry.getName());
-      console.log('isDir', entry.getIsdir());
-      console.log('created', entry.getCreated());
-      console.log('updated', entry.getUpdated());
-      console.log('ipfsHash', entry.getIpfshash());
-      console.log('sizeInBytes', entry.getSizeinbytes());
-      console.log('fileExtension', entry.getFileextension());
-    });
+    const entries = entriesList.reduce((acc, entry) => {
+      return [
+        ...acc,
+        {
+          path: entry.getPath(),
+          name: entry.getName(),
+          isDir: entry.getIsdir(),
+          created: entry.getCreated(),
+          updated: entry.getUpdated(),
+          ipfsHash: entry.getIpfshash(),
+          sizeInBytes: entry.getSizeinbytes(),
+          fileExtension: entry.getFileextension(),
+        },
+      ];
+    }, []);
+
+    console.log('listDirectories res:', entries);
   } catch (error) {
     console.error(error);
   }
@@ -91,11 +105,15 @@ document.getElementById('create-bucket').onclick = async () => {
     const createBucketRes = await client.createBucket({ slug: bucketname });
     const bucket = createBucketRes.getBucket();
 
-    console.log(bucket.getKey());
-    console.log(bucket.getName());
-    console.log(bucket.getPath());
-    console.log(bucket.getCreatedat());
-    console.log(bucket.getUpdatedat());
+    const bucketObj = {
+      key: bucket.getKey(),
+      name: bucket.getName(),
+      path: bucket.getPath(),
+      createdAt: bucket.getCreatedat(),
+      updatedAt: bucket.getUpdatedat(),
+    };
+
+    console.log(bucketObj);
   } catch (error) {
     console.error(error);
   }
@@ -161,6 +179,64 @@ document.getElementById('share-link').onclick = async () => {
     });
 
     console.log(shareLinkRes.getLink());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('list-buckets').onclick = async () => {
+  try {
+    const res = await client.listBuckets();
+    const buckets = res.getBucketsList();
+
+    const bucketList = buckets.reduce((acc, bucket) => {
+      return [
+        ...acc,
+        {
+          key: bucket.getKey(),
+          name: bucket.getName(),
+          path: bucket.getPath(),
+          createdAt: bucket.getCreatedat(),
+          updatedAt: bucket.getUpdatedat(),
+        },
+      ];
+    }, []);
+
+    console.log(bucketList);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('list-directory').onclick = async () => {
+  console.log('fetching directory...');
+  const path = document.getElementById('list-directory-input').value;
+
+  try {
+    const res = await client.listDirectory({
+      path,
+    });
+
+    const entriesList = res.getEntriesList();
+
+    const entries = entriesList.reduce((acc, entry) => {
+      return [
+        ...acc,
+        {
+          path: entry.getPath(),
+          name: entry.getName(),
+          isDir: entry.getIsdir(),
+          created: entry.getCreated(),
+          updated: entry.getUpdated(),
+          ipfsHash: entry.getIpfshash(),
+          sizeInBytes: entry.getSizeinbytes(),
+          fileExtension: entry.getFileextension(),
+        },
+      ];
+    }, []);
+
+    console.log('listDirectory res:', entries);
   } catch (error) {
     console.error(error);
   }
