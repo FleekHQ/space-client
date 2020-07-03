@@ -16,6 +16,7 @@ import {
   RecoverKeysByPassphrasePayload,
   ToggleFusePayload,
   GetFuseDriveStatusPayload,
+  ListDirectoriesPayload,
 } from './types';
 
 import {
@@ -48,6 +49,8 @@ import {
   FuseDriveResponse,
   FileEventResponse,
   IdentityType,
+  ListBucketsRequest,
+  ListBucketsResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -69,9 +72,13 @@ class SpaceClient {
     this.instance = new SpaceApiClient(url, credentials, options);
   }
 
-  listDirectories(metadata: grpcWeb.Metadata = {}): Promise<ListDirectoriesResponse> {
+  listDirectories(
+    payload: ListDirectoriesPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ListDirectoriesResponse> {
     return new Promise((resolve, reject) => {
       const request = new ListDirectoriesRequest();
+      request.setBucket(payload.bucket);
 
       this.instance.listDirectories(
         request,
@@ -102,7 +109,9 @@ class SpaceClient {
   ): Promise<OpenFileResponse> {
     return new Promise((resolve, reject) => {
       const request = new OpenFileRequest();
+
       request.setPath(payload.path);
+      request.setBucket(payload.bucket);
 
       this.instance.openFile(
         request,
@@ -394,6 +403,27 @@ class SpaceClient {
     const request = new Empty();
 
     return this.instance.subscribe(request, metadata);
+  }
+
+  listBuckets(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ListBucketsResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ListBucketsRequest();
+
+      this.instance.listBuckets(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ListBucketsResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
   }
 }
 

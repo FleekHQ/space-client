@@ -1,5 +1,6 @@
 export interface OpenFilePayload {
   path: string;
+  bucket: string;
 }
 
 export interface CreateBucketPayload {
@@ -53,4 +54,8 @@ export interface ToggleFusePayload {
 }
 
 export interface GetFuseDriveStatusPayload {
+}
+
+export interface ListDirectoriesPayload {
+  bucket: string;
 }
