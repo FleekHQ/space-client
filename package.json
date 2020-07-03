@@ -8,6 +8,9 @@
   "license": "MIT",
   "sideEffects": false,
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn copy-dts",
     "build:cjs": "tsc --module commonjs --target es2015 --outDir ./dist",
