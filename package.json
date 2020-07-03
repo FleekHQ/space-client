@@ -7,6 +7,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "sideEffects": false,
+  "private": false,
   "scripts": {
     "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn copy-dts",
     "build:cjs": "tsc --module commonjs --target es2015 --outDir ./dist",
