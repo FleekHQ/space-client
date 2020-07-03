@@ -35,6 +35,8 @@ import {
   GenerateKeyPairResponse,
   GetIdentityByUsernameRequest,
   GetIdentityByUsernameResponse,
+  ListBucketsRequest,
+  ListBucketsResponse,
   ListDirectoriesRequest,
   ListDirectoriesResponse,
   ListDirectoryRequest,
@@ -784,6 +786,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGenerateFileShareLink);
+  }
+
+  methodInfoListBuckets = new grpcWeb.AbstractClientBase.MethodInfo(
+    ListBucketsResponse,
+    (request: ListBucketsRequest) => {
+      return request.serializeBinary();
+    },
+    ListBucketsResponse.deserializeBinary
+  );
+
+  listBuckets(
+    request: ListBucketsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListBucketsResponse>;
+
+  listBuckets(
+    request: ListBucketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ListBucketsResponse) => void): grpcWeb.ClientReadableStream<ListBucketsResponse>;
+
+  listBuckets(
+    request: ListBucketsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ListBucketsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ListBuckets', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoListBuckets,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ListBuckets',
+    request,
+    metadata || {},
+    this.methodInfoListBuckets);
   }
 
 }
