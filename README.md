@@ -129,7 +129,7 @@ Returns a Promise that resolves to an array of Directories representing all the 
 
 #### .txlSubscribe()
 
-Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the Bucket).
+Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the Bucket name).
 
 ```js
   const txlStream = client.txlSubscribe();
@@ -284,7 +284,9 @@ Get an indentity based on a username. Returns a Promise that resolves if a usern
   };
 ```
 
-#### .shareBucketViaEmail({ bucket: string, email: string })
+#### `[WIP]` <em>.shareBucketViaEmail({ bucket: string, email: string })</em>
+
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Shares a bucket via email
 
@@ -342,7 +344,9 @@ Shares a bucket via identity
   };
 ```
 
-#### .generateFileShareLink({ bucket: string, filePath: string })
+#### `[WIP]` <em>.generateFileShareLink({ bucket: string, filePath: string })</em>
+
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Generates a share link
 
@@ -371,7 +375,9 @@ Generates a share link
   };
 ```
 
-#### .backupKeysByPassphrase({ passphrase: string })
+#### `[WIP]` <em>.backupKeysByPassphrase({ passphrase: string })</em>
+
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Backup keys by passphrase
 
@@ -396,7 +402,9 @@ Backup keys by passphrase
   };
 ```
 
-#### .recoverKeysByPassphrase({ passphrase: string })
+#### `[WIP]` <em>.recoverKeysByPassphrase({ passphrase: string })</em>
+
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Recovery keys by passphrase
 
@@ -421,7 +429,8 @@ Recovery keys by passphrase
   };
 ```
 
-#### .toggleFuseDrive({ mountDrive: boolean })
+#### `[WIP]` <em>.toggleFuseDrive({ mountDrive: boolean })</em>
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Toggle Fuse drive
 
@@ -448,7 +457,8 @@ Toggle Fuse drive
   };
 ```
 
-#### .getFuseDriveStatus({})
+#### `[WIP]` <em>.getFuseDriveStatus({})</em>
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Get Fuse drive status
 
@@ -474,6 +484,7 @@ Get Fuse drive status
 #### .subscribe()
 
 Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the event type + the entry affected).
+Event type can be one of `[ENTRY_ADDED, ENTRY_DELETED, ENTRY_UPDATED]`
 
 ```js
   const subscribeStream = client.subscribe();
@@ -494,7 +505,9 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   });
 ```
 
-#### .listBuckets()
+#### `[WIP]` <em>.listBuckets()</em>
+
+> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
 Returns all the buckets available
 

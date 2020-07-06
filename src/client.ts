@@ -262,6 +262,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] shareBucketViaEmail
+   *
+   * Not supported by space daemon
+   */
   shareBucketViaEmail(
     payload: ShareBucketViaEmailPayload,
     metadata: grpcWeb.Metadata = {},
@@ -311,6 +316,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] generateFileShareLink
+   *
+   * Not supported by space daemon
+   */
   generateFileShareLink(
     payload: GenerateFileShareLinkPayload,
     metadata: grpcWeb.Metadata = {},
@@ -335,6 +345,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] backupKeysByPassphrase
+   *
+   * Not supported by space daemon
+   */
   backupKeysByPassphrase(
     payload: BackupKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
@@ -358,6 +373,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] recoverKeysByPassphrase
+   *
+   * Not supported by space daemon
+   */
   recoverKeysByPassphrase(
     payload: RecoverKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
@@ -381,6 +401,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] toggleFuseDrive
+   *
+   * Not supported by space daemon
+   */
   toggleFuseDrive(
     payload: ToggleFusePayload,
     metadata: grpcWeb.Metadata = {},
@@ -404,6 +429,11 @@ class SpaceClient {
     });
   }
 
+  /**
+   * [WIP] getFuseDriveStatus
+   *
+   * Not supported by space daemon
+   */
   getFuseDriveStatus(
     payload: GetFuseDriveStatusPayload,
     metadata: grpcWeb.Metadata = {},
@@ -434,6 +464,11 @@ class SpaceClient {
     return this.instance.subscribe(request, metadata);
   }
 
+  /**
+   * [WIP] listBuckets
+   *
+   * Not supported by space daemon
+   */
   listBuckets(
     metadata: grpcWeb.Metadata = {},
   ): Promise<ListBucketsResponse> {
