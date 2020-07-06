@@ -84,7 +84,7 @@ class SpaceClient {
       request.setPath(payload.path);
       request.setBucket(payload.bucket);
 
-      this.instance.listDirectories(
+      this.instance.listDirectory(
         request,
         metadata,
         (err: grpcWeb.Error, res: ListDirectoryResponse) => {
