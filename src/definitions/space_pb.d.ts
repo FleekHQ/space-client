@@ -630,6 +630,110 @@ export namespace RecoverKeysByPassphraseResponse {
   }
 }
 
+export class ThreadInfo extends jspb.Message {
+  getAddressesList(): Array<string>;
+  setAddressesList(value: Array<string>): ThreadInfo;
+  clearAddressesList(): ThreadInfo;
+  addAddresses(value: string, index?: number): ThreadInfo;
+
+  getKey(): string;
+  setKey(value: string): ThreadInfo;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ThreadInfo.AsObject;
+  static toObject(includeInstance: boolean, msg: ThreadInfo): ThreadInfo.AsObject;
+  static serializeBinaryToWriter(message: ThreadInfo, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ThreadInfo;
+  static deserializeBinaryFromReader(message: ThreadInfo, reader: jspb.BinaryReader): ThreadInfo;
+}
+
+export namespace ThreadInfo {
+  export type AsObject = {
+    addressesList: Array<string>,
+    key: string,
+  }
+}
+
+export class ShareBucketRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): ShareBucketRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ShareBucketRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareBucketRequest): ShareBucketRequest.AsObject;
+  static serializeBinaryToWriter(message: ShareBucketRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareBucketRequest;
+  static deserializeBinaryFromReader(message: ShareBucketRequest, reader: jspb.BinaryReader): ShareBucketRequest;
+}
+
+export namespace ShareBucketRequest {
+  export type AsObject = {
+    bucket: string,
+  }
+}
+
+export class ShareBucketResponse extends jspb.Message {
+  getThreadinfo(): ThreadInfo | undefined;
+  setThreadinfo(value?: ThreadInfo): ShareBucketResponse;
+  hasThreadinfo(): boolean;
+  clearThreadinfo(): ShareBucketResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ShareBucketResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareBucketResponse): ShareBucketResponse.AsObject;
+  static serializeBinaryToWriter(message: ShareBucketResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareBucketResponse;
+  static deserializeBinaryFromReader(message: ShareBucketResponse, reader: jspb.BinaryReader): ShareBucketResponse;
+}
+
+export namespace ShareBucketResponse {
+  export type AsObject = {
+    threadinfo?: ThreadInfo.AsObject,
+  }
+}
+
+export class JoinBucketRequest extends jspb.Message {
+  getThreadinfo(): ThreadInfo | undefined;
+  setThreadinfo(value?: ThreadInfo): JoinBucketRequest;
+  hasThreadinfo(): boolean;
+  clearThreadinfo(): JoinBucketRequest;
+
+  getBucket(): string;
+  setBucket(value: string): JoinBucketRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): JoinBucketRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: JoinBucketRequest): JoinBucketRequest.AsObject;
+  static serializeBinaryToWriter(message: JoinBucketRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): JoinBucketRequest;
+  static deserializeBinaryFromReader(message: JoinBucketRequest, reader: jspb.BinaryReader): JoinBucketRequest;
+}
+
+export namespace JoinBucketRequest {
+  export type AsObject = {
+    threadinfo?: ThreadInfo.AsObject,
+    bucket: string,
+  }
+}
+
+export class JoinBucketResponse extends jspb.Message {
+  getResult(): boolean;
+  setResult(value: boolean): JoinBucketResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): JoinBucketResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: JoinBucketResponse): JoinBucketResponse.AsObject;
+  static serializeBinaryToWriter(message: JoinBucketResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): JoinBucketResponse;
+  static deserializeBinaryFromReader(message: JoinBucketResponse, reader: jspb.BinaryReader): JoinBucketResponse;
+}
+
+export namespace JoinBucketResponse {
+  export type AsObject = {
+    result: boolean,
+  }
+}
+
 export class ShareBucketViaEmailRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): ShareBucketViaEmailRequest;

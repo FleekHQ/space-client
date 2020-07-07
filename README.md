@@ -540,6 +540,73 @@ Returns all the buckets available
 ```
 
 
+#### .shareBucket({ bucket: string })
+
+Shares a bucket. Returns a promis that resolves to the threadInfo (required to join a bucket)
+
+```js
+  client
+    .shareBucket({ bucket: 'my-bucket' })
+    .then((res) => {
+      const threadInfo = res.getThreadinfo();
+      
+      console.log('key:', threadInfo.getKey());
+      console.log('addresses:', threadInfo.getAddressesList());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.shareBucket({ bucket: 'my-bucket' });
+    const threadInfo = res.getThreadinfo();
+
+    ...
+  };
+```
+
+
+
+#### .joinBucket({ bucket: string, threadInfo: { key: string, addresses: [string] } })
+
+Joins a shared bucket
+
+```js
+  client
+    .joinBucket({
+      bucket: 'my-bucket',
+      threadInfo: {
+        key: 'my-key',
+        addresses: ['address1', 'address2', 'address3'],
+      },
+    })
+    .then((res) => {
+      console.log('result', res.getResult());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.joinBucket({
+      bucket: 'my-bucket',
+      threadInfo: {
+        key: 'my-key',
+        addresses: ['address1', 'address2', 'address3'],
+      },
+    });
+
+    console.log('result', res.getResult());
+
+    ...
+  };
+```
+
+
 ## Example
 You can check the example included in the `example` folder.
 
