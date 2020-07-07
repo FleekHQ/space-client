@@ -35,6 +35,8 @@ import {
   GenerateKeyPairResponse,
   GetIdentityByUsernameRequest,
   GetIdentityByUsernameResponse,
+  JoinBucketRequest,
+  JoinBucketResponse,
   ListBucketsRequest,
   ListBucketsResponse,
   ListDirectoriesRequest,
@@ -45,6 +47,8 @@ import {
   OpenFileResponse,
   RecoverKeysByPassphraseRequest,
   RecoverKeysByPassphraseResponse,
+  ShareBucketRequest,
+  ShareBucketResponse,
   ShareBucketViaEmailRequest,
   ShareBucketViaEmailResponse,
   ShareBucketViaIdentityRequest,
@@ -669,6 +673,84 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoRecoverKeysByPassphrase);
+  }
+
+  methodInfoShareBucket = new grpcWeb.AbstractClientBase.MethodInfo(
+    ShareBucketResponse,
+    (request: ShareBucketRequest) => {
+      return request.serializeBinary();
+    },
+    ShareBucketResponse.deserializeBinary
+  );
+
+  shareBucket(
+    request: ShareBucketRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ShareBucketResponse>;
+
+  shareBucket(
+    request: ShareBucketRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ShareBucketResponse) => void): grpcWeb.ClientReadableStream<ShareBucketResponse>;
+
+  shareBucket(
+    request: ShareBucketRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ShareBucketResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ShareBucket', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoShareBucket,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ShareBucket',
+    request,
+    metadata || {},
+    this.methodInfoShareBucket);
+  }
+
+  methodInfoJoinBucket = new grpcWeb.AbstractClientBase.MethodInfo(
+    JoinBucketResponse,
+    (request: JoinBucketRequest) => {
+      return request.serializeBinary();
+    },
+    JoinBucketResponse.deserializeBinary
+  );
+
+  joinBucket(
+    request: JoinBucketRequest,
+    metadata: grpcWeb.Metadata | null): Promise<JoinBucketResponse>;
+
+  joinBucket(
+    request: JoinBucketRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: JoinBucketResponse) => void): grpcWeb.ClientReadableStream<JoinBucketResponse>;
+
+  joinBucket(
+    request: JoinBucketRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: JoinBucketResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/JoinBucket', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoJoinBucket,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/JoinBucket',
+    request,
+    metadata || {},
+    this.methodInfoJoinBucket);
   }
 
   methodInfoShareBucketViaEmail = new grpcWeb.AbstractClientBase.MethodInfo(

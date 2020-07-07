@@ -349,3 +349,55 @@ document.getElementById('create-user').onclick = async () => {
     console.error(error);
   }
 };
+
+
+document.getElementById('share-bucket').onclick = async () => {
+  const bucket = document.getElementById('share-bucket-input').value;
+
+  const payload = { bucket };
+
+  console.log('getting sharing bucket info...');
+  console.log('payload', payload);
+
+  try {
+    const res = await client.shareBucket(payload);
+
+    const threadInfo = res.getThreadinfo();
+
+    console.log({
+      bucket,
+      key: threadInfo.getKey(),
+      addressesList: threadInfo.getAddressesList(),
+      addresses: threadInfo.getAddressesList().join(', '),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('join-bucket').onclick = async () => {
+  const bucket = document.getElementById('join-bucket-input').value;
+  const key = document.getElementById('join-bucket-key').value;
+  const addresses = document.getElementById('join-bucket-addresses').value;
+
+  const addressList = addresses.replace(' ', '').split(',');
+
+  const payload = {
+    bucket,
+    threadInfo: {
+      key,
+      addresses: addressList,
+    },
+  };
+
+  console.log('joining bucket...');
+  console.log('payload', payload);
+
+  try {
+    const res = await client.joinBucket(payload);
+    console.log('result', res.getResult());
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -3,7 +3,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-
 package space;
 
 option go_package = ".;pb";
@@ -97,6 +96,16 @@ service SpaceApi {
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
+
+  }
+
+  // Share bucket
+  rpc ShareBucket(ShareBucketRequest) returns (ShareBucketResponse) {
+
+  }
+
+  // Join bucket
+  rpc JoinBucket(JoinBucketRequest) returns (JoinBucketResponse) {
 
   }
 
@@ -268,6 +277,28 @@ message RecoverKeysByPassphraseRequest {
 }
 
 message RecoverKeysByPassphraseResponse {}
+
+message ThreadInfo {
+  repeated string addresses = 1;
+  string key = 2;
+}
+
+message ShareBucketRequest {
+  string bucket = 1;
+}
+
+message ShareBucketResponse {
+  ThreadInfo threadinfo = 1;
+}
+
+message JoinBucketRequest {
+  ThreadInfo threadinfo = 1;
+  string bucket = 2;
+}
+
+message JoinBucketResponse {
+  bool result = 1;
+}
 
 message ShareBucketViaEmailRequest {
   string bucket = 1;

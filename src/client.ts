@@ -18,6 +18,8 @@ import {
   GetFuseDriveStatusPayload,
   ListDirectoriesPayload,
   ListDirectoryPayload,
+  ShareBucketPayload,
+  JoinBucketPayload,
 } from './types';
 
 import {
@@ -54,6 +56,11 @@ import {
   ListBucketsResponse,
   ListDirectoryRequest,
   ListDirectoryResponse,
+  ShareBucketRequest,
+  ShareBucketResponse,
+  JoinBucketRequest,
+  JoinBucketResponse,
+  ThreadInfo,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -479,6 +486,57 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: ListBucketsResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareBucket(
+    payload: ShareBucketPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareBucketResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ShareBucketRequest();
+      request.setBucket(payload.bucket);
+
+      this.instance.shareBucket(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  joinBucket(
+    payload: JoinBucketPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<JoinBucketResponse> {
+    return new Promise((resolve, reject) => {
+      const threadInfo = new ThreadInfo();
+      threadInfo.setKey(payload.threadInfo.key);
+      threadInfo.setAddressesList(payload.threadInfo.addresses);
+
+      const request = new JoinBucketRequest();
+      request.setBucket(payload.bucket);
+      request.setThreadinfo(threadInfo);
+
+      this.instance.joinBucket(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: JoinBucketResponse) => {
           if (err) {
             reject(err);
             return;

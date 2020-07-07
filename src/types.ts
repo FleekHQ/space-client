@@ -66,3 +66,15 @@ export interface GetFuseDriveStatusPayload {
 export interface ListDirectoriesPayload {
   bucket: string;
 }
+
+export interface ShareBucketPayload {
+  bucket: string;
+}
+
+export interface JoinBucketPayload {
+  threadInfo: {
+    addresses: [string];
+    key: string;
+  };
+  bucket: string;
+}
