@@ -367,8 +367,8 @@ document.getElementById('share-bucket').onclick = async () => {
     console.log({
       bucket,
       key: threadInfo.getKey(),
-      adressesList: threadInfo.getAddressesList(),
-      adresses: threadInfo.getAddressesList().join(', '),
+      addressesList: threadInfo.getAddressesList(),
+      addresses: threadInfo.getAddressesList().join(', '),
     });
   } catch (error) {
     console.error(error);
