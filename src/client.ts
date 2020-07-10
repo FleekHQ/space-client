@@ -88,7 +88,9 @@ class SpaceClient {
   ): Promise<ListDirectoryResponse> {
     return new Promise((resolve, reject) => {
       const request = new ListDirectoryRequest();
-      request.setPath(payload.path);
+      const path = payload.path.replace(/^\//, '');
+
+      request.setPath(path);
       request.setBucket(payload.bucket);
 
       this.instance.listDirectory(
@@ -143,8 +145,9 @@ class SpaceClient {
   ): Promise<OpenFileResponse> {
     return new Promise((resolve, reject) => {
       const request = new OpenFileRequest();
+      const path = payload.path.replace(/^\//, '');
 
-      request.setPath(payload.path);
+      request.setPath(path);
       request.setBucket(payload.bucket);
 
       this.instance.openFile(
@@ -190,8 +193,10 @@ class SpaceClient {
     metadata: grpcWeb.Metadata = {},
   ): ClientReadableStream<AddItemsResponse> {
     const request = new AddItemsRequest();
+    const targetPath = payload.targetPath.replace(/^\//, '');
+
     request.setBucket(payload.bucket);
-    request.setTargetpath(payload.targetPath);
+    request.setTargetpath(targetPath);
     request.setSourcepathsList(payload.sourcePaths);
     const stream = this.instance.addItems(request, metadata);
 
@@ -204,7 +209,9 @@ class SpaceClient {
   ): Promise<CreateFolderResponse> {
     return new Promise((resolve, reject) => {
       const request = new CreateFolderRequest();
-      request.setPath(payload.path);
+      const path = payload.path.replace(/^\//, '');
+
+      request.setPath(path);
       request.setBucket(payload.bucket);
 
       this.instance.createFolder(

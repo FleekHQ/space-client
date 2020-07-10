@@ -34,11 +34,12 @@ subscribe.on('data', (res) => {
 document.getElementById("add-file").onclick = async () => {
   const bucket = document.getElementById('add-file-bucket').value;
   const filepath = document.getElementById('add-file-input').value;
+  const targetPath = document.getElementById('add-file-target').value;
 
   try {
     const payload = {
       bucket,
-      targetPath: '/',
+      targetPath,
       sourcePaths: [filepath],
     };
 
