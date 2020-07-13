@@ -53,9 +53,34 @@ then to initialize the client:
 
 ## API
 
-#### .listDirectory({ path: string, bucket: string })
+#### class SpaceClient(opts)
+
+Use this class to create space client instances able to interact with space-daemon
+
+Options:
+
+- `opts.url`: <em>**(string, required)**</em> space dameon url + port (`https://0.0.0.0:9998`)
+- `opts.defaultBucket?`: <em>**(string, optional)**</em> change the default bucket. This value is used when you don't pass the bucket param on some of the methods below. if you don't pass this property, `personal` bucket is going to be used as default value (`personal` bucket is created by default when you run space-daemon for the first time).
+- `opts.options?`: <em>**(object, optional)**</em> [grpc-web](https://github.com/grpc/grpc-web) client options.
+- `opts.credentials?`: <em>**(object, optional)**</em> [grpc-web](https://github.com/grpc/grpc-web) client credentials.
+
+
+```js
+import { SpaceClient } from '@fleekhq/space-client';
+
+const opts = {
+  url: 'http://0.0.0.0:9998',
+  defaultBucket: 'my-bucket',
+};
+
+const client = new SpaceClient(opts);
+```
+
+#### .listDirectory({ path: string, bucket?: string })
 
 Returns the folder or files in the path directory.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
+
 
 ```js
   client
@@ -90,9 +115,10 @@ Returns the folder or files in the path directory.
   };
 ```
 
-#### .listDirectories({ bucket: string })
+#### .listDirectories({ bucket?: string })
 
 Returns a Promise that resolves to an array of Directories representing all the folders and files inside the bucket.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -140,9 +166,10 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   });
 ```
 
-#### .openFile({ path: string, bucket: string })
+#### .openFile({ path: string, bucket?: string })
 
-Copies the file referenced by the path arg to a temp folder and returns a Promise that resolves to the file location
+Copies the file referenced by the path arg to a temp folder and returns a Promise that resolves to the file location.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
 const asyncFunc = async () => {
@@ -195,9 +222,10 @@ Creates a new bucket. Returns a Promise that resolves to the new bucket
   };
 ```
 
-#### .addItems({ bucket: string, targetPath: string, sourcePaths: string[] })
+#### .addItems({ bucket?: string, targetPath: string, sourcePaths: string[] })
 
-Add new items. Returns a readable stream to resolves the new items
+Add new items. Returns a readable stream to resolves the new items.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   const stream = client.addItems({
@@ -219,9 +247,10 @@ Add new items. Returns a readable stream to resolves the new items
   });
 ```
 
-#### .createFolder({ path: string, bucket: string })
+#### .createFolder({ path: string, bucket?: string })
 
-Creates a new empty folder. Returns a Promise that resolves to the new folder
+Creates a new empty folder. Returns a Promise that resolves to the new folder.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -242,7 +271,7 @@ Creates a new empty folder. Returns a Promise that resolves to the new folder
 
 #### .createUsernameAndEmail({ username: string, email?: string })
 
-Create a new username with/out email. Returns a Promise that resolves to the username
+Create a new username with/out email. Returns a Promise that resolves to the username.
 
 ```js
   client
@@ -263,7 +292,7 @@ Create a new username with/out email. Returns a Promise that resolves to the use
 
 #### .getIdentityByUsername({ username: string, email?: string })
 
-Get an indentity based on a username. Returns a Promise that resolves if a username already exists
+Get an indentity based on a username. Returns a Promise that resolves if a username already exists.
 
 ```js
   client
@@ -284,11 +313,12 @@ Get an indentity based on a username. Returns a Promise that resolves if a usern
   };
 ```
 
-#### `[WIP]` <em>.shareBucketViaEmail({ bucket: string, email: string })</em>
+#### `[WIP]` <em>.shareBucketViaEmail({ bucket?: string, email: string })</em>
 
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
-Shares a bucket via email
+Shares a bucket via email.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -313,9 +343,10 @@ Shares a bucket via email
 ```
 
 
-#### .shareBucketViaIdentity({ identityType: 'USERNAME' | 'EMAIL', identityValue: string, bucket: string })
+#### .shareBucketViaIdentity({ identityType: 'USERNAME' | 'EMAIL', identityValue: string, bucket?: string })
 
-Shares a bucket via identity
+Shares a bucket via identity.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -344,11 +375,12 @@ Shares a bucket via identity
   };
 ```
 
-#### `[WIP]` <em>.generateFileShareLink({ bucket: string, filePath: string })</em>
+#### `[WIP]` <em>.generateFileShareLink({ bucket?: string, filePath: string })</em>
 
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
-Generates a share link
+Generates a share link.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -540,9 +572,10 @@ Returns all the buckets available
 ```
 
 
-#### .shareBucket({ bucket: string })
+#### .shareBucket({ bucket?: string })
 
-Shares a bucket. Returns a promis that resolves to the threadInfo (required to join a bucket)
+Shares a bucket. Returns a promis that resolves to the threadInfo (required to join a bucket).
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client
@@ -569,9 +602,10 @@ Shares a bucket. Returns a promis that resolves to the threadInfo (required to j
 
 
 
-#### .joinBucket({ bucket: string, threadInfo: { key: string, addresses: [string] } })
+#### .joinBucket({ bucket: string?, threadInfo: { key: string, addresses: [string] } })
 
-Joins a shared bucket
+Joins a shared bucket.
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
   client

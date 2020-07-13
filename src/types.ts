@@ -1,11 +1,11 @@
 export interface ListDirectoryPayload {
   path: string;
-  bucket: string;
+  bucket?: string;
 }
 
 export interface OpenFilePayload {
   path: string;
-  bucket: string;
+  bucket?: string;
 }
 
 export interface CreateBucketPayload {
@@ -13,14 +13,14 @@ export interface CreateBucketPayload {
 }
 
 export interface AddItemsPayload {
-  bucket: string;
+  bucket?: string;
   targetPath: string;
   sourcePaths: string[];
 }
 
 export interface CreateFolderPayload {
   path: string;
-  bucket: string;
+  bucket?: string;
 }
 
 export interface GetIdentityByUsernamePayload {
@@ -33,18 +33,18 @@ export interface CreateUsernameAndEmailPayload {
 }
 
 export interface ShareBucketViaEmailPayload {
-  bucket: string;
+  bucket?: string;
   email: string;
 }
 
 export interface ShareBucketViaIdentityPayload {
   identityType: 'EMAIL' | 'USERNAME';
   identityValue: string;
-  bucket: string;
+  bucket?: string;
 }
 
 export interface GenerateFileShareLinkPayload {
-  bucket: string;
+  bucket?: string;
   filePath: string;
 }
 
@@ -64,11 +64,11 @@ export interface GetFuseDriveStatusPayload {
 }
 
 export interface ListDirectoriesPayload {
-  bucket: string;
+  bucket?: string;
 }
 
 export interface ShareBucketPayload {
-  bucket: string;
+  bucket?: string;
 }
 
 export interface JoinBucketPayload {
@@ -76,5 +76,5 @@ export interface JoinBucketPayload {
     addresses: [string];
     key: string;
   };
-  bucket: string;
+  bucket?: string;
 }

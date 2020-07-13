@@ -65,11 +65,16 @@ import {
 
 export interface SpaceClientOpts {
   url: string;
+  defaultBucket?: string;
   options?: SpaceApiClient['options_'];
   credentials?: SpaceApiClient['credentials_'];
 }
 
+const DEFAULT_BUCKET = 'personal';
+
 class SpaceClient {
+  defaultBucket: string;
+
   instance: SpaceApiClient;
 
   constructor(opts: SpaceClientOpts) {
@@ -77,8 +82,10 @@ class SpaceClient {
       url,
       options,
       credentials,
+      defaultBucket = DEFAULT_BUCKET,
     } = opts;
 
+    this.defaultBucket = defaultBucket;
     this.instance = new SpaceApiClient(url, credentials, options);
   }
 
@@ -90,8 +97,10 @@ class SpaceClient {
       const request = new ListDirectoryRequest();
       const path = payload.path.replace(/^\//, '');
 
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setPath(path);
-      request.setBucket(payload.bucket);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.listDirectory(
         request,
@@ -114,7 +123,9 @@ class SpaceClient {
   ): Promise<ListDirectoriesResponse> {
     return new Promise((resolve, reject) => {
       const request = new ListDirectoriesRequest();
-      request.setBucket(payload.bucket);
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.listDirectories(
         request,
@@ -147,8 +158,10 @@ class SpaceClient {
       const request = new OpenFileRequest();
       const path = payload.path.replace(/^\//, '');
 
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setPath(path);
-      request.setBucket(payload.bucket);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.openFile(
         request,
@@ -195,9 +208,12 @@ class SpaceClient {
     const request = new AddItemsRequest();
     const targetPath = payload.targetPath.replace(/^\//, '');
 
-    request.setBucket(payload.bucket);
+    const bucket = payload.bucket === '' ? null : payload.bucket;
+
     request.setTargetpath(targetPath);
     request.setSourcepathsList(payload.sourcePaths);
+    request.setBucket(bucket || this.defaultBucket);
+
     const stream = this.instance.addItems(request, metadata);
 
     return stream;
@@ -211,8 +227,10 @@ class SpaceClient {
       const request = new CreateFolderRequest();
       const path = payload.path.replace(/^\//, '');
 
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setPath(path);
-      request.setBucket(payload.bucket);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.createFolder(
         request,
@@ -287,8 +305,10 @@ class SpaceClient {
   ): Promise<ShareBucketViaEmailResponse> {
     return new Promise((resolve, reject) => {
       const request = new ShareBucketViaEmailRequest();
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setEmail(payload.email);
-      request.setBucket(payload.bucket);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.shareBucketViaEmail(
         request,
@@ -311,9 +331,11 @@ class SpaceClient {
   ): Promise<ShareBucketViaIdentityResponse> {
     return new Promise((resolve, reject) => {
       const request = new ShareBucketViaIdentityRequest();
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setIdentitytype(IdentityType[payload.identityType]);
       request.setIdentityvalue(payload.identityValue);
-      request.setBucket(payload.bucket);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.shareBucketViaIdentity(
         request,
@@ -341,8 +363,10 @@ class SpaceClient {
   ): Promise<GenerateFileShareLinkResponse> {
     return new Promise((resolve, reject) => {
       const request = new GenerateFileShareLinkRequest();
-      request.setBucket(payload.bucket);
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setFilepath(payload.filePath);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.generateFileShareLink(
         request,
@@ -510,7 +534,9 @@ class SpaceClient {
   ): Promise<ShareBucketResponse> {
     return new Promise((resolve, reject) => {
       const request = new ShareBucketRequest();
-      request.setBucket(payload.bucket);
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.shareBucket(
         request,
@@ -537,8 +563,10 @@ class SpaceClient {
       threadInfo.setAddressesList(payload.threadInfo.addresses);
 
       const request = new JoinBucketRequest();
-      request.setBucket(payload.bucket);
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
       request.setThreadinfo(threadInfo);
+      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.joinBucket(
         request,
