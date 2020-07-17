@@ -168,6 +168,40 @@ export namespace CreateBucketRequest {
   }
 }
 
+export class BucketMember extends jspb.Message {
+  getAddress(): string;
+  setAddress(value: string): BucketMember;
+
+  getPublickey(): string;
+  setPublickey(value: string): BucketMember;
+
+  getIsowner(): boolean;
+  setIsowner(value: boolean): BucketMember;
+
+  getUsername(): string;
+  setUsername(value: string): BucketMember;
+
+  getEmail(): string;
+  setEmail(value: string): BucketMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): BucketMember.AsObject;
+  static toObject(includeInstance: boolean, msg: BucketMember): BucketMember.AsObject;
+  static serializeBinaryToWriter(message: BucketMember, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BucketMember;
+  static deserializeBinaryFromReader(message: BucketMember, reader: jspb.BinaryReader): BucketMember;
+}
+
+export namespace BucketMember {
+  export type AsObject = {
+    address: string,
+    publickey: string,
+    isowner: boolean,
+    username: string,
+    email: string,
+  }
+}
+
 export class Bucket extends jspb.Message {
   getKey(): string;
   setKey(value: string): Bucket;
@@ -184,6 +218,14 @@ export class Bucket extends jspb.Message {
   getUpdatedat(): number;
   setUpdatedat(value: number): Bucket;
 
+  getMembersList(): Array<BucketMember>;
+  setMembersList(value: Array<BucketMember>): Bucket;
+  clearMembersList(): Bucket;
+  addMembers(value?: BucketMember, index?: number): BucketMember;
+
+  getIsselectgroupbucket(): boolean;
+  setIsselectgroupbucket(value: boolean): Bucket;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Bucket.AsObject;
   static toObject(includeInstance: boolean, msg: Bucket): Bucket.AsObject;
@@ -199,6 +241,8 @@ export namespace Bucket {
     path: string,
     createdat: number,
     updatedat: number,
+    membersList: Array<BucketMember.AsObject>,
+    isselectgroupbucket: boolean,
   }
 }
 
@@ -701,6 +745,9 @@ export class JoinBucketRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): JoinBucketRequest;
 
+  getInvitationid(): string;
+  setInvitationid(value: string): JoinBucketRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): JoinBucketRequest.AsObject;
   static toObject(includeInstance: boolean, msg: JoinBucketRequest): JoinBucketRequest.AsObject;
@@ -713,6 +760,7 @@ export namespace JoinBucketRequest {
   export type AsObject = {
     threadinfo?: ThreadInfo.AsObject,
     bucket: string,
+    invitationid: string,
   }
 }
 
@@ -920,6 +968,72 @@ export namespace ListBucketsResponse {
   }
 }
 
+export class Invitation extends jspb.Message {
+  getInvitationtype(): InvitationType;
+  setInvitationtype(value: InvitationType): Invitation;
+
+  getInvitationvalue(): string;
+  setInvitationvalue(value: string): Invitation;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Invitation.AsObject;
+  static toObject(includeInstance: boolean, msg: Invitation): Invitation.AsObject;
+  static serializeBinaryToWriter(message: Invitation, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Invitation;
+  static deserializeBinaryFromReader(message: Invitation, reader: jspb.BinaryReader): Invitation;
+}
+
+export namespace Invitation {
+  export type AsObject = {
+    invitationtype: InvitationType,
+    invitationvalue: string,
+  }
+}
+
+export class ShareItemsToSelectGroupRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): ShareItemsToSelectGroupRequest;
+
+  getItempathsList(): Array<string>;
+  setItempathsList(value: Array<string>): ShareItemsToSelectGroupRequest;
+  clearItempathsList(): ShareItemsToSelectGroupRequest;
+  addItempaths(value: string, index?: number): ShareItemsToSelectGroupRequest;
+
+  getInvitationsList(): Array<Invitation>;
+  setInvitationsList(value: Array<Invitation>): ShareItemsToSelectGroupRequest;
+  clearInvitationsList(): ShareItemsToSelectGroupRequest;
+  addInvitations(value?: Invitation, index?: number): Invitation;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ShareItemsToSelectGroupRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareItemsToSelectGroupRequest): ShareItemsToSelectGroupRequest.AsObject;
+  static serializeBinaryToWriter(message: ShareItemsToSelectGroupRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareItemsToSelectGroupRequest;
+  static deserializeBinaryFromReader(message: ShareItemsToSelectGroupRequest, reader: jspb.BinaryReader): ShareItemsToSelectGroupRequest;
+}
+
+export namespace ShareItemsToSelectGroupRequest {
+  export type AsObject = {
+    bucket: string,
+    itempathsList: Array<string>,
+    invitationsList: Array<Invitation.AsObject>,
+  }
+}
+
+export class ShareItemsToSelectGroupResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ShareItemsToSelectGroupResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareItemsToSelectGroupResponse): ShareItemsToSelectGroupResponse.AsObject;
+  static serializeBinaryToWriter(message: ShareItemsToSelectGroupResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareItemsToSelectGroupResponse;
+  static deserializeBinaryFromReader(message: ShareItemsToSelectGroupResponse, reader: jspb.BinaryReader): ShareItemsToSelectGroupResponse;
+}
+
+export namespace ShareItemsToSelectGroupResponse {
+  export type AsObject = {
+  }
+}
+
 export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
@@ -928,4 +1042,8 @@ export enum EventType {
 export enum IdentityType { 
   USERNAME = 0,
   EMAIL = 1,
+}
+export enum InvitationType { 
+  INVITE_THROUGH_EMAIL = 0,
+  INVITE_THROUGH_ADDRESS = 1,
 }

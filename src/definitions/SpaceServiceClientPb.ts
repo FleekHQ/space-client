@@ -53,6 +53,8 @@ import {
   ShareBucketViaEmailResponse,
   ShareBucketViaIdentityRequest,
   ShareBucketViaIdentityResponse,
+  ShareItemsToSelectGroupRequest,
+  ShareItemsToSelectGroupResponse,
   TextileEventResponse,
   ToggleFuseRequest} from './space_pb';
 
@@ -907,6 +909,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoListBuckets);
+  }
+
+  methodInfoShareItemsToSelectGroup = new grpcWeb.AbstractClientBase.MethodInfo(
+    ShareItemsToSelectGroupResponse,
+    (request: ShareItemsToSelectGroupRequest) => {
+      return request.serializeBinary();
+    },
+    ShareItemsToSelectGroupResponse.deserializeBinary
+  );
+
+  shareItemsToSelectGroup(
+    request: ShareItemsToSelectGroupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ShareItemsToSelectGroupResponse>;
+
+  shareItemsToSelectGroup(
+    request: ShareItemsToSelectGroupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ShareItemsToSelectGroupResponse) => void): grpcWeb.ClientReadableStream<ShareItemsToSelectGroupResponse>;
+
+  shareItemsToSelectGroup(
+    request: ShareItemsToSelectGroupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ShareItemsToSelectGroupResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ShareItemsToSelectGroup', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoShareItemsToSelectGroup,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ShareItemsToSelectGroup',
+    request,
+    metadata || {},
+    this.methodInfoShareItemsToSelectGroup);
   }
 
 }
