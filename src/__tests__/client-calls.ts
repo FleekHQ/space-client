@@ -26,6 +26,7 @@ client.instance = {
   listBuckets: jest.fn(),
   shareBucket: jest.fn(),
   joinBucket: jest.fn(),
+  shareItemsToSelectGroup: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -192,4 +193,21 @@ it('joinBucket makes the right requests', async () => {
   });
 
   expect(client.instance.joinBucket).toHaveBeenCalledTimes(1);
+});
+
+it('should call shareItemsToSelectGroup', async () => {
+  const payload = {
+    bucket: 'test',
+    itemPaths: ['path/1/file.txt', 'path/2/key.txt'],
+    invitations: [
+      {
+        invitationType: 'INVITE_THROUGH_ADDRESS',
+        invitationValue: 'test@email.com',
+      },
+    ],
+  };
+
+  client.shareItemsToSelectGroup(payload);
+
+  expect(client.instance.shareItemsToSelectGroup).toHaveBeenCalledTimes(1);
 });

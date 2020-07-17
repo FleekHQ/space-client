@@ -78,3 +78,15 @@ export interface JoinBucketPayload {
   };
   bucket?: string;
 }
+
+type InvitationType = {
+  invitationType: 'INVITE_THROUGH_EMAIL' | 'INVITE_THROUGH_ADDRESS';
+  invitationValue: string;
+};
+
+export interface ShareItemsToSelectGroupPayload {
+  bucket: string;
+  itemPaths: [string];
+  invitations: [InvitationType];
+  customMessage?: string;
+}

@@ -8421,7 +8421,8 @@ proto.space.ShareItemsToSelectGroupRequest.toObject = function(includeInstance, 
     bucket: jspb.Message.getFieldWithDefault(msg, 1, ""),
     itempathsList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f,
     invitationsList: jspb.Message.toObjectList(msg.getInvitationsList(),
-    proto.space.Invitation.toObject, includeInstance)
+    proto.space.Invitation.toObject, includeInstance),
+    custommessage: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -8470,6 +8471,10 @@ proto.space.ShareItemsToSelectGroupRequest.deserializeBinaryFromReader = functio
       var value = new proto.space.Invitation;
       reader.readMessage(value,proto.space.Invitation.deserializeBinaryFromReader);
       msg.addInvitations(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCustommessage(value);
       break;
     default:
       reader.skipField();
@@ -8520,6 +8525,13 @@ proto.space.ShareItemsToSelectGroupRequest.serializeBinaryToWriter = function(me
       3,
       f,
       proto.space.Invitation.serializeBinaryToWriter
+    );
+  }
+  f = message.getCustommessage();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
     );
   }
 };
@@ -8615,6 +8627,24 @@ proto.space.ShareItemsToSelectGroupRequest.prototype.addInvitations = function(o
  */
 proto.space.ShareItemsToSelectGroupRequest.prototype.clearInvitationsList = function() {
   return this.setInvitationsList([]);
+};
+
+
+/**
+ * optional string customMessage = 4;
+ * @return {string}
+ */
+proto.space.ShareItemsToSelectGroupRequest.prototype.getCustommessage = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.space.ShareItemsToSelectGroupRequest} returns this
+ */
+proto.space.ShareItemsToSelectGroupRequest.prototype.setCustommessage = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
