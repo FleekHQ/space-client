@@ -20,6 +20,7 @@ import {
   ListDirectoryPayload,
   ShareBucketPayload,
   JoinBucketPayload,
+  ShareItemsToSelectGroupPayload,
 } from './types';
 
 import {
@@ -61,6 +62,10 @@ import {
   JoinBucketRequest,
   JoinBucketResponse,
   ThreadInfo,
+  ShareItemsToSelectGroupRequest,
+  ShareItemsToSelectGroupResponse,
+  Invitation,
+  InvitationType,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -572,6 +577,44 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareItemsToSelectGroup(
+    payload: ShareItemsToSelectGroupPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareItemsToSelectGroupResponse> {
+    return new Promise((resolve, reject) => {
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      const invitations = payload.invitations.map((inv) => {
+        const invitation = new Invitation();
+
+        invitation.setInvitationvalue(inv.invitationValue);
+        invitation.setInvitationtype(InvitationType[inv.invitationType]);
+
+        return invitation;
+      });
+
+      const request = new ShareItemsToSelectGroupRequest();
+
+      request.setBucket(bucket || this.defaultBucket);
+      request.setItempathsList(payload.itemPaths);
+      request.setInvitationsList(invitations);
+      request.setCustommessage(payload.customMessage || '');
+
+      this.instance.shareItemsToSelectGroup(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareItemsToSelectGroupResponse) => {
           if (err) {
             reject(err);
             return;

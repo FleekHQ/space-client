@@ -1004,6 +1004,9 @@ export class ShareItemsToSelectGroupRequest extends jspb.Message {
   clearInvitationsList(): ShareItemsToSelectGroupRequest;
   addInvitations(value?: Invitation, index?: number): Invitation;
 
+  getCustommessage(): string;
+  setCustommessage(value: string): ShareItemsToSelectGroupRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ShareItemsToSelectGroupRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ShareItemsToSelectGroupRequest): ShareItemsToSelectGroupRequest.AsObject;
@@ -1017,6 +1020,7 @@ export namespace ShareItemsToSelectGroupRequest {
     bucket: string,
     itempathsList: Array<string>,
     invitationsList: Array<Invitation.AsObject>,
+    custommessage: string,
   }
 }
 

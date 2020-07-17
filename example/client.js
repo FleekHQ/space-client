@@ -402,3 +402,39 @@ document.getElementById('join-bucket').onclick = async () => {
     console.error(error);
   }
 };
+
+
+document.getElementById('share-items-select-grup').onclick = async () => {
+  const bucket = document.getElementById('share-items-select-grup-bucket').value;
+  const invitationType = document.getElementById('invitation-type').value;
+  const invitationValue = document.getElementById('invitation-value').value;
+  const customMessage = document.getElementById('invitation-custom-message').value;
+
+  const itemPaths = document.getElementById('share-items-select-grup-item-paths')
+    .value
+    .replace(' ', '')
+    .split(',');
+
+  const payload = {
+    bucket,
+    itemPaths,
+    customMessage,
+    invitations: [
+      {
+        invitationType,
+        invitationValue,
+      },
+    ],
+  };
+
+  try {
+    console.log('sharing items...');
+    console.log('payload', payload);
+
+    const res = await client.shareItemsToSelectGroup(payload);
+
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
+};

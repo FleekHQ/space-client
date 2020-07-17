@@ -3,7 +3,6 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
-
 package space;
 
 option go_package = ".;pb";
@@ -14,123 +13,99 @@ option go_package = ".;pb";
 service SpaceApi {
   // Get all folder or files in the default bucket. It fetches all subdirectories too.
   rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {
-
   }
 
   // Get the folder or files in the path directory.
   // Unlike ListDirectories, this only returns immediate children at path.
   rpc ListDirectory(ListDirectoryRequest) returns (ListDirectoryResponse) {
-
   }
 
   // Get Config information installed daemon
   rpc GetConfigInfo(google.protobuf.Empty) returns (ConfigInfoResponse) {
-
   }
 
   // Generate Key Pair for current account.
   // This will return error if daemon account already has keypairs
   rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-
   }
 
   // Force Generation of KeyPair. This will override existing keys stored in daemon.
   rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-
   }
 
   // Subscribe to file events. This streams responses to the caller
   rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
-
   }
 
   // Subscribe to textile events. This streams responses to the caller
   rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {
-
   }
 
   // Open a file in the daemon.
   // Daemon keeps track of all open files and closes them if no activity is noticed after a while
   rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
-
   }
 
   // Adds items (files/folders) to be uploaded to the bucket.
   rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {
-
   }
 
   // Creates a folder/directory at the specified path
   rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
-
   }
 
   // Toggle FUSE drive to be mounted or unmounted
   rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {
-
   }
 
   // Get status of FUSE drive. If mounted or unmounted
   rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {
-
   }
 
   // Create a new bucket owned by current user (aka keypair)
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {
-
   }
 
   // Get Identity by Username
   rpc GetIdentityByUsername(GetIdentityByUsernameRequest) returns (GetIdentityByUsernameResponse) {
-
   }
 
   // Create a new user identity. Username and Email required.
   rpc CreateUsernameAndEmail(CreateUsernameAndEmailRequest) returns (CreateUsernameAndEmailResponse) {
-
   }
 
   // Backup Key by Passphrase
   rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
-
   }
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
-
   }
 
   // Share bucket
   rpc ShareBucket(ShareBucketRequest) returns (ShareBucketResponse) {
-
   }
 
   // Join bucket
   rpc JoinBucket(JoinBucketRequest) returns (JoinBucketResponse) {
-
   }
 
   // Share bucket via email
   rpc ShareBucketViaEmail(ShareBucketViaEmailRequest) returns (ShareBucketViaEmailResponse) {
-
   }
 
   // Share bucket via identity information
   rpc ShareBucketViaIdentity(ShareBucketViaIdentityRequest) returns (ShareBucketViaIdentityResponse) {
-
   }
 
   // Generate sharing link for file in bucket
   rpc GenerateFileShareLink(GenerateFileShareLinkRequest) returns (GenerateFileShareLinkResponse) {
-
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
-
   }
 
   rpc ShareItemsToSelectGroup(ShareItemsToSelectGroupRequest) returns (ShareItemsToSelectGroupResponse) {
-
   }
 }
 
@@ -380,6 +355,7 @@ message ShareItemsToSelectGroupRequest {
   string bucket = 1;
   repeated string itemPaths = 2;
   repeated Invitation invitations = 3;
+  string customMessage = 4;
 }
 
 message ShareItemsToSelectGroupResponse {}
