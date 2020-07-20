@@ -126,6 +126,8 @@ document.getElementById('create-bucket').onclick = async () => {
       path: bucket.getPath(),
       createdAt: bucket.getCreatedat(),
       updatedAt: bucket.getUpdatedat(),
+      membersList: bucket.getMembersList(),
+      isSelectGroupBucket: bucket.getIsselectgroupbucket(),
     };
 
     console.log(bucketObj);
@@ -220,6 +222,8 @@ document.getElementById('list-buckets').onclick = async () => {
           path: bucket.getPath(),
           createdAt: bucket.getCreatedat(),
           updatedAt: bucket.getUpdatedat(),
+          membersList: bucket.getMembersList(),
+          isSelectGroupBucket: bucket.getIsselectgroupbucket(),
         },
       ];
     }, []);
