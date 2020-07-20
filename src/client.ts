@@ -370,7 +370,7 @@ class SpaceClient {
       const request = new GenerateFileShareLinkRequest();
       const bucket = payload.bucket === '' ? null : payload.bucket;
 
-      request.setFilepath(payload.filePath);
+      request.setFilepath(payload.filePath.replace(/^\//, ''));
       request.setBucket(bucket || this.defaultBucket);
 
       this.instance.generateFileShareLink(
@@ -594,6 +594,7 @@ class SpaceClient {
   ): Promise<ShareItemsToSelectGroupResponse> {
     return new Promise((resolve, reject) => {
       const bucket = payload.bucket === '' ? null : payload.bucket;
+      const itemPaths = payload.itemPaths.map((path) => path.replace(/^\//, ''));
 
       const invitations = payload.invitations.map((inv) => {
         const invitation = new Invitation();
@@ -607,7 +608,7 @@ class SpaceClient {
       const request = new ShareItemsToSelectGroupRequest();
 
       request.setBucket(bucket || this.defaultBucket);
-      request.setItempathsList(payload.itemPaths);
+      request.setItempathsList(itemPaths);
       request.setInvitationsList(invitations);
       request.setCustommessage(payload.customMessage || '');
 
