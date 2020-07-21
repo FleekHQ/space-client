@@ -21,6 +21,7 @@ import {
   ShareBucketPayload,
   JoinBucketPayload,
   ShareItemsToSelectGroupPayload,
+  ListBucketsPayload,
 } from './types';
 
 import {
@@ -513,6 +514,7 @@ class SpaceClient {
    * Not supported by space daemon
    */
   listBuckets(
+    payload: ListBucketsPayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<ListBucketsResponse> {
     return new Promise((resolve, reject) => {

@@ -206,6 +206,8 @@ Creates a new bucket. Returns a Promise that resolves to the new bucket
       console.log(bucket.getPath());
       console.log(bucket.getCreatedat());
       console.log(bucket.getUpdatedat());
+      console.log(bucket.getMembersList());
+      console.log(bucket.getIsselectgroupbucket());
     })
     .catch((err) => {
       console.error(err);
@@ -537,7 +539,7 @@ Event type can be one of `[ENTRY_ADDED, ENTRY_DELETED, ENTRY_UPDATED]`
   });
 ```
 
-#### `[WIP]` <em>.listBuckets()</em>
+#### `[WIP]` <em>.listBuckets({})</em>
 
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
@@ -545,7 +547,7 @@ Returns all the buckets available
 
 ```js
   client
-    .listBuckets()
+    .listBuckets({})
     .then((res) => {
       const buckets = res.getBucketsList();
       
@@ -555,6 +557,8 @@ Returns all the buckets available
         console.log('path:', bucket.getPath());
         console.log('createdAt:', bucket.getCreatedat());
         console.log('updatedAt:', bucket.getUpdatedat());
+        console.log('membersList:', bucket.getMembersList());
+        console.log('isSelectGroupBucket:', bucket.getIsselectgroupbucket());
       });
     })
     .catch((err) => {
@@ -564,7 +568,7 @@ Returns all the buckets available
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    const res = await client.listBuckets();
+    const res = await client.listBuckets({});
     const buckets = res.getBucketsList();
 
     ...
@@ -574,7 +578,7 @@ Returns all the buckets available
 
 #### .shareBucket({ bucket?: string })
 
-Shares a bucket. Returns a promis that resolves to the threadInfo (required to join a bucket).
+Shares a bucket. Returns a promise that resolves to the threadInfo (required to join a bucket).
 If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js

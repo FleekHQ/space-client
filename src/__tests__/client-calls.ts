@@ -170,7 +170,7 @@ it('subscribe makes the right requests', async () => {
 });
 
 it('listBuckets makes the right requests', async () => {
-  client.listBuckets();
+  client.listBuckets({});
 
   expect(client.instance.listBuckets).toHaveBeenCalledTimes(1);
 });

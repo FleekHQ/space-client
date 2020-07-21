@@ -90,3 +90,6 @@ export interface ShareItemsToSelectGroupPayload {
   invitations: [InvitationType];
   customMessage?: string;
 }
+
+export interface ListBucketsPayload {
+}
