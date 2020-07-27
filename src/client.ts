@@ -7,11 +7,6 @@ import {
   CreateBucketPayload,
   AddItemsPayload,
   CreateFolderPayload,
-  GetIdentityByUsernamePayload,
-  CreateUsernameAndEmailPayload,
-  ShareBucketViaEmailPayload,
-  ShareBucketViaIdentityPayload,
-  GenerateFileShareLinkPayload,
   BackupKeysByPassphrasePayload,
   RecoverKeysByPassphrasePayload,
   ToggleFusePayload,
@@ -20,7 +15,6 @@ import {
   ListDirectoryPayload,
   ShareBucketPayload,
   JoinBucketPayload,
-  ShareItemsToSelectGroupPayload,
 } from './types';
 
 import {
@@ -35,16 +29,6 @@ import {
   AddItemsResponse,
   CreateFolderRequest,
   CreateFolderResponse,
-  GetIdentityByUsernameRequest,
-  GetIdentityByUsernameResponse,
-  CreateUsernameAndEmailRequest,
-  CreateUsernameAndEmailResponse,
-  ShareBucketViaEmailRequest,
-  ShareBucketViaEmailResponse,
-  ShareBucketViaIdentityRequest,
-  ShareBucketViaIdentityResponse,
-  GenerateFileShareLinkRequest,
-  GenerateFileShareLinkResponse,
   BackupKeysByPassphraseRequest,
   BackupKeysByPassphraseResponse,
   RecoverKeysByPassphraseRequest,
@@ -52,7 +36,6 @@ import {
   ToggleFuseRequest,
   FuseDriveResponse,
   FileEventResponse,
-  IdentityType,
   ListBucketsRequest,
   ListBucketsResponse,
   ListDirectoryRequest,
@@ -62,10 +45,6 @@ import {
   JoinBucketRequest,
   JoinBucketResponse,
   ThreadInfo,
-  ShareItemsToSelectGroupRequest,
-  ShareItemsToSelectGroupResponse,
-  Invitation,
-  InvitationType,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -241,142 +220,6 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: CreateFolderResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  createUsernameAndEmail(
-    payload: CreateUsernameAndEmailPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<CreateUsernameAndEmailResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new CreateUsernameAndEmailRequest();
-      request.setEmail(payload.email || '');
-      request.setUsername(payload.username);
-
-      this.instance.createUsernameAndEmail(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: CreateUsernameAndEmailResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  getIdentityByUsername(
-    payload: GetIdentityByUsernamePayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<GetIdentityByUsernameResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new GetIdentityByUsernameRequest();
-      request.setUsername(payload.username);
-
-      this.instance.getIdentityByUsername(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: GetIdentityByUsernameResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  /**
-   * [WIP] shareBucketViaEmail
-   *
-   * Not supported by space daemon
-   */
-  shareBucketViaEmail(
-    payload: ShareBucketViaEmailPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<ShareBucketViaEmailResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new ShareBucketViaEmailRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setEmail(payload.email);
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.shareBucketViaEmail(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: ShareBucketViaEmailResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  shareBucketViaIdentity(
-    payload: ShareBucketViaIdentityPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<ShareBucketViaIdentityResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new ShareBucketViaIdentityRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setIdentitytype(IdentityType[payload.identityType]);
-      request.setIdentityvalue(payload.identityValue);
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.shareBucketViaIdentity(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: ShareBucketViaIdentityResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  /**
-   * [WIP] generateFileShareLink
-   *
-   * Not supported by space daemon
-   */
-  generateFileShareLink(
-    payload: GenerateFileShareLinkPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<GenerateFileShareLinkResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new GenerateFileShareLinkRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setFilepath(payload.filePath.replace(/^\//, ''));
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.generateFileShareLink(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: GenerateFileShareLinkResponse) => {
           if (err) {
             reject(err);
             return;
@@ -577,45 +420,6 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  shareItemsToSelectGroup(
-    payload: ShareItemsToSelectGroupPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<ShareItemsToSelectGroupResponse> {
-    return new Promise((resolve, reject) => {
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-      const itemPaths = payload.itemPaths.map((path) => path.replace(/^\//, ''));
-
-      const invitations = payload.invitations.map((inv) => {
-        const invitation = new Invitation();
-
-        invitation.setInvitationvalue(inv.invitationValue);
-        invitation.setInvitationtype(InvitationType[inv.invitationType]);
-
-        return invitation;
-      });
-
-      const request = new ShareItemsToSelectGroupRequest();
-
-      request.setBucket(bucket || this.defaultBucket);
-      request.setItempathsList(itemPaths);
-      request.setInvitationsList(invitations);
-      request.setCustommessage(payload.customMessage || '');
-
-      this.instance.shareItemsToSelectGroup(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: ShareItemsToSelectGroupResponse) => {
           if (err) {
             reject(err);
             return;

@@ -128,28 +128,6 @@ export namespace ListDirectoryResponse {
   }
 }
 
-export class ConfigInfoResponse extends jspb.Message {
-  getPort(): string;
-  setPort(value: string): ConfigInfoResponse;
-
-  getApppath(): string;
-  setApppath(value: string): ConfigInfoResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ConfigInfoResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ConfigInfoResponse): ConfigInfoResponse.AsObject;
-  static serializeBinaryToWriter(message: ConfigInfoResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ConfigInfoResponse;
-  static deserializeBinaryFromReader(message: ConfigInfoResponse, reader: jspb.BinaryReader): ConfigInfoResponse;
-}
-
-export namespace ConfigInfoResponse {
-  export type AsObject = {
-    port: string,
-    apppath: string,
-  }
-}
-
 export class CreateBucketRequest extends jspb.Message {
   getSlug(): string;
   setSlug(value: string): CreateBucketRequest;
@@ -178,11 +156,8 @@ export class BucketMember extends jspb.Message {
   getIsowner(): boolean;
   setIsowner(value: boolean): BucketMember;
 
-  getUsername(): string;
-  setUsername(value: string): BucketMember;
-
-  getEmail(): string;
-  setEmail(value: string): BucketMember;
+  getHasjoined(): boolean;
+  setHasjoined(value: boolean): BucketMember;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): BucketMember.AsObject;
@@ -197,8 +172,7 @@ export namespace BucketMember {
     address: string,
     publickey: string,
     isowner: boolean,
-    username: string,
-    email: string,
+    hasjoined: boolean,
   }
 }
 
@@ -223,8 +197,8 @@ export class Bucket extends jspb.Message {
   clearMembersList(): Bucket;
   addMembers(value?: BucketMember, index?: number): BucketMember;
 
-  getIsselectgroupbucket(): boolean;
-  setIsselectgroupbucket(value: boolean): Bucket;
+  getIspersonalbucket(): boolean;
+  setIspersonalbucket(value: boolean): Bucket;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Bucket.AsObject;
@@ -242,7 +216,7 @@ export namespace Bucket {
     createdat: number,
     updatedat: number,
     membersList: Array<BucketMember.AsObject>,
-    isselectgroupbucket: boolean,
+    ispersonalbucket: boolean,
   }
 }
 
@@ -384,6 +358,50 @@ export namespace OpenFileResponse {
   }
 }
 
+export class OpenPublicFileRequest extends jspb.Message {
+  getFilecid(): string;
+  setFilecid(value: string): OpenPublicFileRequest;
+
+  getFilekey(): string;
+  setFilekey(value: string): OpenPublicFileRequest;
+
+  getFilename(): string;
+  setFilename(value: string): OpenPublicFileRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OpenPublicFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: OpenPublicFileRequest): OpenPublicFileRequest.AsObject;
+  static serializeBinaryToWriter(message: OpenPublicFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OpenPublicFileRequest;
+  static deserializeBinaryFromReader(message: OpenPublicFileRequest, reader: jspb.BinaryReader): OpenPublicFileRequest;
+}
+
+export namespace OpenPublicFileRequest {
+  export type AsObject = {
+    filecid: string,
+    filekey: string,
+    filename: string,
+  }
+}
+
+export class OpenPublicFileResponse extends jspb.Message {
+  getLocation(): string;
+  setLocation(value: string): OpenPublicFileResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): OpenPublicFileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: OpenPublicFileResponse): OpenPublicFileResponse.AsObject;
+  static serializeBinaryToWriter(message: OpenPublicFileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): OpenPublicFileResponse;
+  static deserializeBinaryFromReader(message: OpenPublicFileResponse, reader: jspb.BinaryReader): OpenPublicFileResponse;
+}
+
+export namespace OpenPublicFileResponse {
+  export type AsObject = {
+    location: string,
+  }
+}
+
 export class AddItemsRequest extends jspb.Message {
   getSourcepathsList(): Array<string>;
   setSourcepathsList(value: Array<string>): AddItemsRequest;
@@ -506,106 +524,6 @@ export class CreateFolderResponse extends jspb.Message {
 }
 
 export namespace CreateFolderResponse {
-  export type AsObject = {
-  }
-}
-
-export class GetIdentityByUsernameRequest extends jspb.Message {
-  getUsername(): string;
-  setUsername(value: string): GetIdentityByUsernameRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetIdentityByUsernameRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetIdentityByUsernameRequest): GetIdentityByUsernameRequest.AsObject;
-  static serializeBinaryToWriter(message: GetIdentityByUsernameRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetIdentityByUsernameRequest;
-  static deserializeBinaryFromReader(message: GetIdentityByUsernameRequest, reader: jspb.BinaryReader): GetIdentityByUsernameRequest;
-}
-
-export namespace GetIdentityByUsernameRequest {
-  export type AsObject = {
-    username: string,
-  }
-}
-
-export class Identity extends jspb.Message {
-  getAddress(): string;
-  setAddress(value: string): Identity;
-
-  getPublickey(): string;
-  setPublickey(value: string): Identity;
-
-  getUsername(): string;
-  setUsername(value: string): Identity;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Identity.AsObject;
-  static toObject(includeInstance: boolean, msg: Identity): Identity.AsObject;
-  static serializeBinaryToWriter(message: Identity, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Identity;
-  static deserializeBinaryFromReader(message: Identity, reader: jspb.BinaryReader): Identity;
-}
-
-export namespace Identity {
-  export type AsObject = {
-    address: string,
-    publickey: string,
-    username: string,
-  }
-}
-
-export class GetIdentityByUsernameResponse extends jspb.Message {
-  getIdentity(): Identity | undefined;
-  setIdentity(value?: Identity): GetIdentityByUsernameResponse;
-  hasIdentity(): boolean;
-  clearIdentity(): GetIdentityByUsernameResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetIdentityByUsernameResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetIdentityByUsernameResponse): GetIdentityByUsernameResponse.AsObject;
-  static serializeBinaryToWriter(message: GetIdentityByUsernameResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetIdentityByUsernameResponse;
-  static deserializeBinaryFromReader(message: GetIdentityByUsernameResponse, reader: jspb.BinaryReader): GetIdentityByUsernameResponse;
-}
-
-export namespace GetIdentityByUsernameResponse {
-  export type AsObject = {
-    identity?: Identity.AsObject,
-  }
-}
-
-export class CreateUsernameAndEmailRequest extends jspb.Message {
-  getUsername(): string;
-  setUsername(value: string): CreateUsernameAndEmailRequest;
-
-  getEmail(): string;
-  setEmail(value: string): CreateUsernameAndEmailRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CreateUsernameAndEmailRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: CreateUsernameAndEmailRequest): CreateUsernameAndEmailRequest.AsObject;
-  static serializeBinaryToWriter(message: CreateUsernameAndEmailRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CreateUsernameAndEmailRequest;
-  static deserializeBinaryFromReader(message: CreateUsernameAndEmailRequest, reader: jspb.BinaryReader): CreateUsernameAndEmailRequest;
-}
-
-export namespace CreateUsernameAndEmailRequest {
-  export type AsObject = {
-    username: string,
-    email: string,
-  }
-}
-
-export class CreateUsernameAndEmailResponse extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CreateUsernameAndEmailResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: CreateUsernameAndEmailResponse): CreateUsernameAndEmailResponse.AsObject;
-  static serializeBinaryToWriter(message: CreateUsernameAndEmailResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CreateUsernameAndEmailResponse;
-  static deserializeBinaryFromReader(message: CreateUsernameAndEmailResponse, reader: jspb.BinaryReader): CreateUsernameAndEmailResponse;
-}
-
-export namespace CreateUsernameAndEmailResponse {
   export type AsObject = {
   }
 }
@@ -745,9 +663,6 @@ export class JoinBucketRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): JoinBucketRequest;
 
-  getInvitationid(): string;
-  setInvitationid(value: string): JoinBucketRequest;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): JoinBucketRequest.AsObject;
   static toObject(includeInstance: boolean, msg: JoinBucketRequest): JoinBucketRequest.AsObject;
@@ -760,7 +675,6 @@ export namespace JoinBucketRequest {
   export type AsObject = {
     threadinfo?: ThreadInfo.AsObject,
     bucket: string,
-    invitationid: string,
   }
 }
 
@@ -782,119 +696,91 @@ export namespace JoinBucketResponse {
   }
 }
 
-export class ShareBucketViaEmailRequest extends jspb.Message {
-  getBucket(): string;
-  setBucket(value: string): ShareBucketViaEmailRequest;
-
-  getEmail(): string;
-  setEmail(value: string): ShareBucketViaEmailRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaEmailRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaEmailRequest): ShareBucketViaEmailRequest.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaEmailRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaEmailRequest;
-  static deserializeBinaryFromReader(message: ShareBucketViaEmailRequest, reader: jspb.BinaryReader): ShareBucketViaEmailRequest;
-}
-
-export namespace ShareBucketViaEmailRequest {
-  export type AsObject = {
-    bucket: string,
-    email: string,
-  }
-}
-
-export class ShareBucketViaEmailResponse extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaEmailResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaEmailResponse): ShareBucketViaEmailResponse.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaEmailResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaEmailResponse;
-  static deserializeBinaryFromReader(message: ShareBucketViaEmailResponse, reader: jspb.BinaryReader): ShareBucketViaEmailResponse;
-}
-
-export namespace ShareBucketViaEmailResponse {
-  export type AsObject = {
-  }
-}
-
-export class ShareBucketViaIdentityRequest extends jspb.Message {
-  getIdentitytype(): IdentityType;
-  setIdentitytype(value: IdentityType): ShareBucketViaIdentityRequest;
-
-  getIdentityvalue(): string;
-  setIdentityvalue(value: string): ShareBucketViaIdentityRequest;
+export class ShareBucketViaPublicKeyRequest extends jspb.Message {
+  getPublickeysList(): Array<string>;
+  setPublickeysList(value: Array<string>): ShareBucketViaPublicKeyRequest;
+  clearPublickeysList(): ShareBucketViaPublicKeyRequest;
+  addPublickeys(value: string, index?: number): ShareBucketViaPublicKeyRequest;
 
   getBucket(): string;
-  setBucket(value: string): ShareBucketViaIdentityRequest;
+  setBucket(value: string): ShareBucketViaPublicKeyRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaIdentityRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaIdentityRequest): ShareBucketViaIdentityRequest.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaIdentityRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaIdentityRequest;
-  static deserializeBinaryFromReader(message: ShareBucketViaIdentityRequest, reader: jspb.BinaryReader): ShareBucketViaIdentityRequest;
+  toObject(includeInstance?: boolean): ShareBucketViaPublicKeyRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareBucketViaPublicKeyRequest): ShareBucketViaPublicKeyRequest.AsObject;
+  static serializeBinaryToWriter(message: ShareBucketViaPublicKeyRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareBucketViaPublicKeyRequest;
+  static deserializeBinaryFromReader(message: ShareBucketViaPublicKeyRequest, reader: jspb.BinaryReader): ShareBucketViaPublicKeyRequest;
 }
 
-export namespace ShareBucketViaIdentityRequest {
+export namespace ShareBucketViaPublicKeyRequest {
   export type AsObject = {
-    identitytype: IdentityType,
-    identityvalue: string,
+    publickeysList: Array<string>,
     bucket: string,
   }
 }
 
-export class ShareBucketViaIdentityResponse extends jspb.Message {
+export class ShareBucketViaPublicKeyResponse extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaIdentityResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaIdentityResponse): ShareBucketViaIdentityResponse.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaIdentityResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaIdentityResponse;
-  static deserializeBinaryFromReader(message: ShareBucketViaIdentityResponse, reader: jspb.BinaryReader): ShareBucketViaIdentityResponse;
+  toObject(includeInstance?: boolean): ShareBucketViaPublicKeyResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareBucketViaPublicKeyResponse): ShareBucketViaPublicKeyResponse.AsObject;
+  static serializeBinaryToWriter(message: ShareBucketViaPublicKeyResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareBucketViaPublicKeyResponse;
+  static deserializeBinaryFromReader(message: ShareBucketViaPublicKeyResponse, reader: jspb.BinaryReader): ShareBucketViaPublicKeyResponse;
 }
 
-export namespace ShareBucketViaIdentityResponse {
+export namespace ShareBucketViaPublicKeyResponse {
   export type AsObject = {
   }
 }
 
-export class GenerateFileShareLinkRequest extends jspb.Message {
+export class GeneratePublicFileLinkRequest extends jspb.Message {
   getBucket(): string;
-  setBucket(value: string): GenerateFileShareLinkRequest;
+  setBucket(value: string): GeneratePublicFileLinkRequest;
 
-  getFilepath(): string;
-  setFilepath(value: string): GenerateFileShareLinkRequest;
+  getItempathsList(): Array<string>;
+  setItempathsList(value: Array<string>): GeneratePublicFileLinkRequest;
+  clearItempathsList(): GeneratePublicFileLinkRequest;
+  addItempaths(value: string, index?: number): GeneratePublicFileLinkRequest;
+
+  getPassword(): string;
+  setPassword(value: string): GeneratePublicFileLinkRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GenerateFileShareLinkRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GenerateFileShareLinkRequest): GenerateFileShareLinkRequest.AsObject;
-  static serializeBinaryToWriter(message: GenerateFileShareLinkRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GenerateFileShareLinkRequest;
-  static deserializeBinaryFromReader(message: GenerateFileShareLinkRequest, reader: jspb.BinaryReader): GenerateFileShareLinkRequest;
+  toObject(includeInstance?: boolean): GeneratePublicFileLinkRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GeneratePublicFileLinkRequest): GeneratePublicFileLinkRequest.AsObject;
+  static serializeBinaryToWriter(message: GeneratePublicFileLinkRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GeneratePublicFileLinkRequest;
+  static deserializeBinaryFromReader(message: GeneratePublicFileLinkRequest, reader: jspb.BinaryReader): GeneratePublicFileLinkRequest;
 }
 
-export namespace GenerateFileShareLinkRequest {
+export namespace GeneratePublicFileLinkRequest {
   export type AsObject = {
     bucket: string,
-    filepath: string,
+    itempathsList: Array<string>,
+    password: string,
   }
 }
 
-export class GenerateFileShareLinkResponse extends jspb.Message {
+export class GeneratePublicFileLinkResponse extends jspb.Message {
   getLink(): string;
-  setLink(value: string): GenerateFileShareLinkResponse;
+  setLink(value: string): GeneratePublicFileLinkResponse;
+
+  getFilecid(): string;
+  setFilecid(value: string): GeneratePublicFileLinkResponse;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GenerateFileShareLinkResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GenerateFileShareLinkResponse): GenerateFileShareLinkResponse.AsObject;
-  static serializeBinaryToWriter(message: GenerateFileShareLinkResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GenerateFileShareLinkResponse;
-  static deserializeBinaryFromReader(message: GenerateFileShareLinkResponse, reader: jspb.BinaryReader): GenerateFileShareLinkResponse;
+  toObject(includeInstance?: boolean): GeneratePublicFileLinkResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GeneratePublicFileLinkResponse): GeneratePublicFileLinkResponse.AsObject;
+  static serializeBinaryToWriter(message: GeneratePublicFileLinkResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GeneratePublicFileLinkResponse;
+  static deserializeBinaryFromReader(message: GeneratePublicFileLinkResponse, reader: jspb.BinaryReader): GeneratePublicFileLinkResponse;
 }
 
-export namespace GenerateFileShareLinkResponse {
+export namespace GeneratePublicFileLinkResponse {
   export type AsObject = {
     link: string,
+    filecid: string,
   }
 }
 
@@ -968,12 +854,68 @@ export namespace ListBucketsResponse {
   }
 }
 
-export class Invitation extends jspb.Message {
-  getInvitationtype(): InvitationType;
-  setInvitationtype(value: InvitationType): Invitation;
+export class CopyAndShareFilesRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): CopyAndShareFilesRequest;
 
-  getInvitationvalue(): string;
-  setInvitationvalue(value: string): Invitation;
+  getItempathsList(): Array<string>;
+  setItempathsList(value: Array<string>): CopyAndShareFilesRequest;
+  clearItempathsList(): CopyAndShareFilesRequest;
+  addItempaths(value: string, index?: number): CopyAndShareFilesRequest;
+
+  getPublickeysList(): Array<string>;
+  setPublickeysList(value: Array<string>): CopyAndShareFilesRequest;
+  clearPublickeysList(): CopyAndShareFilesRequest;
+  addPublickeys(value: string, index?: number): CopyAndShareFilesRequest;
+
+  getCustommessage(): string;
+  setCustommessage(value: string): CopyAndShareFilesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CopyAndShareFilesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: CopyAndShareFilesRequest): CopyAndShareFilesRequest.AsObject;
+  static serializeBinaryToWriter(message: CopyAndShareFilesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CopyAndShareFilesRequest;
+  static deserializeBinaryFromReader(message: CopyAndShareFilesRequest, reader: jspb.BinaryReader): CopyAndShareFilesRequest;
+}
+
+export namespace CopyAndShareFilesRequest {
+  export type AsObject = {
+    bucket: string,
+    itempathsList: Array<string>,
+    publickeysList: Array<string>,
+    custommessage: string,
+  }
+}
+
+export class CopyAndShareFilesResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CopyAndShareFilesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: CopyAndShareFilesResponse): CopyAndShareFilesResponse.AsObject;
+  static serializeBinaryToWriter(message: CopyAndShareFilesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CopyAndShareFilesResponse;
+  static deserializeBinaryFromReader(message: CopyAndShareFilesResponse, reader: jspb.BinaryReader): CopyAndShareFilesResponse;
+}
+
+export namespace CopyAndShareFilesResponse {
+  export type AsObject = {
+  }
+}
+
+export class Invitation extends jspb.Message {
+  getInviterpublickey(): string;
+  setInviterpublickey(value: string): Invitation;
+
+  getInvitationid(): string;
+  setInvitationid(value: string): Invitation;
+
+  getStatus(): InvitationStatus;
+  setStatus(value: InvitationStatus): Invitation;
+
+  getItempathsList(): Array<string>;
+  setItempathsList(value: Array<string>): Invitation;
+  clearItempathsList(): Invitation;
+  addItempaths(value: string, index?: number): Invitation;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Invitation.AsObject;
@@ -985,55 +927,222 @@ export class Invitation extends jspb.Message {
 
 export namespace Invitation {
   export type AsObject = {
-    invitationtype: InvitationType,
-    invitationvalue: string,
-  }
-}
-
-export class ShareItemsToSelectGroupRequest extends jspb.Message {
-  getBucket(): string;
-  setBucket(value: string): ShareItemsToSelectGroupRequest;
-
-  getItempathsList(): Array<string>;
-  setItempathsList(value: Array<string>): ShareItemsToSelectGroupRequest;
-  clearItempathsList(): ShareItemsToSelectGroupRequest;
-  addItempaths(value: string, index?: number): ShareItemsToSelectGroupRequest;
-
-  getInvitationsList(): Array<Invitation>;
-  setInvitationsList(value: Array<Invitation>): ShareItemsToSelectGroupRequest;
-  clearInvitationsList(): ShareItemsToSelectGroupRequest;
-  addInvitations(value?: Invitation, index?: number): Invitation;
-
-  getCustommessage(): string;
-  setCustommessage(value: string): ShareItemsToSelectGroupRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareItemsToSelectGroupRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareItemsToSelectGroupRequest): ShareItemsToSelectGroupRequest.AsObject;
-  static serializeBinaryToWriter(message: ShareItemsToSelectGroupRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareItemsToSelectGroupRequest;
-  static deserializeBinaryFromReader(message: ShareItemsToSelectGroupRequest, reader: jspb.BinaryReader): ShareItemsToSelectGroupRequest;
-}
-
-export namespace ShareItemsToSelectGroupRequest {
-  export type AsObject = {
-    bucket: string,
+    inviterpublickey: string,
+    invitationid: string,
+    status: InvitationStatus,
     itempathsList: Array<string>,
-    invitationsList: Array<Invitation.AsObject>,
-    custommessage: string,
   }
 }
 
-export class ShareItemsToSelectGroupResponse extends jspb.Message {
+export class Notification extends jspb.Message {
+  getId(): string;
+  setId(value: string): Notification;
+
+  getSubject(): string;
+  setSubject(value: string): Notification;
+
+  getBody(): string;
+  setBody(value: string): Notification;
+
+  getInvitationvalue(): Invitation | undefined;
+  setInvitationvalue(value?: Invitation): Notification;
+  hasInvitationvalue(): boolean;
+  clearInvitationvalue(): Notification;
+
+  getType(): NotificationType;
+  setType(value: NotificationType): Notification;
+
+  getCreatedat(): number;
+  setCreatedat(value: number): Notification;
+
+  getReadat(): number;
+  setReadat(value: number): Notification;
+
+  getRelatedobjectCase(): Notification.RelatedobjectCase;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareItemsToSelectGroupResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareItemsToSelectGroupResponse): ShareItemsToSelectGroupResponse.AsObject;
-  static serializeBinaryToWriter(message: ShareItemsToSelectGroupResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareItemsToSelectGroupResponse;
-  static deserializeBinaryFromReader(message: ShareItemsToSelectGroupResponse, reader: jspb.BinaryReader): ShareItemsToSelectGroupResponse;
+  toObject(includeInstance?: boolean): Notification.AsObject;
+  static toObject(includeInstance: boolean, msg: Notification): Notification.AsObject;
+  static serializeBinaryToWriter(message: Notification, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Notification;
+  static deserializeBinaryFromReader(message: Notification, reader: jspb.BinaryReader): Notification;
 }
 
-export namespace ShareItemsToSelectGroupResponse {
+export namespace Notification {
+  export type AsObject = {
+    id: string,
+    subject: string,
+    body: string,
+    invitationvalue?: Invitation.AsObject,
+    type: NotificationType,
+    createdat: number,
+    readat: number,
+  }
+
+  export enum RelatedobjectCase { 
+    RELATEDOBJECT_NOT_SET = 0,
+    INVITATIONVALUE = 4,
+  }
+}
+
+export class AcceptBucketInvitationRequest extends jspb.Message {
+  getInvitationid(): string;
+  setInvitationid(value: string): AcceptBucketInvitationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AcceptBucketInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: AcceptBucketInvitationRequest): AcceptBucketInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: AcceptBucketInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AcceptBucketInvitationRequest;
+  static deserializeBinaryFromReader(message: AcceptBucketInvitationRequest, reader: jspb.BinaryReader): AcceptBucketInvitationRequest;
+}
+
+export namespace AcceptBucketInvitationRequest {
+  export type AsObject = {
+    invitationid: string,
+  }
+}
+
+export class AcceptBucketInvitationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AcceptBucketInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: AcceptBucketInvitationResponse): AcceptBucketInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: AcceptBucketInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AcceptBucketInvitationResponse;
+  static deserializeBinaryFromReader(message: AcceptBucketInvitationResponse, reader: jspb.BinaryReader): AcceptBucketInvitationResponse;
+}
+
+export namespace AcceptBucketInvitationResponse {
+  export type AsObject = {
+  }
+}
+
+export class RejectBucketInvitationRequest extends jspb.Message {
+  getInvitationid(): string;
+  setInvitationid(value: string): RejectBucketInvitationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RejectBucketInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectBucketInvitationRequest): RejectBucketInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: RejectBucketInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationRequest;
+  static deserializeBinaryFromReader(message: RejectBucketInvitationRequest, reader: jspb.BinaryReader): RejectBucketInvitationRequest;
+}
+
+export namespace RejectBucketInvitationRequest {
+  export type AsObject = {
+    invitationid: string,
+  }
+}
+
+export class RejectBucketInvitationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RejectBucketInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectBucketInvitationResponse): RejectBucketInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: RejectBucketInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationResponse;
+  static deserializeBinaryFromReader(message: RejectBucketInvitationResponse, reader: jspb.BinaryReader): RejectBucketInvitationResponse;
+}
+
+export namespace RejectBucketInvitationResponse {
+  export type AsObject = {
+  }
+}
+
+export class NotificationEventResponse extends jspb.Message {
+  getNotification(): Notification | undefined;
+  setNotification(value?: Notification): NotificationEventResponse;
+  hasNotification(): boolean;
+  clearNotification(): NotificationEventResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): NotificationEventResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: NotificationEventResponse): NotificationEventResponse.AsObject;
+  static serializeBinaryToWriter(message: NotificationEventResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): NotificationEventResponse;
+  static deserializeBinaryFromReader(message: NotificationEventResponse, reader: jspb.BinaryReader): NotificationEventResponse;
+}
+
+export namespace NotificationEventResponse {
+  export type AsObject = {
+    notification?: Notification.AsObject,
+  }
+}
+
+export class GetNotificationsRequest extends jspb.Message {
+  getSeek(): string;
+  setSeek(value: string): GetNotificationsRequest;
+
+  getLimit(): number;
+  setLimit(value: number): GetNotificationsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNotificationsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNotificationsRequest): GetNotificationsRequest.AsObject;
+  static serializeBinaryToWriter(message: GetNotificationsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNotificationsRequest;
+  static deserializeBinaryFromReader(message: GetNotificationsRequest, reader: jspb.BinaryReader): GetNotificationsRequest;
+}
+
+export namespace GetNotificationsRequest {
+  export type AsObject = {
+    seek: string,
+    limit: number,
+  }
+}
+
+export class GetNotificationsResponse extends jspb.Message {
+  getNotificationsList(): Array<Notification>;
+  setNotificationsList(value: Array<Notification>): GetNotificationsResponse;
+  clearNotificationsList(): GetNotificationsResponse;
+  addNotifications(value?: Notification, index?: number): Notification;
+
+  getNextoffset(): number;
+  setNextoffset(value: number): GetNotificationsResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNotificationsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNotificationsResponse): GetNotificationsResponse.AsObject;
+  static serializeBinaryToWriter(message: GetNotificationsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNotificationsResponse;
+  static deserializeBinaryFromReader(message: GetNotificationsResponse, reader: jspb.BinaryReader): GetNotificationsResponse;
+}
+
+export namespace GetNotificationsResponse {
+  export type AsObject = {
+    notificationsList: Array<Notification.AsObject>,
+    nextoffset: number,
+  }
+}
+
+export class ReadNotificationRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): ReadNotificationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReadNotificationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ReadNotificationRequest): ReadNotificationRequest.AsObject;
+  static serializeBinaryToWriter(message: ReadNotificationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReadNotificationRequest;
+  static deserializeBinaryFromReader(message: ReadNotificationRequest, reader: jspb.BinaryReader): ReadNotificationRequest;
+}
+
+export namespace ReadNotificationRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class ReadNotificationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReadNotificationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ReadNotificationResponse): ReadNotificationResponse.AsObject;
+  static serializeBinaryToWriter(message: ReadNotificationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReadNotificationResponse;
+  static deserializeBinaryFromReader(message: ReadNotificationResponse, reader: jspb.BinaryReader): ReadNotificationResponse;
+}
+
+export namespace ReadNotificationResponse {
   export type AsObject = {
   }
 }
@@ -1043,11 +1152,11 @@ export enum EventType {
   ENTRY_DELETED = 1,
   ENTRY_UPDATED = 2,
 }
-export enum IdentityType { 
-  USERNAME = 0,
-  EMAIL = 1,
+export enum NotificationType { 
+  INVITATION = 0,
 }
-export enum InvitationType { 
-  INVITE_THROUGH_EMAIL = 0,
-  INVITE_THROUGH_ADDRESS = 1,
+export enum InvitationStatus { 
+  PENDING = 0,
+  ACCEPTED = 1,
+  REJECTED = 2,
 }
