@@ -909,6 +909,14 @@ export class Invitation extends jspb.Message {
   getInvitationid(): string;
   setInvitationid(value: string): Invitation;
 
+  getStatus(): InvitationStatus;
+  setStatus(value: InvitationStatus): Invitation;
+
+  getItempathsList(): Array<string>;
+  setItempathsList(value: Array<string>): Invitation;
+  clearItempathsList(): Invitation;
+  addItempaths(value: string, index?: number): Invitation;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Invitation.AsObject;
   static toObject(includeInstance: boolean, msg: Invitation): Invitation.AsObject;
@@ -921,40 +929,59 @@ export namespace Invitation {
   export type AsObject = {
     inviterpublickey: string,
     invitationid: string,
+    status: InvitationStatus,
+    itempathsList: Array<string>,
   }
 }
 
-export class GetPendingBucketInvitationsRequest extends jspb.Message {
+export class Notification extends jspb.Message {
+  getId(): string;
+  setId(value: string): Notification;
+
+  getSubject(): string;
+  setSubject(value: string): Notification;
+
+  getBody(): string;
+  setBody(value: string): Notification;
+
+  getInvitationvalue(): Invitation | undefined;
+  setInvitationvalue(value?: Invitation): Notification;
+  hasInvitationvalue(): boolean;
+  clearInvitationvalue(): Notification;
+
+  getType(): NotificationType;
+  setType(value: NotificationType): Notification;
+
+  getCreatedat(): number;
+  setCreatedat(value: number): Notification;
+
+  getReadat(): number;
+  setReadat(value: number): Notification;
+
+  getRelatedobjectCase(): Notification.RelatedobjectCase;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetPendingBucketInvitationsRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: GetPendingBucketInvitationsRequest): GetPendingBucketInvitationsRequest.AsObject;
-  static serializeBinaryToWriter(message: GetPendingBucketInvitationsRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetPendingBucketInvitationsRequest;
-  static deserializeBinaryFromReader(message: GetPendingBucketInvitationsRequest, reader: jspb.BinaryReader): GetPendingBucketInvitationsRequest;
+  toObject(includeInstance?: boolean): Notification.AsObject;
+  static toObject(includeInstance: boolean, msg: Notification): Notification.AsObject;
+  static serializeBinaryToWriter(message: Notification, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Notification;
+  static deserializeBinaryFromReader(message: Notification, reader: jspb.BinaryReader): Notification;
 }
 
-export namespace GetPendingBucketInvitationsRequest {
+export namespace Notification {
   export type AsObject = {
+    id: string,
+    subject: string,
+    body: string,
+    invitationvalue?: Invitation.AsObject,
+    type: NotificationType,
+    createdat: number,
+    readat: number,
   }
-}
 
-export class GetPendingBucketInvitationsResponse extends jspb.Message {
-  getInvitationsList(): Array<Invitation>;
-  setInvitationsList(value: Array<Invitation>): GetPendingBucketInvitationsResponse;
-  clearInvitationsList(): GetPendingBucketInvitationsResponse;
-  addInvitations(value?: Invitation, index?: number): Invitation;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetPendingBucketInvitationsResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: GetPendingBucketInvitationsResponse): GetPendingBucketInvitationsResponse.AsObject;
-  static serializeBinaryToWriter(message: GetPendingBucketInvitationsResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetPendingBucketInvitationsResponse;
-  static deserializeBinaryFromReader(message: GetPendingBucketInvitationsResponse, reader: jspb.BinaryReader): GetPendingBucketInvitationsResponse;
-}
-
-export namespace GetPendingBucketInvitationsResponse {
-  export type AsObject = {
-    invitationsList: Array<Invitation.AsObject>,
+  export enum RelatedobjectCase { 
+    RELATEDOBJECT_NOT_SET = 0,
+    INVITATIONVALUE = 4,
   }
 }
 
@@ -990,8 +1017,146 @@ export namespace AcceptBucketInvitationResponse {
   }
 }
 
+export class RejectBucketInvitationRequest extends jspb.Message {
+  getInvitationid(): string;
+  setInvitationid(value: string): RejectBucketInvitationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RejectBucketInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectBucketInvitationRequest): RejectBucketInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: RejectBucketInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationRequest;
+  static deserializeBinaryFromReader(message: RejectBucketInvitationRequest, reader: jspb.BinaryReader): RejectBucketInvitationRequest;
+}
+
+export namespace RejectBucketInvitationRequest {
+  export type AsObject = {
+    invitationid: string,
+  }
+}
+
+export class RejectBucketInvitationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RejectBucketInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectBucketInvitationResponse): RejectBucketInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: RejectBucketInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationResponse;
+  static deserializeBinaryFromReader(message: RejectBucketInvitationResponse, reader: jspb.BinaryReader): RejectBucketInvitationResponse;
+}
+
+export namespace RejectBucketInvitationResponse {
+  export type AsObject = {
+  }
+}
+
+export class NotificationEventResponse extends jspb.Message {
+  getNotification(): Notification | undefined;
+  setNotification(value?: Notification): NotificationEventResponse;
+  hasNotification(): boolean;
+  clearNotification(): NotificationEventResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): NotificationEventResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: NotificationEventResponse): NotificationEventResponse.AsObject;
+  static serializeBinaryToWriter(message: NotificationEventResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): NotificationEventResponse;
+  static deserializeBinaryFromReader(message: NotificationEventResponse, reader: jspb.BinaryReader): NotificationEventResponse;
+}
+
+export namespace NotificationEventResponse {
+  export type AsObject = {
+    notification?: Notification.AsObject,
+  }
+}
+
+export class GetNotificationsRequest extends jspb.Message {
+  getSeek(): string;
+  setSeek(value: string): GetNotificationsRequest;
+
+  getLimit(): number;
+  setLimit(value: number): GetNotificationsRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNotificationsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNotificationsRequest): GetNotificationsRequest.AsObject;
+  static serializeBinaryToWriter(message: GetNotificationsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNotificationsRequest;
+  static deserializeBinaryFromReader(message: GetNotificationsRequest, reader: jspb.BinaryReader): GetNotificationsRequest;
+}
+
+export namespace GetNotificationsRequest {
+  export type AsObject = {
+    seek: string,
+    limit: number,
+  }
+}
+
+export class GetNotificationsResponse extends jspb.Message {
+  getNotificationsList(): Array<Notification>;
+  setNotificationsList(value: Array<Notification>): GetNotificationsResponse;
+  clearNotificationsList(): GetNotificationsResponse;
+  addNotifications(value?: Notification, index?: number): Notification;
+
+  getNextoffset(): number;
+  setNextoffset(value: number): GetNotificationsResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNotificationsResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNotificationsResponse): GetNotificationsResponse.AsObject;
+  static serializeBinaryToWriter(message: GetNotificationsResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNotificationsResponse;
+  static deserializeBinaryFromReader(message: GetNotificationsResponse, reader: jspb.BinaryReader): GetNotificationsResponse;
+}
+
+export namespace GetNotificationsResponse {
+  export type AsObject = {
+    notificationsList: Array<Notification.AsObject>,
+    nextoffset: number,
+  }
+}
+
+export class ReadNotificationRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): ReadNotificationRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReadNotificationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ReadNotificationRequest): ReadNotificationRequest.AsObject;
+  static serializeBinaryToWriter(message: ReadNotificationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReadNotificationRequest;
+  static deserializeBinaryFromReader(message: ReadNotificationRequest, reader: jspb.BinaryReader): ReadNotificationRequest;
+}
+
+export namespace ReadNotificationRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class ReadNotificationResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReadNotificationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ReadNotificationResponse): ReadNotificationResponse.AsObject;
+  static serializeBinaryToWriter(message: ReadNotificationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReadNotificationResponse;
+  static deserializeBinaryFromReader(message: ReadNotificationResponse, reader: jspb.BinaryReader): ReadNotificationResponse;
+}
+
+export namespace ReadNotificationResponse {
+  export type AsObject = {
+  }
+}
+
 export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
   ENTRY_UPDATED = 2,
+}
+export enum NotificationType { 
+  INVITATION = 0,
+}
+export enum InvitationStatus { 
+  PENDING = 0,
+  ACCEPTED = 1,
+  REJECTED = 2,
 }

@@ -34,8 +34,8 @@ import {
   GenerateKeyPairResponse,
   GeneratePublicFileLinkRequest,
   GeneratePublicFileLinkResponse,
-  GetPendingBucketInvitationsRequest,
-  GetPendingBucketInvitationsResponse,
+  GetNotificationsRequest,
+  GetNotificationsResponse,
   JoinBucketRequest,
   JoinBucketResponse,
   ListBucketsRequest,
@@ -44,12 +44,17 @@ import {
   ListDirectoriesResponse,
   ListDirectoryRequest,
   ListDirectoryResponse,
+  NotificationEventResponse,
   OpenFileRequest,
   OpenFileResponse,
   OpenPublicFileRequest,
   OpenPublicFileResponse,
+  ReadNotificationRequest,
+  ReadNotificationResponse,
   RecoverKeysByPassphraseRequest,
   RecoverKeysByPassphraseResponse,
+  RejectBucketInvitationRequest,
+  RejectBucketInvitationResponse,
   ShareBucketRequest,
   ShareBucketResponse,
   ShareBucketViaPublicKeyRequest,
@@ -754,45 +759,6 @@ export class SpaceApiClient {
     this.methodInfoShareBucketViaPublicKey);
   }
 
-  methodInfoGetPendingBucketInvitations = new grpcWeb.AbstractClientBase.MethodInfo(
-    GetPendingBucketInvitationsResponse,
-    (request: GetPendingBucketInvitationsRequest) => {
-      return request.serializeBinary();
-    },
-    GetPendingBucketInvitationsResponse.deserializeBinary
-  );
-
-  getPendingBucketInvitations(
-    request: GetPendingBucketInvitationsRequest,
-    metadata: grpcWeb.Metadata | null): Promise<GetPendingBucketInvitationsResponse>;
-
-  getPendingBucketInvitations(
-    request: GetPendingBucketInvitationsRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: GetPendingBucketInvitationsResponse) => void): grpcWeb.ClientReadableStream<GetPendingBucketInvitationsResponse>;
-
-  getPendingBucketInvitations(
-    request: GetPendingBucketInvitationsRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
-               response: GetPendingBucketInvitationsResponse) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        new URL('/space.SpaceApi/GetPendingBucketInvitations', this.hostname_).toString(),
-        request,
-        metadata || {},
-        this.methodInfoGetPendingBucketInvitations,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/space.SpaceApi/GetPendingBucketInvitations',
-    request,
-    metadata || {},
-    this.methodInfoGetPendingBucketInvitations);
-  }
-
   methodInfoAcceptBucketInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
     AcceptBucketInvitationResponse,
     (request: AcceptBucketInvitationRequest) => {
@@ -830,6 +796,63 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoAcceptBucketInvitation);
+  }
+
+  methodInfoRejectBucketInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
+    RejectBucketInvitationResponse,
+    (request: RejectBucketInvitationRequest) => {
+      return request.serializeBinary();
+    },
+    RejectBucketInvitationResponse.deserializeBinary
+  );
+
+  rejectBucketInvitation(
+    request: RejectBucketInvitationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RejectBucketInvitationResponse>;
+
+  rejectBucketInvitation(
+    request: RejectBucketInvitationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: RejectBucketInvitationResponse) => void): grpcWeb.ClientReadableStream<RejectBucketInvitationResponse>;
+
+  rejectBucketInvitation(
+    request: RejectBucketInvitationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: RejectBucketInvitationResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/RejectBucketInvitation', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoRejectBucketInvitation,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/RejectBucketInvitation',
+    request,
+    metadata || {},
+    this.methodInfoRejectBucketInvitation);
+  }
+
+  methodInfoNotificationSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
+    NotificationEventResponse,
+    (request: google_protobuf_empty_pb.Empty) => {
+      return request.serializeBinary();
+    },
+    NotificationEventResponse.deserializeBinary
+  );
+
+  notificationSubscribe(
+    request: google_protobuf_empty_pb.Empty,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      new URL('/space.SpaceApi/NotificationSubscribe', this.hostname_).toString(),
+      request,
+      metadata || {},
+      this.methodInfoNotificationSubscribe);
   }
 
   methodInfoListBuckets = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -908,6 +931,84 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoCopyAndShareFiles);
+  }
+
+  methodInfoGetNotifications = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetNotificationsResponse,
+    (request: GetNotificationsRequest) => {
+      return request.serializeBinary();
+    },
+    GetNotificationsResponse.deserializeBinary
+  );
+
+  getNotifications(
+    request: GetNotificationsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetNotificationsResponse>;
+
+  getNotifications(
+    request: GetNotificationsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetNotificationsResponse) => void): grpcWeb.ClientReadableStream<GetNotificationsResponse>;
+
+  getNotifications(
+    request: GetNotificationsRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetNotificationsResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetNotifications', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetNotifications,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetNotifications',
+    request,
+    metadata || {},
+    this.methodInfoGetNotifications);
+  }
+
+  methodInfoReadNotification = new grpcWeb.AbstractClientBase.MethodInfo(
+    ReadNotificationResponse,
+    (request: ReadNotificationRequest) => {
+      return request.serializeBinary();
+    },
+    ReadNotificationResponse.deserializeBinary
+  );
+
+  readNotification(
+    request: ReadNotificationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ReadNotificationResponse>;
+
+  readNotification(
+    request: ReadNotificationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ReadNotificationResponse) => void): grpcWeb.ClientReadableStream<ReadNotificationResponse>;
+
+  readNotification(
+    request: ReadNotificationRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ReadNotificationResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ReadNotification', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoReadNotification,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ReadNotification',
+    request,
+    metadata || {},
+    this.methodInfoReadNotification);
   }
 
 }

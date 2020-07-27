@@ -111,11 +111,15 @@ service SpaceApi {
 
   }
 
-  rpc GetPendingBucketInvitations(GetPendingBucketInvitationsRequest) returns (GetPendingBucketInvitationsResponse) {
+  rpc AcceptBucketInvitation(AcceptBucketInvitationRequest) returns (AcceptBucketInvitationResponse) {
 
   }
 
-  rpc AcceptBucketInvitation(AcceptBucketInvitationRequest) returns (AcceptBucketInvitationResponse) {
+  rpc RejectBucketInvitation(RejectBucketInvitationRequest) returns (RejectBucketInvitationResponse) {
+
+  }
+
+  rpc NotificationSubscribe(google.protobuf.Empty) returns (stream NotificationEventResponse) {
 
   }
 
@@ -126,6 +130,15 @@ service SpaceApi {
   // Copies a set of files in a new or existing bucket that's shared with a group of public keys
   // Auxiliary method that internally calls CreateBucket, ShareBucketViaPublicKey, AddFile.
   rpc CopyAndShareFiles(CopyAndShareFilesRequest) returns (CopyAndShareFilesResponse) {
+
+  }
+
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {
+
+  }
+
+
+  rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse) {
 
   }
 }
@@ -333,15 +346,34 @@ message CopyAndShareFilesRequest {
 
 message CopyAndShareFilesResponse {}
 
+enum NotificationType {
+  INVITATION = 0;
+}
+
+enum InvitationStatus {
+  PENDING = 0;
+  ACCEPTED = 1;
+  REJECTED = 2;
+}
+
 message Invitation {
   string inviterPublicKey = 1;
   string invitationID = 2;
+  InvitationStatus status = 4;
+  repeated string itemPaths = 5;
 }
 
-message GetPendingBucketInvitationsRequest {}
-
-message GetPendingBucketInvitationsResponse {
-  repeated Invitation invitations = 1;
+message Notification {
+  string ID = 1; // underlying message id from textile
+  string subject = 2;
+  string body = 3;
+  oneof relatedObject {
+    Invitation invitationValue = 4;
+    // later we can add other types here
+  }
+  NotificationType type = 5;
+  int64 createdAt = 6;
+  int64 readAt = 7;
 }
 
 message AcceptBucketInvitationRequest {
@@ -349,3 +381,29 @@ message AcceptBucketInvitationRequest {
 }
 
 message AcceptBucketInvitationResponse {}
+
+message RejectBucketInvitationRequest {
+  string invitationID = 1;
+}
+
+message RejectBucketInvitationResponse {}
+
+message NotificationEventResponse {
+  Notification notification = 1;
+}
+
+message GetNotificationsRequest {
+  string seek = 1;
+  int64 limit = 2;
+}
+
+message GetNotificationsResponse {
+  repeated Notification notifications= 1;
+  int64 nextOffset = 2;
+}
+message ReadNotificationRequest {
+  string ID = 1;
+}
+
+message ReadNotificationResponse {
+}
