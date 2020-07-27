@@ -3,6 +3,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
+
 package space;
 
 option go_package = ".;pb";
@@ -13,99 +14,119 @@ option go_package = ".;pb";
 service SpaceApi {
   // Get all folder or files in the default bucket. It fetches all subdirectories too.
   rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {
+
   }
 
   // Get the folder or files in the path directory.
   // Unlike ListDirectories, this only returns immediate children at path.
   rpc ListDirectory(ListDirectoryRequest) returns (ListDirectoryResponse) {
-  }
 
-  // Get Config information installed daemon
-  rpc GetConfigInfo(google.protobuf.Empty) returns (ConfigInfoResponse) {
   }
 
   // Generate Key Pair for current account.
   // This will return error if daemon account already has keypairs
   rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
+
   }
 
   // Force Generation of KeyPair. This will override existing keys stored in daemon.
   rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
+
   }
 
   // Subscribe to file events. This streams responses to the caller
   rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
+
   }
 
   // Subscribe to textile events. This streams responses to the caller
   rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {
+
   }
 
   // Open a file in the daemon.
   // Daemon keeps track of all open files and closes them if no activity is noticed after a while
   rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
+
+  }
+
+  // Generates a copy of the file that's accessible through IPFS gateways
+  rpc GeneratePublicFileLink(GeneratePublicFileLinkRequest) returns (GeneratePublicFileLinkResponse) {
+
+  }
+
+  // Open an encrypted public shared file in the daemon.
+  // This requires the decryption key and file hash/cid to work
+  rpc OpenPublicFile(OpenPublicFileRequest) returns (OpenPublicFileResponse) {
+
   }
 
   // Adds items (files/folders) to be uploaded to the bucket.
   rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {
+
   }
 
   // Creates a folder/directory at the specified path
   rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
+
   }
 
   // Toggle FUSE drive to be mounted or unmounted
   rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {
+
   }
 
   // Get status of FUSE drive. If mounted or unmounted
   rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {
+
   }
 
   // Create a new bucket owned by current user (aka keypair)
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {
-  }
 
-  // Get Identity by Username
-  rpc GetIdentityByUsername(GetIdentityByUsernameRequest) returns (GetIdentityByUsernameResponse) {
-  }
-
-  // Create a new user identity. Username and Email required.
-  rpc CreateUsernameAndEmail(CreateUsernameAndEmailRequest) returns (CreateUsernameAndEmailResponse) {
   }
 
   // Backup Key by Passphrase
   rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
+
   }
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
+
   }
 
   // Share bucket
   rpc ShareBucket(ShareBucketRequest) returns (ShareBucketResponse) {
+
   }
 
   // Join bucket
   rpc JoinBucket(JoinBucketRequest) returns (JoinBucketResponse) {
+
   }
 
-  // Share bucket via email
-  rpc ShareBucketViaEmail(ShareBucketViaEmailRequest) returns (ShareBucketViaEmailResponse) {
+  // Share bucket via public key using Textile Hub inboxing
+  rpc ShareBucketViaPublicKey(ShareBucketViaPublicKeyRequest) returns (ShareBucketViaPublicKeyResponse) {
+
   }
 
-  // Share bucket via identity information
-  rpc ShareBucketViaIdentity(ShareBucketViaIdentityRequest) returns (ShareBucketViaIdentityResponse) {
+  rpc GetPendingBucketInvitations(GetPendingBucketInvitationsRequest) returns (GetPendingBucketInvitationsResponse) {
+
   }
 
-  // Generate sharing link for file in bucket
-  rpc GenerateFileShareLink(GenerateFileShareLinkRequest) returns (GenerateFileShareLinkResponse) {
+  rpc AcceptBucketInvitation(AcceptBucketInvitationRequest) returns (AcceptBucketInvitationResponse) {
+
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
+
   }
 
-  rpc ShareItemsToSelectGroup(ShareItemsToSelectGroupRequest) returns (ShareItemsToSelectGroupResponse) {
+  // Copies a set of files in a new or existing bucket that's shared with a group of public keys
+  // Auxiliary method that internally calls CreateBucket, ShareBucketViaPublicKey, AddFile.
+  rpc CopyAndShareFiles(CopyAndShareFilesRequest) returns (CopyAndShareFilesResponse) {
+
   }
 }
 
@@ -124,7 +145,6 @@ message ListDirectoryEntry {
   string ipfsHash = 8;
 }
 
-
 message ListDirectoriesResponse {
   repeated ListDirectoryEntry entries = 1;
 }
@@ -138,25 +158,15 @@ message ListDirectoryResponse {
   repeated ListDirectoryEntry entries = 1;
 }
 
-message ConfigInfoResponse {
-  string port = 1;
-  string appPath = 2;
-}
-
 message CreateBucketRequest {
   string slug = 1;
 }
 
 message BucketMember {
-  // Might be blank while the invite is not accepted.
   string address = 1;
-  // Might be blank while the invite is not accepted.
   string publicKey = 2;
   bool isOwner = 3;
-  // Might be blank while the invite is not accepted.
-  string username = 4;
-  // Optional. Might be blank.
-  string email = 5;
+  bool hasJoined = 4;
 }
 
 message Bucket {
@@ -166,7 +176,7 @@ message Bucket {
   int64 createdAt = 4;
   int64 updatedAt = 5;
   repeated BucketMember members = 6;
-  bool isSelectGroupBucket = 7;
+  bool isPersonalBucket = 7;
 }
 
 message CreateBucketResponse {
@@ -204,6 +214,16 @@ message OpenFileResponse {
   string location = 1;
 }
 
+message OpenPublicFileRequest {
+  string fileCid = 1;
+  string fileKey = 2;
+  string filename = 3;
+}
+
+message OpenPublicFileResponse {
+  string location = 1;
+}
+
 message AddItemsRequest {
   // full paths to file or Folder on FS. Needs to be a location available to the daemon
   repeated string sourcePaths = 1;
@@ -237,28 +257,6 @@ message CreateFolderRequest {
 message CreateFolderResponse {
 }
 
-message GetIdentityByUsernameRequest {
-  string username = 1;
-}
-
-message Identity {
-  string address = 1;
-  string publicKey = 2;
-  string username = 3;
-}
-
-message GetIdentityByUsernameResponse {
-  Identity identity = 1;
-}
-
-message CreateUsernameAndEmailRequest {
-  string username = 1;
-  // Optional. Send "" to skip.
-  string email = 2;
-}
-
-message CreateUsernameAndEmailResponse {}
-
 message BackupKeysByPassphraseRequest {
   string passphrase = 1;
 }
@@ -287,42 +285,29 @@ message ShareBucketResponse {
 message JoinBucketRequest {
   ThreadInfo threadinfo = 1;
   string bucket = 2;
-  string invitationID = 3;
 }
 
 message JoinBucketResponse {
   bool result = 1;
 }
 
-message ShareBucketViaEmailRequest {
+
+message ShareBucketViaPublicKeyRequest {
+  repeated string publicKeys = 1;
+  string bucket = 2;
+}
+
+message ShareBucketViaPublicKeyResponse {}
+
+message GeneratePublicFileLinkRequest {
   string bucket = 1;
-  string email = 2;
+  repeated string itemPaths = 2;
+  string password = 3;
 }
 
-message ShareBucketViaEmailResponse {}
-
-enum IdentityType {
-  USERNAME = 0;
-  EMAIL = 1;
-}
-
-message ShareBucketViaIdentityRequest {
-  // identityType is either USERNAME or EMAIL
-  IdentityType identityType = 1;
-  // E.g. if identityType is USERNAME, identityValue is the actual username
-  string identityValue = 2;
-  string bucket = 3;
-}
-
-message ShareBucketViaIdentityResponse {}
-
-message GenerateFileShareLinkRequest {
-  string bucket = 1;
-  string filePath = 2;
-}
-
-message GenerateFileShareLinkResponse {
+message GeneratePublicFileLinkResponse {
   string link = 1;
+  string fileCid = 2;
 }
 
 message ToggleFuseRequest {
@@ -339,23 +324,28 @@ message ListBucketsResponse {
   repeated Bucket buckets = 1;
 }
 
-enum InvitationType {
-  INVITE_THROUGH_EMAIL = 0;
-  INVITE_THROUGH_ADDRESS = 1;
-}
-
-message Invitation {
-  // If inviting a user that might or might not have Space installed, use INVITE_THROUGH_EMAIL. If you want to invite via a known identity, use INVITE_THROUGH_ADDRESS instead
-  InvitationType invitationType = 1;
-  // Either the email if using INVITE_THROUGH_EMAIL, or the address (derivation from public key) if using INVITE_THROUGH_ADDRESS
-  string invitationValue = 2;
-}
-
-message ShareItemsToSelectGroupRequest {
+message CopyAndShareFilesRequest {
   string bucket = 1;
   repeated string itemPaths = 2;
-  repeated Invitation invitations = 3;
+  repeated string publicKeys = 3;
   string customMessage = 4;
 }
 
-message ShareItemsToSelectGroupResponse {}
+message CopyAndShareFilesResponse {}
+
+message Invitation {
+  string inviterPublicKey = 1;
+  string invitationID = 2;
+}
+
+message GetPendingBucketInvitationsRequest {}
+
+message GetPendingBucketInvitationsResponse {
+  repeated Invitation invitations = 1;
+}
+
+message AcceptBucketInvitationRequest {
+  string invitationID = 1;
+}
+
+message AcceptBucketInvitationResponse {}

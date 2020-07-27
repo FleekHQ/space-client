@@ -23,31 +23,6 @@ export interface CreateFolderPayload {
   bucket?: string;
 }
 
-export interface GetIdentityByUsernamePayload {
-  username: string;
-}
-
-export interface CreateUsernameAndEmailPayload {
-  email?: string;
-  username: string;
-}
-
-export interface ShareBucketViaEmailPayload {
-  bucket?: string;
-  email: string;
-}
-
-export interface ShareBucketViaIdentityPayload {
-  identityType: 'EMAIL' | 'USERNAME';
-  identityValue: string;
-  bucket?: string;
-}
-
-export interface GenerateFileShareLinkPayload {
-  bucket?: string;
-  filePath: string;
-}
-
 export interface BackupKeysByPassphrasePayload {
   passphrase: string;
 }
@@ -83,10 +58,3 @@ type InvitationType = {
   invitationType: 'INVITE_THROUGH_EMAIL' | 'INVITE_THROUGH_ADDRESS';
   invitationValue: string;
 };
-
-export interface ShareItemsToSelectGroupPayload {
-  bucket: string;
-  itemPaths: [string];
-  invitations: [InvitationType];
-  customMessage?: string;
-}

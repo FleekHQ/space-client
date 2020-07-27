@@ -153,58 +153,6 @@ document.getElementById('open-file').onclick = async () => {
 };
 
 
-document.getElementById('share-email').onclick = async () => {
-  const bucket = document.getElementById('share-email-bucket').value;
-  const email = document.getElementById('share-email-input').value;
-
-  try {
-    const shareEmailRes = await client.shareBucketViaEmail({
-      bucket,
-      email,
-    });
-    console.log(shareEmailRes);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
-document.getElementById('share-identity').onclick = async () => {
-  const bucket = document.getElementById('share-identity-bucket').value;
-  const identityType = document.getElementById('identity-type').value;
-  const identityValue = document.getElementById('share-identity-value').value;
-
-  try {
-    const shareIdentityRes = await client.shareBucketViaIdentity({
-      bucket,
-      identityType,
-      identityValue,
-    });
-
-    console.log(shareIdentityRes);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
-
-document.getElementById('share-link').onclick = async () => {
-  const bucket = document.getElementById('share-link-bucket').value;
-  const filePath = document.getElementById('share-link-filepath').value;
-
-  try {
-    const shareLinkRes = await client.generateFileShareLink({
-      bucket,
-      filePath,
-    });
-
-    console.log(shareLinkRes.getLink());
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 document.getElementById('list-buckets').onclick = async () => {
   try {
     console.log('listing buckets...');
@@ -314,44 +262,6 @@ document.getElementById('get-fuse-drive-status').onclick = async () => {
 };
 
 
-document.getElementById('get-identity').onclick = async () => {
-  const username = document.getElementById('get-identity-username').value;
-  const payload = { username };
-  console.log('payload', payload);
-
-  try {
-    const res = await client.getIdentityByUsername(payload);
-    const identity = res.getIdentity();
-
-    console.log('identity:', {
-      address: identity.getAddress(),
-      publicKey: identity.getPublickey(),
-      username: identity.getUsername(),
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
-
-document.getElementById('create-user').onclick = async () => {
-  const email = document.getElementById('create-user-email').value;
-  const username = document.getElementById('create-user-username').value;
-
-  const payload = { email, username };
-
-  console.log('payload', payload);
-
-  try {
-    const res = await client.createUsernameAndEmail(payload);
-    console.log(res);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
 document.getElementById('share-bucket').onclick = async () => {
   const bucket = document.getElementById('share-bucket-input').value;
 
@@ -403,38 +313,3 @@ document.getElementById('join-bucket').onclick = async () => {
   }
 };
 
-
-document.getElementById('share-items-select-grup').onclick = async () => {
-  const bucket = document.getElementById('share-items-select-grup-bucket').value;
-  const invitationType = document.getElementById('invitation-type').value;
-  const invitationValue = document.getElementById('invitation-value').value;
-  const customMessage = document.getElementById('invitation-custom-message').value;
-
-  const itemPaths = document.getElementById('share-items-select-grup-item-paths')
-    .value
-    .replace(' ', '')
-    .split(',');
-
-  const payload = {
-    bucket,
-    itemPaths,
-    customMessage,
-    invitations: [
-      {
-        invitationType,
-        invitationValue,
-      },
-    ],
-  };
-
-  try {
-    console.log('sharing items...');
-    console.log('payload', payload);
-
-    const res = await client.shareItemsToSelectGroup(payload);
-
-    console.log(res);
-  } catch (error) {
-    console.error(error);
-  }
-};
