@@ -28,6 +28,8 @@ import {
   CreateBucketResponse,
   CreateFolderRequest,
   CreateFolderResponse,
+  CreateLocalKeysBackupRequest,
+  CreateLocalKeysBackupResponse,
   FileEventResponse,
   FuseDriveResponse,
   GenerateKeyPairRequest,
@@ -36,6 +38,8 @@ import {
   GeneratePublicFileLinkResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
+  GetPublicKeyRequest,
+  GetPublicKeyResponse,
   JoinBucketRequest,
   JoinBucketResponse,
   ListBucketsRequest,
@@ -51,6 +55,8 @@ import {
   OpenPublicFileResponse,
   ReadNotificationRequest,
   ReadNotificationResponse,
+  RecoverKeysByLocalBackupRequest,
+  RecoverKeysByLocalBackupResponse,
   RecoverKeysByPassphraseRequest,
   RecoverKeysByPassphraseResponse,
   RejectBucketInvitationRequest,
@@ -235,6 +241,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGenerateKeyPairWithForce);
+  }
+
+  methodInfoGetPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetPublicKeyResponse,
+    (request: GetPublicKeyRequest) => {
+      return request.serializeBinary();
+    },
+    GetPublicKeyResponse.deserializeBinary
+  );
+
+  getPublicKey(
+    request: GetPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetPublicKeyResponse>;
+
+  getPublicKey(
+    request: GetPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetPublicKeyResponse) => void): grpcWeb.ClientReadableStream<GetPublicKeyResponse>;
+
+  getPublicKey(
+    request: GetPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetPublicKeyResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetPublicKey', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetPublicKey,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetPublicKey',
+    request,
+    metadata || {},
+    this.methodInfoGetPublicKey);
   }
 
   methodInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -640,6 +685,84 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoRecoverKeysByPassphrase);
+  }
+
+  methodInfoCreateLocalKeysBackup = new grpcWeb.AbstractClientBase.MethodInfo(
+    CreateLocalKeysBackupResponse,
+    (request: CreateLocalKeysBackupRequest) => {
+      return request.serializeBinary();
+    },
+    CreateLocalKeysBackupResponse.deserializeBinary
+  );
+
+  createLocalKeysBackup(
+    request: CreateLocalKeysBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<CreateLocalKeysBackupResponse>;
+
+  createLocalKeysBackup(
+    request: CreateLocalKeysBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: CreateLocalKeysBackupResponse) => void): grpcWeb.ClientReadableStream<CreateLocalKeysBackupResponse>;
+
+  createLocalKeysBackup(
+    request: CreateLocalKeysBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: CreateLocalKeysBackupResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/CreateLocalKeysBackup', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoCreateLocalKeysBackup,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/CreateLocalKeysBackup',
+    request,
+    metadata || {},
+    this.methodInfoCreateLocalKeysBackup);
+  }
+
+  methodInfoRecoverKeysByLocalBackup = new grpcWeb.AbstractClientBase.MethodInfo(
+    RecoverKeysByLocalBackupResponse,
+    (request: RecoverKeysByLocalBackupRequest) => {
+      return request.serializeBinary();
+    },
+    RecoverKeysByLocalBackupResponse.deserializeBinary
+  );
+
+  recoverKeysByLocalBackup(
+    request: RecoverKeysByLocalBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RecoverKeysByLocalBackupResponse>;
+
+  recoverKeysByLocalBackup(
+    request: RecoverKeysByLocalBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: RecoverKeysByLocalBackupResponse) => void): grpcWeb.ClientReadableStream<RecoverKeysByLocalBackupResponse>;
+
+  recoverKeysByLocalBackup(
+    request: RecoverKeysByLocalBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: RecoverKeysByLocalBackupResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/RecoverKeysByLocalBackup', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoRecoverKeysByLocalBackup,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/RecoverKeysByLocalBackup',
+    request,
+    metadata || {},
+    this.methodInfoRecoverKeysByLocalBackup);
   }
 
   methodInfoShareBucket = new grpcWeb.AbstractClientBase.MethodInfo(

@@ -1147,6 +1147,102 @@ export namespace ReadNotificationResponse {
   }
 }
 
+export class GetPublicKeyRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetPublicKeyRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetPublicKeyRequest): GetPublicKeyRequest.AsObject;
+  static serializeBinaryToWriter(message: GetPublicKeyRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetPublicKeyRequest;
+  static deserializeBinaryFromReader(message: GetPublicKeyRequest, reader: jspb.BinaryReader): GetPublicKeyRequest;
+}
+
+export namespace GetPublicKeyRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetPublicKeyResponse extends jspb.Message {
+  getPublickey(): string;
+  setPublickey(value: string): GetPublicKeyResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetPublicKeyResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetPublicKeyResponse): GetPublicKeyResponse.AsObject;
+  static serializeBinaryToWriter(message: GetPublicKeyResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetPublicKeyResponse;
+  static deserializeBinaryFromReader(message: GetPublicKeyResponse, reader: jspb.BinaryReader): GetPublicKeyResponse;
+}
+
+export namespace GetPublicKeyResponse {
+  export type AsObject = {
+    publickey: string,
+  }
+}
+
+export class RecoverKeysByLocalBackupRequest extends jspb.Message {
+  getPathtokeybackup(): string;
+  setPathtokeybackup(value: string): RecoverKeysByLocalBackupRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RecoverKeysByLocalBackupRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RecoverKeysByLocalBackupRequest): RecoverKeysByLocalBackupRequest.AsObject;
+  static serializeBinaryToWriter(message: RecoverKeysByLocalBackupRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RecoverKeysByLocalBackupRequest;
+  static deserializeBinaryFromReader(message: RecoverKeysByLocalBackupRequest, reader: jspb.BinaryReader): RecoverKeysByLocalBackupRequest;
+}
+
+export namespace RecoverKeysByLocalBackupRequest {
+  export type AsObject = {
+    pathtokeybackup: string,
+  }
+}
+
+export class RecoverKeysByLocalBackupResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RecoverKeysByLocalBackupResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RecoverKeysByLocalBackupResponse): RecoverKeysByLocalBackupResponse.AsObject;
+  static serializeBinaryToWriter(message: RecoverKeysByLocalBackupResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RecoverKeysByLocalBackupResponse;
+  static deserializeBinaryFromReader(message: RecoverKeysByLocalBackupResponse, reader: jspb.BinaryReader): RecoverKeysByLocalBackupResponse;
+}
+
+export namespace RecoverKeysByLocalBackupResponse {
+  export type AsObject = {
+  }
+}
+
+export class CreateLocalKeysBackupRequest extends jspb.Message {
+  getPathtokeybackup(): string;
+  setPathtokeybackup(value: string): CreateLocalKeysBackupRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CreateLocalKeysBackupRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateLocalKeysBackupRequest): CreateLocalKeysBackupRequest.AsObject;
+  static serializeBinaryToWriter(message: CreateLocalKeysBackupRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateLocalKeysBackupRequest;
+  static deserializeBinaryFromReader(message: CreateLocalKeysBackupRequest, reader: jspb.BinaryReader): CreateLocalKeysBackupRequest;
+}
+
+export namespace CreateLocalKeysBackupRequest {
+  export type AsObject = {
+    pathtokeybackup: string,
+  }
+}
+
+export class CreateLocalKeysBackupResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): CreateLocalKeysBackupResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: CreateLocalKeysBackupResponse): CreateLocalKeysBackupResponse.AsObject;
+  static serializeBinaryToWriter(message: CreateLocalKeysBackupResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): CreateLocalKeysBackupResponse;
+  static deserializeBinaryFromReader(message: CreateLocalKeysBackupResponse, reader: jspb.BinaryReader): CreateLocalKeysBackupResponse;
+}
+
+export namespace CreateLocalKeysBackupResponse {
+  export type AsObject = {
+  }
+}
+
 export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
