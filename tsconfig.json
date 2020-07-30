@@ -18,6 +18,6 @@
   ],
   "exclude": [
     "dist",
-    "**/*.spec.ts"
+    "**/__tests__/*"
   ]
 }
