@@ -45,6 +45,8 @@ import {
   JoinBucketRequest,
   JoinBucketResponse,
   ThreadInfo,
+  GetPublicKeyRequest,
+  GetPublicKeyResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -420,6 +422,27 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getPublicKey(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetPublicKeyResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetPublicKeyRequest();
+
+      this.instance.getPublicKey(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetPublicKeyResponse) => {
           if (err) {
             reject(err);
             return;
