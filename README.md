@@ -1,3 +1,6 @@
+![Publish Action Status](https://github.com/FleekHQ/space-client/workflows/Publish/badge.svg?branch=master)
+![Tests Action Status](https://github.com/FleekHQ/space-client/workflows/Tests/badge.svg)
+
 # Space Client
 
 ## Overview

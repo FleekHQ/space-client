@@ -28,6 +28,7 @@ client.instance = {
   joinBucket: jest.fn(),
   shareItemsToSelectGroup: jest.fn(),
   notificationSubscribe: jest.fn(),
+  getPublicKey: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -87,51 +88,6 @@ it('createFolder makes the right requests', async () => {
   });
 
   expect(client.instance.createFolder).toHaveBeenCalledTimes(1);
-});
-
-it('createUsernameAndEmail makes the right requests', async () => {
-  client.createUsernameAndEmail({
-    email: 'hi@fleek.co',
-    username: 'fleek',
-  });
-
-  expect(client.instance.createUsernameAndEmail).toHaveBeenCalledTimes(1);
-});
-
-it('getIdentityByUsername makes the right requests', async () => {
-  client.getIdentityByUsername({
-    username: 'fleek',
-  });
-
-  expect(client.instance.getIdentityByUsername).toHaveBeenCalledTimes(1);
-});
-
-it('shareBucketViaEmail makes the right requests', async () => {
-  client.shareBucketViaEmail({
-    email: 'hi@fleek.co',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.shareBucketViaEmail).toHaveBeenCalledTimes(1);
-});
-
-it('shareBucketViaIdentity makes the right requests', async () => {
-  client.shareBucketViaIdentity({
-    identityType: 0,
-    identityValue: 'fleek',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.shareBucketViaIdentity).toHaveBeenCalledTimes(1);
-});
-
-it('generateFileShareLink makes the right requests', async () => {
-  client.generateFileShareLink({
-    filepath: '/',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.generateFileShareLink).toHaveBeenCalledTimes(1);
 });
 
 it('backupKeysByPassphrase makes the right requests', async () => {
@@ -196,25 +152,14 @@ it('joinBucket makes the right requests', async () => {
   expect(client.instance.joinBucket).toHaveBeenCalledTimes(1);
 });
 
-it('should call shareItemsToSelectGroup', async () => {
-  const payload = {
-    bucket: 'test',
-    itemPaths: ['path/1/file.txt', 'path/2/key.txt'],
-    invitations: [
-      {
-        invitationType: 'INVITE_THROUGH_ADDRESS',
-        invitationValue: 'test@email.com',
-      },
-    ],
-  };
-
-  client.shareItemsToSelectGroup(payload);
-
-  expect(client.instance.shareItemsToSelectGroup).toHaveBeenCalledTimes(1);
-});
-
 it('notificationSubscribe makes the right requests', async () => {
   client.notificationSubscribe({});
 
   expect(client.instance.notificationSubscribe).toHaveBeenCalledTimes(1);
+});
+
+it('getPublicKey makes the right requests', async () => {
+  client.getPublicKey({});
+
+  expect(client.instance.getPublicKey).toHaveBeenCalledTimes(1);
 });
