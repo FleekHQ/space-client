@@ -27,6 +27,7 @@ client.instance = {
   shareBucket: jest.fn(),
   joinBucket: jest.fn(),
   shareItemsToSelectGroup: jest.fn(),
+  notificationSubscribe: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -210,4 +211,10 @@ it('should call shareItemsToSelectGroup', async () => {
   client.shareItemsToSelectGroup(payload);
 
   expect(client.instance.shareItemsToSelectGroup).toHaveBeenCalledTimes(1);
+});
+
+it('notificationSubscribe makes the right requests', async () => {
+  client.notificationSubscribe({});
+
+  expect(client.instance.notificationSubscribe).toHaveBeenCalledTimes(1);
 });

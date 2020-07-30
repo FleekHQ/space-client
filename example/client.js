@@ -5,6 +5,12 @@ const client = new SpaceClient({
 });
 
 
+const notificationStream = client.notificationSubscribe();
+
+notificationStream.on('data', (res) => {
+  console.log(`new notification: ${res.getNotification()}`);
+});
+
 const txlStream = client.txlSubscribe();
 
 txlStream.on('data', (res) => {

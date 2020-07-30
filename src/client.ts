@@ -47,6 +47,7 @@ import {
   ThreadInfo,
   GetPublicKeyRequest,
   GetPublicKeyResponse,
+  NotificationEventResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -452,6 +453,14 @@ class SpaceClient {
         },
       );
     });
+  }
+
+  notificationSubscribe(
+    metadata: grpcWeb.Metadata = {},
+  ): grpcWeb.ClientReadableStream<NotificationEventResponse> {
+    const request = new Empty();
+
+    return this.instance.notificationSubscribe(request, metadata);
   }
 }
 
