@@ -54,6 +54,10 @@ export interface JoinBucketPayload {
   bucket?: string;
 }
 
+export interface ReadNotificationPayload {
+  ID: string;
+}
+
 type InvitationType = {
   invitationType: 'INVITE_THROUGH_EMAIL' | 'INVITE_THROUGH_ADDRESS';
   invitationValue: string;
