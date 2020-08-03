@@ -15,6 +15,7 @@ import {
   ListDirectoryPayload,
   ShareBucketPayload,
   JoinBucketPayload,
+  ReadNotificationPayload,
   GetNotificationsPayload,
 } from './types';
 
@@ -49,6 +50,8 @@ import {
   GetPublicKeyRequest,
   GetPublicKeyResponse,
   NotificationEventResponse,
+  ReadNotificationRequest,
+  ReadNotificationResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
 } from './definitions/space_pb';
@@ -488,6 +491,29 @@ class SpaceClient {
     const request = new Empty();
 
     return this.instance.notificationSubscribe(request, metadata);
+  }
+
+  readNotification(
+    payload: ReadNotificationPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ReadNotificationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ReadNotificationRequest();
+      request.setId(payload.ID);
+
+      this.instance.readNotification(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ReadNotificationResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
   }
 }
 

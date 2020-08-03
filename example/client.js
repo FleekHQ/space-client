@@ -353,3 +353,22 @@ document.getElementById('get-notifications').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('read-notification').onclick = async () => {
+  const ID = document.getElementById('read-notification-id').value;
+
+  const payload = {
+    ID,
+  };
+
+  try {
+    console.log('Read notification...');
+    console.log('payload', payload);
+
+    await client.readNotification(payload);
+
+    console.log('notification was read');
+  } catch (error) {
+    console.error(error);
+  }
+};

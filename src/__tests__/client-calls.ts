@@ -29,6 +29,7 @@ client.instance = {
   shareItemsToSelectGroup: jest.fn(),
   notificationSubscribe: jest.fn(),
   getPublicKey: jest.fn(),
+  readNotification: jest.fn(),
   getNotifications: jest.fn(),
 };
 
@@ -163,6 +164,14 @@ it('getPublicKey makes the right requests', async () => {
   client.getPublicKey({});
 
   expect(client.instance.getPublicKey).toHaveBeenCalledTimes(1);
+});
+
+it('readNotification makes the right requests', async () => {
+  client.readNotification({
+    ID: '1234',
+  });
+
+  expect(client.instance.readNotification).toHaveBeenCalledTimes(1);
 });
 
 it('should call getNotifications', async () => {

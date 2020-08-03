@@ -545,6 +545,29 @@ Notifications are triggered upon another member's interaction with a shared file
   });
 ```
 
+#### .readNotification({ ID: string })
+
+Mark a notification as read.
+
+```js
+  client
+    .readNotifcation({ ID: '1234' })
+    .then(() => {
+      console.log('notifcation was marked as read');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.readNotification({ ID: '1234' });
+
+    console.log('notifcation was marked as read');
+    ...
+  };
+```
 
 #### .getNotifications({ seek: string, limit: number })
 Returns a list of notifications objects. Notifications objects represent just share file invitations for now.
