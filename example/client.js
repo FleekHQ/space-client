@@ -354,11 +354,11 @@ document.getElementById('get-notifications').onclick = async () => {
   }
 };
 
-document.getElementById('read-notifications').onclick = async () => {
-  const id = document.getElementById('read-notifications-id').value;
+document.getElementById('read-notification').onclick = async () => {
+  const ID = document.getElementById('read-notification-id').value;
 
   const payload = {
-    id,
+    ID,
   };
 
   try {
