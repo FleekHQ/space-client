@@ -62,3 +62,8 @@ type InvitationType = {
   invitationType: 'INVITE_THROUGH_EMAIL' | 'INVITE_THROUGH_ADDRESS';
   invitationValue: string;
 };
+
+export interface GetNotificationsPayload {
+  seek: string;
+  limit: number;
+}

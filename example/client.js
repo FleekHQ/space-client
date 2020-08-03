@@ -319,3 +319,56 @@ document.getElementById('join-bucket').onclick = async () => {
   }
 };
 
+
+document.getElementById('get-notifications').onclick = async () => {
+  const seek = document.getElementById('get-notifications-seek').value;
+  const limit = document.getElementById('get-notifications-limit').value;
+
+  const payload = {
+    seek,
+    limit: parseInt(limit, 10),
+  };
+
+  try {
+    console.log('Getting notifications...');
+    console.log('payload', payload);
+
+    const res = await client.getNotifications(payload);
+
+    const objectRes = {
+      nextOffset: res.getNextoffset(),
+      notifications: res.getNotificationsList().map((notification) => ({
+        id: notification.getId(),
+        subject: notification.getSubject(),
+        body: notification.getBody(),
+        type: notification.getType(),
+        createdAt: notification.getCreatedat(),
+        readAt: notification.getReadat(),
+        relatedObject: notification.getRelatedobjectCase(),
+      })),
+    };
+
+    console.log(objectRes);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('read-notifications').onclick = async () => {
+  const id = document.getElementById('read-notifications-id').value;
+
+  const payload = {
+    id,
+  };
+
+  try {
+    console.log('Read notification...');
+    console.log('payload', payload);
+
+    await client.readNotification(payload);
+
+    console.log('notification was read');
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -30,6 +30,7 @@ client.instance = {
   notificationSubscribe: jest.fn(),
   getPublicKey: jest.fn(),
   readNotification: jest.fn(),
+  getNotifications: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -171,4 +172,10 @@ it('readNotification makes the right requests', async () => {
   });
 
   expect(client.instance.readNotification).toHaveBeenCalledTimes(1);
+});
+
+it('should call getNotifications', async () => {
+  client.getNotifications({ seek: 'value', limit: 10 });
+
+  expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
 });

@@ -16,6 +16,7 @@ import {
   ShareBucketPayload,
   JoinBucketPayload,
   ReadNotificationPayload,
+  GetNotificationsPayload,
 } from './types';
 
 import {
@@ -51,6 +52,8 @@ import {
   NotificationEventResponse,
   ReadNotificationRequest,
   ReadNotificationResponse,
+  GetNotificationsRequest,
+  GetNotificationsResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -426,6 +429,30 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getNotifications(
+    payload: GetNotificationsPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetNotificationsResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetNotificationsRequest();
+      request.setSeek(payload.seek);
+      request.setLimit(payload.limit);
+
+      this.instance.getNotifications(
+        request,
+        metadata,
+        (err, res) => {
           if (err) {
             reject(err);
             return;

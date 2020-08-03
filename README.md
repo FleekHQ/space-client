@@ -569,6 +569,42 @@ Mark a notification as read.
   };
 ```
 
+#### .getNotifications({ seek: string, limit: number })
+Returns a list of notifications objects. Notifications objects represent just share file invitations for now.
+
+```js
+  client
+    .getNotifications({ seek: 'some-value', limit: 20 })
+    .then((res) => {
+      const objectRes = {
+        nextOffset: res.getNextoffset(),
+        notifications: res.getNotificationsList().map((notification) => ({
+          id: notification.getId(),
+          body: notification.getBody(),
+          type: notification.getType(),
+          readAt: notification.getReadat(),
+          subject: notification.getSubject(),
+          createdAt: notification.getCreatedat(),
+          relatedObject: notification.getRelatedobjectCase(),
+        })),
+      };
+
+      console.log(objectRes);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getNotifications({ seek: 'some-value', limit: 20 });
+
+    console.log(res);
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
