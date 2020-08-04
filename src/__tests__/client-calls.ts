@@ -31,6 +31,7 @@ client.instance = {
   getPublicKey: jest.fn(),
   readNotification: jest.fn(),
   getNotifications: jest.fn(),
+  deleteAccount: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -176,6 +177,12 @@ it('readNotification makes the right requests', async () => {
 
 it('should call getNotifications', async () => {
   client.getNotifications({ seek: 'value', limit: 10 });
+
+  expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+});
+
+it('should call deleteAccount', async () => {
+  client.deleteAccount();
 
   expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
 });

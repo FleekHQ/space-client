@@ -385,3 +385,13 @@ document.getElementById('get-public-key').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('delete-account').onclick = async () => {
+  try {
+    await client.deleteAccount();
+
+    console.log('account deleted');
+  } catch (error) {
+    console.error(error);
+  }
+};
