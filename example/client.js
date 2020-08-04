@@ -372,3 +372,16 @@ document.getElementById('read-notification').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('get-public-key').onclick = async () => {
+  try {
+    const res = await client.getPublicKey();
+
+    console.log({
+      publicKey: res.getPublickey(),
+      hubAuthToken: res.getHubauthtoken(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
