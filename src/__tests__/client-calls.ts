@@ -184,5 +184,5 @@ it('should call getNotifications', async () => {
 it('should call deleteAccount', async () => {
   client.deleteAccount();
 
-  expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+  expect(client.instance.deleteAccount).toHaveBeenCalledTimes(1);
 });
