@@ -372,3 +372,14 @@ document.getElementById('read-notification').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('delete-keypair').onclick = async () => {
+  console.log('deleting key pair...');
+
+  try {
+    const res = await client.deleteKeyPair();
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
+};

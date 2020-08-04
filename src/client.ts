@@ -54,6 +54,8 @@ import {
   ReadNotificationResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
+  DeleteKeyPairRequest,
+  DeleteKeyPairResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -505,6 +507,25 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: ReadNotificationResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  deleteKeyPair(metadata: grpcWeb.Metadata = {}): Promise<DeleteKeyPairResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new DeleteKeyPairRequest();
+
+      this.instance.deleteKeyPair(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: DeleteKeyPairResponse) => {
           if (err) {
             reject(err);
             return;
