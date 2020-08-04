@@ -30,6 +30,10 @@ import {
   CreateFolderResponse,
   CreateLocalKeysBackupRequest,
   CreateLocalKeysBackupResponse,
+  DeleteAccountRequest,
+  DeleteAccountResponse,
+  DeleteKeyPairRequest,
+  DeleteKeyPairResponse,
   FileEventResponse,
   FuseDriveResponse,
   GenerateKeyPairRequest,
@@ -202,6 +206,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGenerateKeyPair);
+  }
+
+  methodInfoDeleteKeyPair = new grpcWeb.AbstractClientBase.MethodInfo(
+    DeleteKeyPairResponse,
+    (request: DeleteKeyPairRequest) => {
+      return request.serializeBinary();
+    },
+    DeleteKeyPairResponse.deserializeBinary
+  );
+
+  deleteKeyPair(
+    request: DeleteKeyPairRequest,
+    metadata: grpcWeb.Metadata | null): Promise<DeleteKeyPairResponse>;
+
+  deleteKeyPair(
+    request: DeleteKeyPairRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: DeleteKeyPairResponse) => void): grpcWeb.ClientReadableStream<DeleteKeyPairResponse>;
+
+  deleteKeyPair(
+    request: DeleteKeyPairRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: DeleteKeyPairResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/DeleteKeyPair', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoDeleteKeyPair,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/DeleteKeyPair',
+    request,
+    metadata || {},
+    this.methodInfoDeleteKeyPair);
   }
 
   methodInfoGenerateKeyPairWithForce = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -1132,6 +1175,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoReadNotification);
+  }
+
+  methodInfoDeleteAccount = new grpcWeb.AbstractClientBase.MethodInfo(
+    DeleteAccountResponse,
+    (request: DeleteAccountRequest) => {
+      return request.serializeBinary();
+    },
+    DeleteAccountResponse.deserializeBinary
+  );
+
+  deleteAccount(
+    request: DeleteAccountRequest,
+    metadata: grpcWeb.Metadata | null): Promise<DeleteAccountResponse>;
+
+  deleteAccount(
+    request: DeleteAccountRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: DeleteAccountResponse) => void): grpcWeb.ClientReadableStream<DeleteAccountResponse>;
+
+  deleteAccount(
+    request: DeleteAccountRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: DeleteAccountResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/DeleteAccount', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoDeleteAccount,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/DeleteAccount',
+    request,
+    metadata || {},
+    this.methodInfoDeleteAccount);
   }
 
 }
