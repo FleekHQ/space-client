@@ -1165,6 +1165,9 @@ export class GetPublicKeyResponse extends jspb.Message {
   getPublickey(): string;
   setPublickey(value: string): GetPublicKeyResponse;
 
+  getHubauthtoken(): string;
+  setHubauthtoken(value: string): GetPublicKeyResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetPublicKeyResponse.AsObject;
   static toObject(includeInstance: boolean, msg: GetPublicKeyResponse): GetPublicKeyResponse.AsObject;
@@ -1176,6 +1179,7 @@ export class GetPublicKeyResponse extends jspb.Message {
 export namespace GetPublicKeyResponse {
   export type AsObject = {
     publickey: string,
+    hubauthtoken: string,
   }
 }
 
@@ -1239,6 +1243,62 @@ export class CreateLocalKeysBackupResponse extends jspb.Message {
 }
 
 export namespace CreateLocalKeysBackupResponse {
+  export type AsObject = {
+  }
+}
+
+export class DeleteAccountRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteAccountRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteAccountRequest): DeleteAccountRequest.AsObject;
+  static serializeBinaryToWriter(message: DeleteAccountRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteAccountRequest;
+  static deserializeBinaryFromReader(message: DeleteAccountRequest, reader: jspb.BinaryReader): DeleteAccountRequest;
+}
+
+export namespace DeleteAccountRequest {
+  export type AsObject = {
+  }
+}
+
+export class DeleteAccountResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteAccountResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteAccountResponse): DeleteAccountResponse.AsObject;
+  static serializeBinaryToWriter(message: DeleteAccountResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteAccountResponse;
+  static deserializeBinaryFromReader(message: DeleteAccountResponse, reader: jspb.BinaryReader): DeleteAccountResponse;
+}
+
+export namespace DeleteAccountResponse {
+  export type AsObject = {
+  }
+}
+
+export class DeleteKeyPairRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteKeyPairRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteKeyPairRequest): DeleteKeyPairRequest.AsObject;
+  static serializeBinaryToWriter(message: DeleteKeyPairRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteKeyPairRequest;
+  static deserializeBinaryFromReader(message: DeleteKeyPairRequest, reader: jspb.BinaryReader): DeleteKeyPairRequest;
+}
+
+export namespace DeleteKeyPairRequest {
+  export type AsObject = {
+  }
+}
+
+export class DeleteKeyPairResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DeleteKeyPairResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: DeleteKeyPairResponse): DeleteKeyPairResponse.AsObject;
+  static serializeBinaryToWriter(message: DeleteKeyPairResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DeleteKeyPairResponse;
+  static deserializeBinaryFromReader(message: DeleteKeyPairResponse, reader: jspb.BinaryReader): DeleteKeyPairResponse;
+}
+
+export namespace DeleteKeyPairResponse {
   export type AsObject = {
   }
 }
