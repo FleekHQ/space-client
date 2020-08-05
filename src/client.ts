@@ -56,6 +56,8 @@ import {
   GetNotificationsResponse,
   DeleteKeyPairRequest,
   DeleteKeyPairResponse,
+  DeleteAccountRequest,
+  DeleteAccountResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -507,6 +509,29 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: ReadNotificationResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  deleteAccount(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    payload = null,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ReadNotificationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new DeleteAccountRequest();
+
+      this.instance.deleteAccount(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: DeleteAccountResponse) => {
           if (err) {
             reject(err);
             return;
