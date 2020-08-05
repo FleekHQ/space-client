@@ -609,6 +609,27 @@ Returns a list of notifications objects. Notifications objects represent just sh
   };
 ```
 
+#### .deleteAccount()
+
+Delete an account.
+
+```js
+  client.deleteAccount().then((res) => {
+    console.log('account delted');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.deleteAccount();
+
+    console.log('account delted');
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
