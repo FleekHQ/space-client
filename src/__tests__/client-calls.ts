@@ -31,6 +31,7 @@ client.instance = {
   getPublicKey: jest.fn(),
   readNotification: jest.fn(),
   getNotifications: jest.fn(),
+  deleteKeyPair: jest.fn(),
   deleteAccount: jest.fn(),
 };
 
@@ -179,6 +180,12 @@ it('should call getNotifications', async () => {
   client.getNotifications({ seek: 'value', limit: 10 });
 
   expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+});
+
+it('should call deleteKeyPair', async () => {
+  client.deleteKeyPair();
+
+  expect(client.instance.deleteKeyPair).toHaveBeenCalledTimes(1);
 });
 
 it('should call deleteAccount', async () => {

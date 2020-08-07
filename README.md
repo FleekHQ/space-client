@@ -630,6 +630,30 @@ Delete an account.
   };
 ```
 
+#### .deleteKeyPair()
+
+Deletes the Key Pair
+
+```js
+  client
+    .deleteKeyPair()
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.deleteKeyPair();
+
+    console.log(res);
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
