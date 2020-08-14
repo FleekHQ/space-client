@@ -211,6 +211,9 @@ document.getElementById('list-directory').onclick = async () => {
           ipfsHash: entry.getIpfshash(),
           sizeInBytes: entry.getSizeinbytes(),
           fileExtension: entry.getFileextension(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList()
         },
       ];
     }, []);
