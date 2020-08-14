@@ -2,6 +2,90 @@ import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
+export class GetUsageInfoRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetUsageInfoRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUsageInfoRequest): GetUsageInfoRequest.AsObject;
+  static serializeBinaryToWriter(message: GetUsageInfoRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUsageInfoRequest;
+  static deserializeBinaryFromReader(message: GetUsageInfoRequest, reader: jspb.BinaryReader): GetUsageInfoRequest;
+}
+
+export namespace GetUsageInfoRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetUsageInfoResponse extends jspb.Message {
+  getLocalstarogeused(): number;
+  setLocalstarogeused(value: number): GetUsageInfoResponse;
+
+  getLocalbandwidthused(): number;
+  setLocalbandwidthused(value: number): GetUsageInfoResponse;
+
+  getSpacestorageused(): number;
+  setSpacestorageused(value: number): GetUsageInfoResponse;
+
+  getSpacebandwidthused(): number;
+  setSpacebandwidthused(value: number): GetUsageInfoResponse;
+
+  getUsagequota(): number;
+  setUsagequota(value: number): GetUsageInfoResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetUsageInfoResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetUsageInfoResponse): GetUsageInfoResponse.AsObject;
+  static serializeBinaryToWriter(message: GetUsageInfoResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetUsageInfoResponse;
+  static deserializeBinaryFromReader(message: GetUsageInfoResponse, reader: jspb.BinaryReader): GetUsageInfoResponse;
+}
+
+export namespace GetUsageInfoResponse {
+  export type AsObject = {
+    localstarogeused: number,
+    localbandwidthused: number,
+    spacestorageused: number,
+    spacebandwidthused: number,
+    usagequota: number,
+  }
+}
+
+export class ToggleBucketBackupRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): ToggleBucketBackupRequest;
+
+  getBackup(): boolean;
+  setBackup(value: boolean): ToggleBucketBackupRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ToggleBucketBackupRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ToggleBucketBackupRequest): ToggleBucketBackupRequest.AsObject;
+  static serializeBinaryToWriter(message: ToggleBucketBackupRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ToggleBucketBackupRequest;
+  static deserializeBinaryFromReader(message: ToggleBucketBackupRequest, reader: jspb.BinaryReader): ToggleBucketBackupRequest;
+}
+
+export namespace ToggleBucketBackupRequest {
+  export type AsObject = {
+    bucket: string,
+    backup: boolean,
+  }
+}
+
+export class ToggleBucketBackupResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ToggleBucketBackupResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ToggleBucketBackupResponse): ToggleBucketBackupResponse.AsObject;
+  static serializeBinaryToWriter(message: ToggleBucketBackupResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ToggleBucketBackupResponse;
+  static deserializeBinaryFromReader(message: ToggleBucketBackupResponse, reader: jspb.BinaryReader): ToggleBucketBackupResponse;
+}
+
+export namespace ToggleBucketBackupResponse {
+  export type AsObject = {
+  }
+}
+
 export class ListDirectoriesRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): ListDirectoriesRequest;
@@ -17,6 +101,24 @@ export class ListDirectoriesRequest extends jspb.Message {
 export namespace ListDirectoriesRequest {
   export type AsObject = {
     bucket: string,
+  }
+}
+
+export class FileMember extends jspb.Message {
+  getPublickey(): string;
+  setPublickey(value: string): FileMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FileMember.AsObject;
+  static toObject(includeInstance: boolean, msg: FileMember): FileMember.AsObject;
+  static serializeBinaryToWriter(message: FileMember, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FileMember;
+  static deserializeBinaryFromReader(message: FileMember, reader: jspb.BinaryReader): FileMember;
+}
+
+export namespace FileMember {
+  export type AsObject = {
+    publickey: string,
   }
 }
 
@@ -45,6 +147,17 @@ export class ListDirectoryEntry extends jspb.Message {
   getIpfshash(): string;
   setIpfshash(value: string): ListDirectoryEntry;
 
+  getIslocallyavailable(): boolean;
+  setIslocallyavailable(value: boolean): ListDirectoryEntry;
+
+  getBackupcount(): number;
+  setBackupcount(value: number): ListDirectoryEntry;
+
+  getMembersList(): Array<FileMember>;
+  setMembersList(value: Array<FileMember>): ListDirectoryEntry;
+  clearMembersList(): ListDirectoryEntry;
+  addMembers(value?: FileMember, index?: number): FileMember;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoryEntry.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoryEntry): ListDirectoryEntry.AsObject;
@@ -63,6 +176,9 @@ export namespace ListDirectoryEntry {
     updated: string,
     fileextension: string,
     ipfshash: string,
+    islocallyavailable: boolean,
+    backupcount: number,
+    membersList: Array<FileMember.AsObject>,
   }
 }
 
@@ -200,6 +316,9 @@ export class Bucket extends jspb.Message {
   getIspersonalbucket(): boolean;
   setIspersonalbucket(value: boolean): Bucket;
 
+  getIsbackupenabled(): boolean;
+  setIsbackupenabled(value: boolean): Bucket;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Bucket.AsObject;
   static toObject(includeInstance: boolean, msg: Bucket): Bucket.AsObject;
@@ -217,6 +336,7 @@ export namespace Bucket {
     updatedat: number,
     membersList: Array<BucketMember.AsObject>,
     ispersonalbucket: boolean,
+    isbackupenabled: boolean,
   }
 }
 
@@ -255,11 +375,8 @@ export namespace GenerateKeyPairRequest {
 }
 
 export class GenerateKeyPairResponse extends jspb.Message {
-  getPublickey(): string;
-  setPublickey(value: string): GenerateKeyPairResponse;
-
-  getPrivatekey(): string;
-  setPrivatekey(value: string): GenerateKeyPairResponse;
+  getMnemonic(): string;
+  setMnemonic(value: string): GenerateKeyPairResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GenerateKeyPairResponse.AsObject;
@@ -271,8 +388,39 @@ export class GenerateKeyPairResponse extends jspb.Message {
 
 export namespace GenerateKeyPairResponse {
   export type AsObject = {
-    publickey: string,
-    privatekey: string,
+    mnemonic: string,
+  }
+}
+
+export class RestoreKeyPairViaMnemonicRequest extends jspb.Message {
+  getMnemonic(): string;
+  setMnemonic(value: string): RestoreKeyPairViaMnemonicRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RestoreKeyPairViaMnemonicRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RestoreKeyPairViaMnemonicRequest): RestoreKeyPairViaMnemonicRequest.AsObject;
+  static serializeBinaryToWriter(message: RestoreKeyPairViaMnemonicRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RestoreKeyPairViaMnemonicRequest;
+  static deserializeBinaryFromReader(message: RestoreKeyPairViaMnemonicRequest, reader: jspb.BinaryReader): RestoreKeyPairViaMnemonicRequest;
+}
+
+export namespace RestoreKeyPairViaMnemonicRequest {
+  export type AsObject = {
+    mnemonic: string,
+  }
+}
+
+export class RestoreKeyPairViaMnemonicResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RestoreKeyPairViaMnemonicResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RestoreKeyPairViaMnemonicResponse): RestoreKeyPairViaMnemonicResponse.AsObject;
+  static serializeBinaryToWriter(message: RestoreKeyPairViaMnemonicResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RestoreKeyPairViaMnemonicResponse;
+  static deserializeBinaryFromReader(message: RestoreKeyPairViaMnemonicResponse, reader: jspb.BinaryReader): RestoreKeyPairViaMnemonicResponse;
+}
+
+export namespace RestoreKeyPairViaMnemonicResponse {
+  export type AsObject = {
   }
 }
 
@@ -297,6 +445,26 @@ export namespace FileEventResponse {
   export type AsObject = {
     type: EventType,
     entry?: ListDirectoryEntry.AsObject,
+  }
+}
+
+export class FileInfoEventResponse extends jspb.Message {
+  getFile(): ListDirectoryEntry | undefined;
+  setFile(value?: ListDirectoryEntry): FileInfoEventResponse;
+  hasFile(): boolean;
+  clearFile(): FileInfoEventResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FileInfoEventResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: FileInfoEventResponse): FileInfoEventResponse.AsObject;
+  static serializeBinaryToWriter(message: FileInfoEventResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FileInfoEventResponse;
+  static deserializeBinaryFromReader(message: FileInfoEventResponse, reader: jspb.BinaryReader): FileInfoEventResponse;
+}
+
+export namespace FileInfoEventResponse {
+  export type AsObject = {
+    file?: ListDirectoryEntry.AsObject,
   }
 }
 
@@ -934,6 +1102,32 @@ export namespace Invitation {
   }
 }
 
+export class UsageAlert extends jspb.Message {
+  getUsed(): number;
+  setUsed(value: number): UsageAlert;
+
+  getLimit(): number;
+  setLimit(value: number): UsageAlert;
+
+  getMessage(): string;
+  setMessage(value: string): UsageAlert;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UsageAlert.AsObject;
+  static toObject(includeInstance: boolean, msg: UsageAlert): UsageAlert.AsObject;
+  static serializeBinaryToWriter(message: UsageAlert, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UsageAlert;
+  static deserializeBinaryFromReader(message: UsageAlert, reader: jspb.BinaryReader): UsageAlert;
+}
+
+export namespace UsageAlert {
+  export type AsObject = {
+    used: number,
+    limit: number,
+    message: string,
+  }
+}
+
 export class Notification extends jspb.Message {
   getId(): string;
   setId(value: string): Notification;
@@ -948,6 +1142,11 @@ export class Notification extends jspb.Message {
   setInvitationvalue(value?: Invitation): Notification;
   hasInvitationvalue(): boolean;
   clearInvitationvalue(): Notification;
+
+  getUsagealert(): UsageAlert | undefined;
+  setUsagealert(value?: UsageAlert): Notification;
+  hasUsagealert(): boolean;
+  clearUsagealert(): Notification;
 
   getType(): NotificationType;
   setType(value: NotificationType): Notification;
@@ -974,6 +1173,7 @@ export namespace Notification {
     subject: string,
     body: string,
     invitationvalue?: Invitation.AsObject,
+    usagealert?: UsageAlert.AsObject,
     type: NotificationType,
     createdat: number,
     readat: number,
@@ -982,6 +1182,7 @@ export namespace Notification {
   export enum RelatedobjectCase { 
     RELATEDOBJECT_NOT_SET = 0,
     INVITATIONVALUE = 4,
+    USAGEALERT = 5,
   }
 }
 
@@ -1310,6 +1511,7 @@ export enum EventType {
 }
 export enum NotificationType { 
   INVITATION = 0,
+  USAGEALERT = 1,
 }
 export enum InvitationStatus { 
   PENDING = 0,

@@ -35,6 +35,7 @@ import {
   DeleteKeyPairRequest,
   DeleteKeyPairResponse,
   FileEventResponse,
+  FileInfoEventResponse,
   FuseDriveResponse,
   GenerateKeyPairRequest,
   GenerateKeyPairResponse,
@@ -44,6 +45,8 @@ import {
   GetNotificationsResponse,
   GetPublicKeyRequest,
   GetPublicKeyResponse,
+  GetUsageInfoRequest,
+  GetUsageInfoResponse,
   JoinBucketRequest,
   JoinBucketResponse,
   ListBucketsRequest,
@@ -65,11 +68,15 @@ import {
   RecoverKeysByPassphraseResponse,
   RejectBucketInvitationRequest,
   RejectBucketInvitationResponse,
+  RestoreKeyPairViaMnemonicRequest,
+  RestoreKeyPairViaMnemonicResponse,
   ShareBucketRequest,
   ShareBucketResponse,
   ShareBucketViaPublicKeyRequest,
   ShareBucketViaPublicKeyResponse,
   TextileEventResponse,
+  ToggleBucketBackupRequest,
+  ToggleBucketBackupResponse,
   ToggleFuseRequest} from './space_pb';
 
 export class SpaceApiClient {
@@ -208,6 +215,45 @@ export class SpaceApiClient {
     this.methodInfoGenerateKeyPair);
   }
 
+  methodInfoRestoreKeyPairViaMnemonic = new grpcWeb.AbstractClientBase.MethodInfo(
+    RestoreKeyPairViaMnemonicResponse,
+    (request: RestoreKeyPairViaMnemonicRequest) => {
+      return request.serializeBinary();
+    },
+    RestoreKeyPairViaMnemonicResponse.deserializeBinary
+  );
+
+  restoreKeyPairViaMnemonic(
+    request: RestoreKeyPairViaMnemonicRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RestoreKeyPairViaMnemonicResponse>;
+
+  restoreKeyPairViaMnemonic(
+    request: RestoreKeyPairViaMnemonicRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: RestoreKeyPairViaMnemonicResponse) => void): grpcWeb.ClientReadableStream<RestoreKeyPairViaMnemonicResponse>;
+
+  restoreKeyPairViaMnemonic(
+    request: RestoreKeyPairViaMnemonicRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: RestoreKeyPairViaMnemonicResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/RestoreKeyPairViaMnemonic', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoRestoreKeyPairViaMnemonic,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/RestoreKeyPairViaMnemonic',
+    request,
+    metadata || {},
+    this.methodInfoRestoreKeyPairViaMnemonic);
+  }
+
   methodInfoDeleteKeyPair = new grpcWeb.AbstractClientBase.MethodInfo(
     DeleteKeyPairResponse,
     (request: DeleteKeyPairRequest) => {
@@ -341,6 +387,24 @@ export class SpaceApiClient {
       request,
       metadata || {},
       this.methodInfoSubscribe);
+  }
+
+  methodInfoFileInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
+    FileInfoEventResponse,
+    (request: google_protobuf_empty_pb.Empty) => {
+      return request.serializeBinary();
+    },
+    FileInfoEventResponse.deserializeBinary
+  );
+
+  fileInfoSubscribe(
+    request: google_protobuf_empty_pb.Empty,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      new URL('/space.SpaceApi/FileInfoSubscribe', this.hostname_).toString(),
+      request,
+      metadata || {},
+      this.methodInfoFileInfoSubscribe);
   }
 
   methodInfoTxlSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -1214,6 +1278,84 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoDeleteAccount);
+  }
+
+  methodInfoToggleBucketBackup = new grpcWeb.AbstractClientBase.MethodInfo(
+    ToggleBucketBackupResponse,
+    (request: ToggleBucketBackupRequest) => {
+      return request.serializeBinary();
+    },
+    ToggleBucketBackupResponse.deserializeBinary
+  );
+
+  toggleBucketBackup(
+    request: ToggleBucketBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ToggleBucketBackupResponse>;
+
+  toggleBucketBackup(
+    request: ToggleBucketBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: ToggleBucketBackupResponse) => void): grpcWeb.ClientReadableStream<ToggleBucketBackupResponse>;
+
+  toggleBucketBackup(
+    request: ToggleBucketBackupRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: ToggleBucketBackupResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/ToggleBucketBackup', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoToggleBucketBackup,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/ToggleBucketBackup',
+    request,
+    metadata || {},
+    this.methodInfoToggleBucketBackup);
+  }
+
+  methodInfoGetUsageInfo = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetUsageInfoResponse,
+    (request: GetUsageInfoRequest) => {
+      return request.serializeBinary();
+    },
+    GetUsageInfoResponse.deserializeBinary
+  );
+
+  getUsageInfo(
+    request: GetUsageInfoRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetUsageInfoResponse>;
+
+  getUsageInfo(
+    request: GetUsageInfoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetUsageInfoResponse) => void): grpcWeb.ClientReadableStream<GetUsageInfoResponse>;
+
+  getUsageInfo(
+    request: GetUsageInfoRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetUsageInfoResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetUsageInfo', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetUsageInfo,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetUsageInfo',
+    request,
+    metadata || {},
+    this.methodInfoGetUsageInfo);
   }
 
 }
