@@ -103,7 +103,6 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
         console.log(entry.getIslocallyavailable());
         console.log(entry.getBackupcount());
         console.log(entry.getMembersList());
-
       });
     })
     .catch((err) => {
