@@ -291,6 +291,26 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
   };
 ```
 
+#### `[WIP]` <em>.toggleBucketBackup({ bucket: string, backup: boolean }) </em>
+
+Toggles whether or not to back up the content of a bucket to Space.
+
+```js
+  client
+    .toggleBucketBackup({ bucket: 'bucket-name', backup: true })
+    .then(() => {
+      console.log('bucket-name is backed up in Space!');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.toggleBucketBackup({ bucket: 'bucket-name', backup: true });
+  };
+```
 
 #### `[WIP]` <em>.backupKeysByPassphrase({ passphrase: string })</em>
 

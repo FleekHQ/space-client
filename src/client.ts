@@ -13,6 +13,7 @@ import {
   GetFuseDriveStatusPayload,
   ListDirectoriesPayload,
   ListDirectoryPayload,
+  ToggleBucketBackupPayload,
   ShareBucketPayload,
   JoinBucketPayload,
   ReadNotificationPayload,
@@ -23,6 +24,8 @@ import {
   TextileEventResponse,
   ListDirectoriesRequest,
   ListDirectoriesResponse,
+  ToggleBucketBackupResponse,
+  ToggleBucketBackupRequest,
   OpenFileRequest,
   OpenFileResponse,
   CreateBucketRequest,
@@ -129,6 +132,32 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: ListDirectoriesResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  toggleBucketBackup(
+    payload: ToggleBucketBackupPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ToggleBucketBackupResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ToggleBucketBackupRequest();
+      const { backup, bucket } = payload;
+
+      request.setBucket(bucket);
+      request.setBackup(backup);
+
+      this.instance.toggleBucketBackup(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ToggleBucketBackupResponse) => {
           if (err) {
             reject(err);
             return;

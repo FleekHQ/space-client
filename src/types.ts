@@ -42,6 +42,11 @@ export interface ListDirectoriesPayload {
   bucket?: string;
 }
 
+export interface ToggleBucketBackupPayload {
+  bucket: string;
+  backup: boolean;
+}
+
 export interface ShareBucketPayload {
   bucket?: string;
 }
