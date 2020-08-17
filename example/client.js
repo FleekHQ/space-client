@@ -174,6 +174,7 @@ document.getElementById('list-buckets').onclick = async () => {
           path: bucket.getPath(),
           createdAt: bucket.getCreatedat(),
           updatedAt: bucket.getUpdatedat(),
+          isBackupEnabled: bucket.getIsbackupenabled(),
         },
       ];
     }, []);
@@ -404,6 +405,46 @@ document.getElementById('delete-account').onclick = async () => {
     await client.deleteAccount();
 
     console.log('account deleted');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('toggle-bucket-backup').onclick = async () => {
+  const bucketName = document.getElementById('toggle-bucket-backup-input').value;
+
+  console.log('payload', payload);
+
+  try {
+    console.log('listing buckets...');
+    const res = await client.listBuckets();
+    const buckets = res.getBucketsList();
+
+    const bucketList = buckets.reduce((acc, bucket) => {
+      return [
+        ...acc,
+        {
+          name: bucket.getName(),
+          isBackupEnabled: bucket.getIsbackupenabled(),
+        },
+      ];
+    }, []);
+
+    console.log(bucketList);
+
+    const foundBucket = bucketList.find(bucket => bucket.name === bucketName);
+
+    const bucket = foundBucket || bucketList[0];
+
+    const payload = {
+      bucket: bucket.name,
+      backup: !bucket.isBackupEnabled,
+    };
+
+    const response = await client.toggleBucketBackup(payload);
+
+    console.log('response:', response);
+
   } catch (error) {
     console.error(error);
   }
