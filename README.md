@@ -272,7 +272,7 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
   };
 ```
 
-#### `[WIP]` <em>.toggleBucketBackup({ path: string, bucket?: string }) </em>
+#### `[WIP]` <em>.toggleBucketBackup({ bucket: string, backup: boolean }) </em>
 
 Toggles whether or not to back up the content of a bucket to Space.
 
