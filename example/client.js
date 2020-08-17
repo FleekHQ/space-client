@@ -17,6 +17,12 @@ txlStream.on('data', (res) => {
   console.log(`something changed on ${res.getBucket()} bucket`);
 });
 
+const fileInfoStream = client.fileInfoSubscribe();
+
+fileInfoStream.on('data', (res) => {
+  console.log(`A file  has changed: ${res.getFile()}`);
+});
+
 const subscribe = client.subscribe();
 
 subscribe.on('data', (res) => {
