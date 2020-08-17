@@ -10,6 +10,7 @@ client.instance = {
   listDirectories: jest.fn(),
   toggleBucketBackup: jest.fn(),
   addItems: jest.fn(),
+  fileInfoSubscribe: jest.fn(),
   txlSubscribe: jest.fn(),
   openFile: jest.fn(),
   createBucket: jest.fn(),
@@ -57,6 +58,12 @@ it('txlSubscribe makes the right requests', async () => {
   client.txlSubscribe({});
 
   expect(client.instance.txlSubscribe).toHaveBeenCalledTimes(1);
+});
+
+it('fileInfoSubscribe makes the right requests', async () => {
+  client.fileInfoSubscribe({});
+
+  expect(client.instance.fileInfoSubscribe).toHaveBeenCalledTimes(1);
 });
 
 it('openFile makes the right requests', async () => {

@@ -100,6 +100,9 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
         console.log(entry.getIpfshash());
         console.log(entry.getSizeinbytes());
         console.log(entry.getFileextension());
+        console.log(entry.getIslocallyavailable());
+        console.log(entry.getBackupcount());
+        console.log(entry.getMembersList());
       });
     })
     .catch((err) => {
@@ -138,6 +141,9 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
         console.log(entry.getIpfshash());
         console.log(entry.getSizeinbytes());
         console.log(entry.getFileextension());
+        console.log(entry.getIslocallyavailable());
+        console.log(entry.getBackupcount());
+        console.log(entry.getMembersList());
       });
     })
     .catch((err) => {
@@ -166,6 +172,19 @@ Returns a ReadableStream that notifies when something changed on the bucket (dat
   txlStream.on('data', (res) => {
     const bucket = res.getBucket();
     console.log(bucket);
+  });
+```
+
+#### .fileInfoSubscribe()
+
+Returns a ReadableStream that notifies when a change related to the a file has occured such as the amount of members the file is shared with or whether the file is backup in Space.
+
+```js
+  const fileInfoStream = client.fileInfoSubscribe();
+
+  fileInfoStream.on('data', (res) => {
+    const file = res.getFile();
+    console.log(file);
   });
 ```
 

@@ -17,6 +17,12 @@ txlStream.on('data', (res) => {
   console.log(`something changed on ${res.getBucket()} bucket`);
 });
 
+const fileInfoStream = client.fileInfoSubscribe();
+
+fileInfoStream.on('data', (res) => {
+  console.log(`A file  has changed: ${res.getFile()}`);
+});
+
 const subscribe = client.subscribe();
 
 subscribe.on('data', (res) => {
@@ -103,6 +109,9 @@ document.getElementById('list-entries').onclick = async () => {
           ipfsHash: entry.getIpfshash(),
           sizeInBytes: entry.getSizeinbytes(),
           fileExtension: entry.getFileextension(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList()
         },
       ];
     }, []);
@@ -212,6 +221,9 @@ document.getElementById('list-directory').onclick = async () => {
           ipfsHash: entry.getIpfshash(),
           sizeInBytes: entry.getSizeinbytes(),
           fileExtension: entry.getFileextension(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList()
         },
       ];
     }, []);
