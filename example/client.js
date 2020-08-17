@@ -23,7 +23,6 @@ fileInfoStream.on('data', (res) => {
   console.log(`A file  has changed: ${res.getFile()}`);
 });
 
-
 const subscribe = client.subscribe();
 
 subscribe.on('data', (res) => {
