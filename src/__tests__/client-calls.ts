@@ -8,6 +8,7 @@ const client = new SpaceClient({ url: 'url' });
 client.instance = {
   listDirectory: jest.fn(),
   listDirectories: jest.fn(),
+  toggleBucketBackup: jest.fn(),
   addItems: jest.fn(),
   txlSubscribe: jest.fn(),
   openFile: jest.fn(),
@@ -73,6 +74,15 @@ it('createBucket makes the right requests', async () => {
   });
 
   expect(client.instance.createBucket).toHaveBeenCalledTimes(1);
+});
+
+it('toggleBucketBackup makes the right requests', async () => {
+  client.toggleBucketBackup({
+    bucket: 'my-bucket',
+    backup: true,
+  });
+
+  expect(client.instance.toggleBucketBackup).toHaveBeenCalledTimes(1);
 });
 
 it('addItems makes the right requests', async () => {
