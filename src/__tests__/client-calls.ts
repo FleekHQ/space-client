@@ -35,6 +35,7 @@ client.instance = {
   getNotifications: jest.fn(),
   deleteKeyPair: jest.fn(),
   deleteAccount: jest.fn(),
+  getUsageInfo: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -209,4 +210,10 @@ it('should call deleteAccount', async () => {
   client.deleteAccount();
 
   expect(client.instance.deleteAccount).toHaveBeenCalledTimes(1);
+});
+
+it('getUsageInfo makes the right request', async () => {
+  client.getUsageInfo({});
+
+  expect(client.instance.getUsageInfo).toHaveBeenCalledTimes(1);
 });

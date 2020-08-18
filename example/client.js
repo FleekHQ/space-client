@@ -461,3 +461,23 @@ document.getElementById('toggle-bucket-backup').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('get-usage-info').onclick = async () => {
+  try {
+    console.log('getting usage info...');
+
+    const usageInfoRes = await client.getUsageInfo();
+
+    const usageInfo = {
+      localstarogeused: usageInfoRes.getLocalstarogeused(),
+      localbandwidthused: usageInfoRes.getLocalbandwidthused(),
+      spacestorageused: usageInfoRes.getSpacestorageused(),
+      spacebandwidthused: usageInfoRes.getSpacebandwidthused(),
+      usagequota: usageInfoRes.getUsagequota(),
+    }
+
+    console.log('getUsageInfo res:', usageInfo);
+  } catch (error) {
+    console.error(error);
+  }
+};
