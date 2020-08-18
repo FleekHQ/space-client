@@ -693,6 +693,46 @@ Deletes the Key Pair
   };
 ```
 
+#### .getUsageInfo()
+
+Fetches account storage usage info such as amount of space used locally and in Space, alongside bandwith quotas and limits. 
+
+```js
+  client
+    .getUsageInfo()
+    .then((usageInfoRes) => {
+      const usageInfo = {
+        localstorageused: usageInfoRes.getLocalstorageused(),
+        localbandwidthused: usageInfoRes.getLocalbandwidthused(),
+        spacestorageused: usageInfoRes.getSpacestorageused(),
+        spacebandwidthused: usageInfoRes.getSpacebandwidthused(),
+        usagequota: usageInfoRes.getUsagequota(),
+      }
+
+      console.log(usageInfo);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const usageInfoRes = await client.getUsageInfo();
+
+    const usageInfo = {
+      localstorageused: usageInfoRes.getLocalstorageused(),
+      localbandwidthused: usageInfoRes.getLocalbandwidthused(),
+      spacestorageused: usageInfoRes.getSpacestorageused(),
+      spacebandwidthused: usageInfoRes.getSpacebandwidthused(),
+      usagequota: usageInfoRes.getUsagequota(),
+    }
+
+    console.log(usageInfo);
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
