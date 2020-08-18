@@ -467,9 +467,9 @@ document.getElementById('get-usage-info').onclick = async () => {
     console.log('getting usage info...');
 
     const usageInfoRes = await client.getUsageInfo();
-
+    console.log('usageinfio', usageInfoRes);
     const usageInfo = {
-      localstarogeused: usageInfoRes.getLocalstarogeused(),
+      localstorageused: usageInfoRes.getLocalstorageused(),
       localbandwidthused: usageInfoRes.getLocalbandwidthused(),
       spacestorageused: usageInfoRes.getSpacestorageused(),
       spacebandwidthused: usageInfoRes.getSpacebandwidthused(),
