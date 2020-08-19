@@ -62,6 +62,8 @@ import {
   DeleteKeyPairResponse,
   DeleteAccountRequest,
   DeleteAccountResponse,
+  GetUsageInfoRequest,
+  GetUsageInfoResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -589,6 +591,27 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: DeleteKeyPairResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getUsageInfo(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetUsageInfoResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetUsageInfoRequest();
+
+      this.instance.getUsageInfo(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetUsageInfoResponse) => {
           if (err) {
             reject(err);
             return;
