@@ -250,7 +250,7 @@ document.getElementById('create-folder').onclick = async () => {
   try {
     const res = await client.createFolder(payload);
 
-    console.log(res);
+    console.log('folder creted');
   } catch (error) {
     console.error(error);
   }
