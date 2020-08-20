@@ -45,6 +45,8 @@ import {
   GetNotificationsResponse,
   GetPublicKeyRequest,
   GetPublicKeyResponse,
+  GetStoredMnemonicRequest,
+  GetStoredMnemonicResponse,
   GetUsageInfoRequest,
   GetUsageInfoResponse,
   JoinBucketRequest,
@@ -213,6 +215,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGenerateKeyPair);
+  }
+
+  methodInfoGetStoredMnemonic = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetStoredMnemonicResponse,
+    (request: GetStoredMnemonicRequest) => {
+      return request.serializeBinary();
+    },
+    GetStoredMnemonicResponse.deserializeBinary
+  );
+
+  getStoredMnemonic(
+    request: GetStoredMnemonicRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetStoredMnemonicResponse>;
+
+  getStoredMnemonic(
+    request: GetStoredMnemonicRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetStoredMnemonicResponse) => void): grpcWeb.ClientReadableStream<GetStoredMnemonicResponse>;
+
+  getStoredMnemonic(
+    request: GetStoredMnemonicRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetStoredMnemonicResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetStoredMnemonic', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetStoredMnemonic,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetStoredMnemonic',
+    request,
+    metadata || {},
+    this.methodInfoGetStoredMnemonic);
   }
 
   methodInfoRestoreKeyPairViaMnemonic = new grpcWeb.AbstractClientBase.MethodInfo(
