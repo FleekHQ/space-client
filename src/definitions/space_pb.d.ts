@@ -392,6 +392,38 @@ export namespace GenerateKeyPairResponse {
   }
 }
 
+export class GetStoredMnemonicRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetStoredMnemonicRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetStoredMnemonicRequest): GetStoredMnemonicRequest.AsObject;
+  static serializeBinaryToWriter(message: GetStoredMnemonicRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetStoredMnemonicRequest;
+  static deserializeBinaryFromReader(message: GetStoredMnemonicRequest, reader: jspb.BinaryReader): GetStoredMnemonicRequest;
+}
+
+export namespace GetStoredMnemonicRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetStoredMnemonicResponse extends jspb.Message {
+  getMnemonic(): string;
+  setMnemonic(value: string): GetStoredMnemonicResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetStoredMnemonicResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetStoredMnemonicResponse): GetStoredMnemonicResponse.AsObject;
+  static serializeBinaryToWriter(message: GetStoredMnemonicResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetStoredMnemonicResponse;
+  static deserializeBinaryFromReader(message: GetStoredMnemonicResponse, reader: jspb.BinaryReader): GetStoredMnemonicResponse;
+}
+
+export namespace GetStoredMnemonicResponse {
+  export type AsObject = {
+    mnemonic: string,
+  }
+}
+
 export class RestoreKeyPairViaMnemonicRequest extends jspb.Message {
   getMnemonic(): string;
   setMnemonic(value: string): RestoreKeyPairViaMnemonicRequest;
