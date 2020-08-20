@@ -64,6 +64,8 @@ import {
   DeleteAccountResponse,
   GetUsageInfoRequest,
   GetUsageInfoResponse,
+  GetStoredMnemonicRequest,
+  GetStoredMnemonicResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -612,6 +614,27 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GetUsageInfoResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getStoredMnemonic(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetStoredMnemonicResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetStoredMnemonicRequest();
+
+      this.instance.getStoredMnemonic(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetStoredMnemonicResponse) => {
           if (err) {
             reject(err);
             return;

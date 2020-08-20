@@ -481,3 +481,16 @@ document.getElementById('get-usage-info').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('get-stored-mnemonic').onclick = async () => {
+  try {
+    console.log('getting stored mnemonic...');
+
+    const res = await client.getStoredMnemonic();
+
+    console.log('mnemonic :', res.getMnemonic());
+  } catch (error) {
+    console.error(error);
+  }
+};
+

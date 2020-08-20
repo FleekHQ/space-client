@@ -733,6 +733,30 @@ Fetches account storage usage info such as amount of space used locally and in S
   };
 ```
 
+#### .getStoredMnemonic()
+
+Get the stored mnemonic seed. 
+
+```js
+  client
+    .getStoredMnemonic()
+    .then((res) => {
+      console.log(res.getMnemonic());
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getMnemonic();
+
+    console.log(res.getMnemonic());
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
