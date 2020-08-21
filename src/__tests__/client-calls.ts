@@ -36,6 +36,7 @@ client.instance = {
   deleteKeyPair: jest.fn(),
   deleteAccount: jest.fn(),
   getUsageInfo: jest.fn(),
+  getStoredMnemonic: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -216,4 +217,10 @@ it('getUsageInfo makes the right request', async () => {
   client.getUsageInfo({});
 
   expect(client.instance.getUsageInfo).toHaveBeenCalledTimes(1);
+});
+
+it('getStoredMnemonic makes the right request', async () => {
+  client.getStoredMnemonic();
+
+  expect(client.instance.getStoredMnemonic).toHaveBeenCalledTimes(1);
 });
