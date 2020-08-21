@@ -757,6 +757,31 @@ Get the stored mnemonic seed.
   };
 ```
 
+#### .restoreKeyPairViaMnemonic({ mnemonic: string })
+
+Restore key pair via mnemonic
+
+```js
+  client
+    .restoreKeyPairViaMnemonic({
+      mnemonic: 'my-mnemonic',
+    })
+    .then(() => {
+      console.log('restore keys');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.restoreKeyPairViaMnemonic({
+      mnemonic: 'my-mnemonic',
+    });
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
