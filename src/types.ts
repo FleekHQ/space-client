@@ -72,3 +72,7 @@ export interface GetNotificationsPayload {
   seek: string;
   limit: number;
 }
+
+export interface RestoreKeyPairViaMnemonicPayload {
+  mnemonic: string;
+}

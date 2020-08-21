@@ -351,6 +351,24 @@ document.getElementById('recover-keys-by-passphrase').onclick = async () => {
 };
 
 
+document.getElementById('restore-key-pair-via-mnemonic').onclick = async () => {
+  const mnemonic = document.getElementById('restore-key-pair-via-mnemonic-input').value;
+  const payload = {
+    mnemonic,
+  };
+
+  console.log('restore key pair via mnemonic...');
+  console.log('payload', payload);
+
+  try {
+    const res = await client.restoreKeyPairViaMnemonic(payload);
+    console.log('result', res.getResult());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 document.getElementById('get-notifications').onclick = async () => {
   const seek = document.getElementById('get-notifications-seek').value;
   const limit = document.getElementById('get-notifications-limit').value;
