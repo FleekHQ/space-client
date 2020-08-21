@@ -22,8 +22,6 @@ import {
   AddItemsResponse,
   BackupKeysByPassphraseRequest,
   BackupKeysByPassphraseResponse,
-  CopyAndShareFilesRequest,
-  CopyAndShareFilesResponse,
   CreateBucketRequest,
   CreateBucketResponse,
   CreateFolderRequest,
@@ -45,6 +43,8 @@ import {
   GetNotificationsResponse,
   GetPublicKeyRequest,
   GetPublicKeyResponse,
+  GetSharedWithMeFilesRequest,
+  GetSharedWithMeFilesResponse,
   GetStoredMnemonicRequest,
   GetStoredMnemonicResponse,
   GetUsageInfoRequest,
@@ -74,8 +74,8 @@ import {
   RestoreKeyPairViaMnemonicResponse,
   ShareBucketRequest,
   ShareBucketResponse,
-  ShareBucketViaPublicKeyRequest,
-  ShareBucketViaPublicKeyResponse,
+  ShareFilesViaPublicKeyRequest,
+  ShareFilesViaPublicKeyResponse,
   TextileEventResponse,
   ToggleBucketBackupRequest,
   ToggleBucketBackupResponse,
@@ -544,6 +544,45 @@ export class SpaceApiClient {
     this.methodInfoGeneratePublicFileLink);
   }
 
+  methodInfoGetSharedWithMeFiles = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetSharedWithMeFilesResponse,
+    (request: GetSharedWithMeFilesRequest) => {
+      return request.serializeBinary();
+    },
+    GetSharedWithMeFilesResponse.deserializeBinary
+  );
+
+  getSharedWithMeFiles(
+    request: GetSharedWithMeFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetSharedWithMeFilesResponse>;
+
+  getSharedWithMeFiles(
+    request: GetSharedWithMeFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetSharedWithMeFilesResponse) => void): grpcWeb.ClientReadableStream<GetSharedWithMeFilesResponse>;
+
+  getSharedWithMeFiles(
+    request: GetSharedWithMeFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetSharedWithMeFilesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetSharedWithMeFiles', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetSharedWithMeFiles,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetSharedWithMeFiles',
+    request,
+    metadata || {},
+    this.methodInfoGetSharedWithMeFiles);
+  }
+
   methodInfoOpenPublicFile = new grpcWeb.AbstractClientBase.MethodInfo(
     OpenPublicFileResponse,
     (request: OpenPublicFileRequest) => {
@@ -991,43 +1030,43 @@ export class SpaceApiClient {
     this.methodInfoJoinBucket);
   }
 
-  methodInfoShareBucketViaPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
-    ShareBucketViaPublicKeyResponse,
-    (request: ShareBucketViaPublicKeyRequest) => {
+  methodInfoShareFilesViaPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
+    ShareFilesViaPublicKeyResponse,
+    (request: ShareFilesViaPublicKeyRequest) => {
       return request.serializeBinary();
     },
-    ShareBucketViaPublicKeyResponse.deserializeBinary
+    ShareFilesViaPublicKeyResponse.deserializeBinary
   );
 
-  shareBucketViaPublicKey(
-    request: ShareBucketViaPublicKeyRequest,
-    metadata: grpcWeb.Metadata | null): Promise<ShareBucketViaPublicKeyResponse>;
+  shareFilesViaPublicKey(
+    request: ShareFilesViaPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ShareFilesViaPublicKeyResponse>;
 
-  shareBucketViaPublicKey(
-    request: ShareBucketViaPublicKeyRequest,
+  shareFilesViaPublicKey(
+    request: ShareFilesViaPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: ShareBucketViaPublicKeyResponse) => void): grpcWeb.ClientReadableStream<ShareBucketViaPublicKeyResponse>;
+               response: ShareFilesViaPublicKeyResponse) => void): grpcWeb.ClientReadableStream<ShareFilesViaPublicKeyResponse>;
 
-  shareBucketViaPublicKey(
-    request: ShareBucketViaPublicKeyRequest,
+  shareFilesViaPublicKey(
+    request: ShareFilesViaPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: ShareBucketViaPublicKeyResponse) => void) {
+               response: ShareFilesViaPublicKeyResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/space.SpaceApi/ShareBucketViaPublicKey', this.hostname_).toString(),
+        new URL('/space.SpaceApi/ShareFilesViaPublicKey', this.hostname_).toString(),
         request,
         metadata || {},
-        this.methodInfoShareBucketViaPublicKey,
+        this.methodInfoShareFilesViaPublicKey,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/space.SpaceApi/ShareBucketViaPublicKey',
+      '/space.SpaceApi/ShareFilesViaPublicKey',
     request,
     metadata || {},
-    this.methodInfoShareBucketViaPublicKey);
+    this.methodInfoShareFilesViaPublicKey);
   }
 
   methodInfoAcceptBucketInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -1163,45 +1202,6 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoListBuckets);
-  }
-
-  methodInfoCopyAndShareFiles = new grpcWeb.AbstractClientBase.MethodInfo(
-    CopyAndShareFilesResponse,
-    (request: CopyAndShareFilesRequest) => {
-      return request.serializeBinary();
-    },
-    CopyAndShareFilesResponse.deserializeBinary
-  );
-
-  copyAndShareFiles(
-    request: CopyAndShareFilesRequest,
-    metadata: grpcWeb.Metadata | null): Promise<CopyAndShareFilesResponse>;
-
-  copyAndShareFiles(
-    request: CopyAndShareFilesRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: CopyAndShareFilesResponse) => void): grpcWeb.ClientReadableStream<CopyAndShareFilesResponse>;
-
-  copyAndShareFiles(
-    request: CopyAndShareFilesRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
-               response: CopyAndShareFilesResponse) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        new URL('/space.SpaceApi/CopyAndShareFiles', this.hostname_).toString(),
-        request,
-        metadata || {},
-        this.methodInfoCopyAndShareFiles,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/space.SpaceApi/CopyAndShareFiles',
-    request,
-    metadata || {},
-    this.methodInfoCopyAndShareFiles);
   }
 
   methodInfoGetNotifications = new grpcWeb.AbstractClientBase.MethodInfo(

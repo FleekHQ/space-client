@@ -76,3 +76,8 @@ export interface GetNotificationsPayload {
 export interface RestoreKeyPairViaMnemonicPayload {
   mnemonic: string;
 }
+
+export interface GetSharedWithMeFilesPayload {
+  seek: string;
+  limit: number;
+}

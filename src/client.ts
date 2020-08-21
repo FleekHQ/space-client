@@ -19,6 +19,7 @@ import {
   ReadNotificationPayload,
   GetNotificationsPayload,
   RestoreKeyPairViaMnemonicPayload,
+  GetSharedWithMeFilesPayload,
 } from './types';
 
 import {
@@ -69,6 +70,8 @@ import {
   GetStoredMnemonicResponse,
   RestoreKeyPairViaMnemonicRequest,
   RestoreKeyPairViaMnemonicResponse,
+  GetSharedWithMeFilesRequest,
+  GetSharedWithMeFilesResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -661,6 +664,31 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: RestoreKeyPairViaMnemonicResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getSharedWithMeFiles(
+    payload: GetSharedWithMeFilesPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetSharedWithMeFilesResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetSharedWithMeFilesRequest();
+
+      request.setSeek(payload.seek);
+      request.setLimit(payload.limit);
+
+      this.instance.getSharedWithMeFiles(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetSharedWithMeFilesResponse) => {
           if (err) {
             reject(err);
             return;
