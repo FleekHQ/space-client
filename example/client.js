@@ -330,6 +330,42 @@ document.getElementById('join-bucket').onclick = async () => {
   } catch (error) {
     console.error(error);
   }
+}
+
+
+document.getElementById('recover-keys-by-passphrase').onclick = async () => {
+  const passphrase = document.getElementById('recover-keys-by-passphrase-input').value;
+  const payload = {
+    passphrase,
+  };
+
+  console.log('recovering keys by passphrase...');
+  console.log('payload', payload);
+
+  try {
+    const res = await client.recoverKeysByPassphrase(payload);
+    console.log('result', res.getResult());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+document.getElementById('restore-key-pair-via-mnemonic').onclick = async () => {
+  const mnemonic = document.getElementById('restore-key-pair-via-mnemonic-input').value;
+  const payload = {
+    mnemonic,
+  };
+
+  console.log('restore key pair via mnemonic...');
+  console.log('payload', payload);
+
+  try {
+    const res = await client.restoreKeyPairViaMnemonic(payload);
+    console.log('result', res.getResult());
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 

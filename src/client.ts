@@ -18,6 +18,7 @@ import {
   JoinBucketPayload,
   ReadNotificationPayload,
   GetNotificationsPayload,
+  RestoreKeyPairViaMnemonicPayload,
 } from './types';
 
 import {
@@ -66,6 +67,8 @@ import {
   GetUsageInfoResponse,
   GetStoredMnemonicRequest,
   GetStoredMnemonicResponse,
+  RestoreKeyPairViaMnemonicRequest,
+  RestoreKeyPairViaMnemonicResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -635,6 +638,29 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GetStoredMnemonicResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  restoreKeyPairViaMnemonic(
+    payload: RestoreKeyPairViaMnemonicPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<RestoreKeyPairViaMnemonicResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new RestoreKeyPairViaMnemonicRequest();
+      request.setMnemonic(payload.mnemonic);
+
+      this.instance.restoreKeyPairViaMnemonic(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: RestoreKeyPairViaMnemonicResponse) => {
           if (err) {
             reject(err);
             return;
