@@ -20,6 +20,7 @@ import {
   GetNotificationsPayload,
   RestoreKeyPairViaMnemonicPayload,
   GetSharedWithMeFilesPayload,
+  ShareFilesViaPublicKeyPayload,
 } from './types';
 
 import {
@@ -72,6 +73,8 @@ import {
   RestoreKeyPairViaMnemonicResponse,
   GetSharedWithMeFilesRequest,
   GetSharedWithMeFilesResponse,
+  ShareFilesViaPublicKeyRequest,
+  ShareFilesViaPublicKeyResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -689,6 +692,33 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GetSharedWithMeFilesResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareFilesViaPublicKey(
+    payload: ShareFilesViaPublicKeyPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareFilesViaPublicKeyResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ShareFilesViaPublicKeyRequest();
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      request.setPathsList(payload.paths);
+      request.setPublickeysList(payload.publicKeys);
+      request.setBucket(bucket || this.defaultBucket);
+
+      this.instance.shareFilesViaPublicKey(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareFilesViaPublicKeyResponse) => {
           if (err) {
             reject(err);
             return;

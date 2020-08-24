@@ -37,6 +37,8 @@ client.instance = {
   deleteAccount: jest.fn(),
   getUsageInfo: jest.fn(),
   getStoredMnemonic: jest.fn(),
+  getSharedWithMeFiles: jest.fn(),
+  shareFilesViaPublicKey: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -223,4 +225,23 @@ it('getStoredMnemonic makes the right request', async () => {
   client.getStoredMnemonic();
 
   expect(client.instance.getStoredMnemonic).toHaveBeenCalledTimes(1);
+});
+
+it('getSharedWithMeFiles makes the right request', async () => {
+  client.getSharedWithMeFiles({
+    limit: 10,
+    seek: 'seek',
+  });
+
+  expect(client.instance.getSharedWithMeFiles).toHaveBeenCalledTimes(1);
+});
+
+it('shareFilesViaPublicKey makes the right request', async () => {
+  client.shareFilesViaPublicKey({
+    bucket: 'my-bucket',
+    paths: ['path1/file.jpeg', 'path2/file.txt'],
+    publicKeys: ['pubkey1', 'pubkey2', 'pubkey3'],
+  });
+
+  expect(client.instance.shareFilesViaPublicKey).toHaveBeenCalledTimes(1);
 });
