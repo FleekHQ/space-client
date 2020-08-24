@@ -39,6 +39,8 @@ import {
   GenerateKeyPairResponse,
   GeneratePublicFileLinkRequest,
   GeneratePublicFileLinkResponse,
+  GetAPISessionTokensRequest,
+  GetAPISessionTokensResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
   GetPublicKeyRequest,
@@ -1397,6 +1399,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGetUsageInfo);
+  }
+
+  methodInfoGetAPISessionTokens = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetAPISessionTokensResponse,
+    (request: GetAPISessionTokensRequest) => {
+      return request.serializeBinary();
+    },
+    GetAPISessionTokensResponse.deserializeBinary
+  );
+
+  getAPISessionTokens(
+    request: GetAPISessionTokensRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetAPISessionTokensResponse>;
+
+  getAPISessionTokens(
+    request: GetAPISessionTokensRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetAPISessionTokensResponse) => void): grpcWeb.ClientReadableStream<GetAPISessionTokensResponse>;
+
+  getAPISessionTokens(
+    request: GetAPISessionTokensRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetAPISessionTokensResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetAPISessionTokens', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetAPISessionTokens,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetAPISessionTokens',
+    request,
+    metadata || {},
+    this.methodInfoGetAPISessionTokens);
   }
 
 }
