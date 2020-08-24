@@ -39,6 +39,7 @@ client.instance = {
   getStoredMnemonic: jest.fn(),
   getSharedWithMeFiles: jest.fn(),
   shareFilesViaPublicKey: jest.fn(),
+  getAPISessionTokens: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -244,4 +245,10 @@ it('shareFilesViaPublicKey makes the right request', async () => {
   });
 
   expect(client.instance.shareFilesViaPublicKey).toHaveBeenCalledTimes(1);
+});
+
+it('getAPISessionTooken makes the right request', async () => {
+  client.getAPISessionTokens();
+
+  expect(client.instance.getAPISessionTokens).toHaveBeenCalledTimes(1);
 });
