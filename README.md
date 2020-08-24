@@ -832,6 +832,39 @@ Returns the list of files shared with me
   };
 ```
 
+
+#### .shareFilesViaPublicKey({ bucket?: string, paths: [string], publicKeys: [string] })
+
+Share files with other users via their public keys
+
+```js
+  client
+    .shareFilesViaPublicKey({
+      bucket: 'my-bucket',
+      paths: ['path/to/my/file.txt', 'second/path/file2.txt'],
+      publicKeys: ['pubKey1', 'pubKey2', 'pubKey3'],
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.shareFilesViaPublicKey({
+      bucket: 'my-bucket',
+      paths: ['path/to/my/file.txt', 'second/path/file2.txt'],
+      publicKeys: ['pubKey1', 'pubKey2', 'pubKey3'],
+    });
+
+    console.log(res);
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 

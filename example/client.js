@@ -568,3 +568,29 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
     console.log(error);
   }
 }
+
+
+document.getElementById("share-files-via-public-key").onclick = async () => {
+  const bucket = document.getElementById("share-files-via-public-key-bucket").value;
+  const paths = document.getElementById("share-files-via-public-key-paths").value;
+  const pubKeys = document.getElementById("share-files-via-public-key-pubkeys").value;
+
+  const pathsList = paths.replace(' ', '').split(',');
+  const pubKeysList = pubKeys.replace(' ', '').split(',');
+
+  const payload = {
+    bucket,
+    paths: pathsList,
+    publicKeys: pubKeysList,
+  };
+
+  console.log('sharing files...');
+  console.log('payload', payload);
+
+  try {
+    const result = await client.shareFilesViaPublicKey(payload);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}

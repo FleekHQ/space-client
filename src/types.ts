@@ -81,3 +81,9 @@ export interface GetSharedWithMeFilesPayload {
   seek: string;
   limit: number;
 }
+
+export interface ShareFilesViaPublicKeyPayload {
+  paths: [string];
+  bucket?: string;
+  publicKeys: [string];
+}
