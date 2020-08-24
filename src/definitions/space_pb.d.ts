@@ -2,6 +2,52 @@ import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
+export class GetSharedWithMeFilesRequest extends jspb.Message {
+  getSeek(): string;
+  setSeek(value: string): GetSharedWithMeFilesRequest;
+
+  getLimit(): number;
+  setLimit(value: number): GetSharedWithMeFilesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSharedWithMeFilesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSharedWithMeFilesRequest): GetSharedWithMeFilesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetSharedWithMeFilesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSharedWithMeFilesRequest;
+  static deserializeBinaryFromReader(message: GetSharedWithMeFilesRequest, reader: jspb.BinaryReader): GetSharedWithMeFilesRequest;
+}
+
+export namespace GetSharedWithMeFilesRequest {
+  export type AsObject = {
+    seek: string,
+    limit: number,
+  }
+}
+
+export class GetSharedWithMeFilesResponse extends jspb.Message {
+  getItemsList(): Array<ListDirectoryEntry>;
+  setItemsList(value: Array<ListDirectoryEntry>): GetSharedWithMeFilesResponse;
+  clearItemsList(): GetSharedWithMeFilesResponse;
+  addItems(value?: ListDirectoryEntry, index?: number): ListDirectoryEntry;
+
+  getNextoffset(): number;
+  setNextoffset(value: number): GetSharedWithMeFilesResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSharedWithMeFilesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSharedWithMeFilesResponse): GetSharedWithMeFilesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetSharedWithMeFilesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSharedWithMeFilesResponse;
+  static deserializeBinaryFromReader(message: GetSharedWithMeFilesResponse, reader: jspb.BinaryReader): GetSharedWithMeFilesResponse;
+}
+
+export namespace GetSharedWithMeFilesResponse {
+  export type AsObject = {
+    itemsList: Array<ListDirectoryEntry.AsObject>,
+    nextoffset: number,
+  }
+}
+
 export class GetUsageInfoRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetUsageInfoRequest.AsObject;
@@ -896,40 +942,46 @@ export namespace JoinBucketResponse {
   }
 }
 
-export class ShareBucketViaPublicKeyRequest extends jspb.Message {
+export class ShareFilesViaPublicKeyRequest extends jspb.Message {
   getPublickeysList(): Array<string>;
-  setPublickeysList(value: Array<string>): ShareBucketViaPublicKeyRequest;
-  clearPublickeysList(): ShareBucketViaPublicKeyRequest;
-  addPublickeys(value: string, index?: number): ShareBucketViaPublicKeyRequest;
+  setPublickeysList(value: Array<string>): ShareFilesViaPublicKeyRequest;
+  clearPublickeysList(): ShareFilesViaPublicKeyRequest;
+  addPublickeys(value: string, index?: number): ShareFilesViaPublicKeyRequest;
 
   getBucket(): string;
-  setBucket(value: string): ShareBucketViaPublicKeyRequest;
+  setBucket(value: string): ShareFilesViaPublicKeyRequest;
+
+  getPathsList(): Array<string>;
+  setPathsList(value: Array<string>): ShareFilesViaPublicKeyRequest;
+  clearPathsList(): ShareFilesViaPublicKeyRequest;
+  addPaths(value: string, index?: number): ShareFilesViaPublicKeyRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaPublicKeyRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaPublicKeyRequest): ShareBucketViaPublicKeyRequest.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaPublicKeyRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaPublicKeyRequest;
-  static deserializeBinaryFromReader(message: ShareBucketViaPublicKeyRequest, reader: jspb.BinaryReader): ShareBucketViaPublicKeyRequest;
+  toObject(includeInstance?: boolean): ShareFilesViaPublicKeyRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareFilesViaPublicKeyRequest): ShareFilesViaPublicKeyRequest.AsObject;
+  static serializeBinaryToWriter(message: ShareFilesViaPublicKeyRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareFilesViaPublicKeyRequest;
+  static deserializeBinaryFromReader(message: ShareFilesViaPublicKeyRequest, reader: jspb.BinaryReader): ShareFilesViaPublicKeyRequest;
 }
 
-export namespace ShareBucketViaPublicKeyRequest {
+export namespace ShareFilesViaPublicKeyRequest {
   export type AsObject = {
     publickeysList: Array<string>,
     bucket: string,
+    pathsList: Array<string>,
   }
 }
 
-export class ShareBucketViaPublicKeyResponse extends jspb.Message {
+export class ShareFilesViaPublicKeyResponse extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ShareBucketViaPublicKeyResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: ShareBucketViaPublicKeyResponse): ShareBucketViaPublicKeyResponse.AsObject;
-  static serializeBinaryToWriter(message: ShareBucketViaPublicKeyResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ShareBucketViaPublicKeyResponse;
-  static deserializeBinaryFromReader(message: ShareBucketViaPublicKeyResponse, reader: jspb.BinaryReader): ShareBucketViaPublicKeyResponse;
+  toObject(includeInstance?: boolean): ShareFilesViaPublicKeyResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: ShareFilesViaPublicKeyResponse): ShareFilesViaPublicKeyResponse.AsObject;
+  static serializeBinaryToWriter(message: ShareFilesViaPublicKeyResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ShareFilesViaPublicKeyResponse;
+  static deserializeBinaryFromReader(message: ShareFilesViaPublicKeyResponse, reader: jspb.BinaryReader): ShareFilesViaPublicKeyResponse;
 }
 
-export namespace ShareBucketViaPublicKeyResponse {
+export namespace ShareFilesViaPublicKeyResponse {
   export type AsObject = {
   }
 }
@@ -1051,54 +1103,6 @@ export class ListBucketsResponse extends jspb.Message {
 export namespace ListBucketsResponse {
   export type AsObject = {
     bucketsList: Array<Bucket.AsObject>,
-  }
-}
-
-export class CopyAndShareFilesRequest extends jspb.Message {
-  getBucket(): string;
-  setBucket(value: string): CopyAndShareFilesRequest;
-
-  getItempathsList(): Array<string>;
-  setItempathsList(value: Array<string>): CopyAndShareFilesRequest;
-  clearItempathsList(): CopyAndShareFilesRequest;
-  addItempaths(value: string, index?: number): CopyAndShareFilesRequest;
-
-  getPublickeysList(): Array<string>;
-  setPublickeysList(value: Array<string>): CopyAndShareFilesRequest;
-  clearPublickeysList(): CopyAndShareFilesRequest;
-  addPublickeys(value: string, index?: number): CopyAndShareFilesRequest;
-
-  getCustommessage(): string;
-  setCustommessage(value: string): CopyAndShareFilesRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CopyAndShareFilesRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: CopyAndShareFilesRequest): CopyAndShareFilesRequest.AsObject;
-  static serializeBinaryToWriter(message: CopyAndShareFilesRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CopyAndShareFilesRequest;
-  static deserializeBinaryFromReader(message: CopyAndShareFilesRequest, reader: jspb.BinaryReader): CopyAndShareFilesRequest;
-}
-
-export namespace CopyAndShareFilesRequest {
-  export type AsObject = {
-    bucket: string,
-    itempathsList: Array<string>,
-    publickeysList: Array<string>,
-    custommessage: string,
-  }
-}
-
-export class CopyAndShareFilesResponse extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): CopyAndShareFilesResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: CopyAndShareFilesResponse): CopyAndShareFilesResponse.AsObject;
-  static serializeBinaryToWriter(message: CopyAndShareFilesResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): CopyAndShareFilesResponse;
-  static deserializeBinaryFromReader(message: CopyAndShareFilesResponse, reader: jspb.BinaryReader): CopyAndShareFilesResponse;
-}
-
-export namespace CopyAndShareFilesResponse {
-  export type AsObject = {
   }
 }
 

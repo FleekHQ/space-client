@@ -78,6 +78,11 @@ service SpaceApi {
 
   }
 
+  // Gets the files that are shared with this recipient
+  rpc GetSharedWithMeFiles(GetSharedWithMeFilesRequest) returns (GetSharedWithMeFilesResponse) {
+
+  }
+
   // Open an encrypted public shared file in the daemon.
   // This requires the decryption key and file hash/cid to work
   rpc OpenPublicFile(OpenPublicFileRequest) returns (OpenPublicFileResponse) {
@@ -138,7 +143,7 @@ service SpaceApi {
   }
 
   // Share bucket via public key using Textile Hub inboxing
-  rpc ShareBucketViaPublicKey(ShareBucketViaPublicKeyRequest) returns (ShareBucketViaPublicKeyResponse) {
+  rpc ShareFilesViaPublicKey(ShareFilesViaPublicKeyRequest) returns (ShareFilesViaPublicKeyResponse) {
 
   }
 
@@ -155,12 +160,6 @@ service SpaceApi {
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
-
-  }
-
-  // Copies a set of files in a new or existing bucket that's shared with a group of public keys
-  // Auxiliary method that internally calls CreateBucket, ShareBucketViaPublicKey, AddFile.
-  rpc CopyAndShareFiles(CopyAndShareFilesRequest) returns (CopyAndShareFilesResponse) {
 
   }
 
@@ -184,6 +183,16 @@ service SpaceApi {
   rpc GetUsageInfo(GetUsageInfoRequest) returns (GetUsageInfoResponse) {
 
   }
+}
+
+message GetSharedWithMeFilesRequest {
+  string seek = 1;
+  int64 limit = 2;
+}
+
+message GetSharedWithMeFilesResponse {
+  repeated ListDirectoryEntry items = 1;
+  int64 nextOffset = 2;
 }
 
 message GetUsageInfoRequest {}
@@ -388,12 +397,13 @@ message JoinBucketResponse {
 }
 
 
-message ShareBucketViaPublicKeyRequest {
+message ShareFilesViaPublicKeyRequest {
   repeated string publicKeys = 1;
   string bucket = 2;
+  repeated string paths = 3;
 }
 
-message ShareBucketViaPublicKeyResponse {}
+message ShareFilesViaPublicKeyResponse {}
 
 message GeneratePublicFileLinkRequest {
   string bucket = 1;
@@ -419,15 +429,6 @@ message ListBucketsRequest {}
 message ListBucketsResponse {
   repeated Bucket buckets = 1;
 }
-
-message CopyAndShareFilesRequest {
-  string bucket = 1;
-  repeated string itemPaths = 2;
-  repeated string publicKeys = 3;
-  string customMessage = 4;
-}
-
-message CopyAndShareFilesResponse {}
 
 enum NotificationType {
   INVITATION = 0;

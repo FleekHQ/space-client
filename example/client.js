@@ -530,3 +530,41 @@ document.getElementById('get-stored-mnemonic').onclick = async () => {
   }
 };
 
+
+document.getElementById("get-shared-with-me-files").onclick = async () => {
+  const seek = document.getElementById("get-shared-with-me-seek").value;
+  const limit = parseInt(document.getElementById("get-shared-with-me-limit").value, 10);
+
+  const payload = {
+    seek,
+    limit,
+  };
+
+  console.log("getting files shared with me...");
+  console.log("payload", payload);
+
+  try {
+    const result = await client.getSharedWithMeFiles(payload);
+
+    console.log({
+      nextOffset: result.getNextoffset(),
+      items: result.getItemsList().map((item) => ({
+        path: item.getPath(),
+        isDir: item.getIsdir(),
+        name: item.getName(),
+        sizeInBytes: item.getSizeinbytes(),
+        created: item.getCreated(),
+        updated: item.getUpdated(),
+        fileExtension: item.getFileextension(),
+        ipfsHash: item.getIpfshash(),
+        isLocallyAvailable: item.getIslocallyavailable(),
+        backupCount: item.getBackupcount(),
+        members: item.getMembersList().map((member) => ({
+          publicKey: member.getPublickey(),
+        })),
+      })),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
