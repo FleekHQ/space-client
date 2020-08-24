@@ -594,3 +594,16 @@ document.getElementById("share-files-via-public-key").onclick = async () => {
     console.log(error);
   }
 }
+
+document.getElementById('get-api-session-tokens').onclick = async () => {
+  try {
+    const res = await client.getAPISessionTokens();
+
+    console.log({
+      hubToken: res.getHubtoken(),
+      servicestoken: res.getServicestoken(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};

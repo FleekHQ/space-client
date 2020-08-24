@@ -75,6 +75,8 @@ import {
   GetSharedWithMeFilesResponse,
   ShareFilesViaPublicKeyRequest,
   ShareFilesViaPublicKeyResponse,
+  GetAPISessionTokensRequest,
+  GetAPISessionTokensResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -719,6 +721,27 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: ShareFilesViaPublicKeyResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getAPISessionTokens(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetAPISessionTokensResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetAPISessionTokensRequest();
+
+      this.instance.getAPISessionTokens(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetAPISessionTokensResponse) => {
           if (err) {
             reject(err);
             return;
