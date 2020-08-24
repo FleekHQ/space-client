@@ -154,6 +154,9 @@ export class FileMember extends jspb.Message {
   getPublickey(): string;
   setPublickey(value: string): FileMember;
 
+  getAddress(): string;
+  setAddress(value: string): FileMember;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FileMember.AsObject;
   static toObject(includeInstance: boolean, msg: FileMember): FileMember.AsObject;
@@ -165,6 +168,7 @@ export class FileMember extends jspb.Message {
 export namespace FileMember {
   export type AsObject = {
     publickey: string,
+    address: string,
   }
 }
 
@@ -1402,9 +1406,6 @@ export class GetPublicKeyResponse extends jspb.Message {
   getPublickey(): string;
   setPublickey(value: string): GetPublicKeyResponse;
 
-  getHubauthtoken(): string;
-  setHubauthtoken(value: string): GetPublicKeyResponse;
-
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetPublicKeyResponse.AsObject;
   static toObject(includeInstance: boolean, msg: GetPublicKeyResponse): GetPublicKeyResponse.AsObject;
@@ -1416,7 +1417,6 @@ export class GetPublicKeyResponse extends jspb.Message {
 export namespace GetPublicKeyResponse {
   export type AsObject = {
     publickey: string,
-    hubauthtoken: string,
   }
 }
 
@@ -1537,6 +1537,42 @@ export class DeleteKeyPairResponse extends jspb.Message {
 
 export namespace DeleteKeyPairResponse {
   export type AsObject = {
+  }
+}
+
+export class GetAPISessionTokensRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAPISessionTokensRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAPISessionTokensRequest): GetAPISessionTokensRequest.AsObject;
+  static serializeBinaryToWriter(message: GetAPISessionTokensRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAPISessionTokensRequest;
+  static deserializeBinaryFromReader(message: GetAPISessionTokensRequest, reader: jspb.BinaryReader): GetAPISessionTokensRequest;
+}
+
+export namespace GetAPISessionTokensRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetAPISessionTokensResponse extends jspb.Message {
+  getHubtoken(): string;
+  setHubtoken(value: string): GetAPISessionTokensResponse;
+
+  getServicestoken(): string;
+  setServicestoken(value: string): GetAPISessionTokensResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetAPISessionTokensResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetAPISessionTokensResponse): GetAPISessionTokensResponse.AsObject;
+  static serializeBinaryToWriter(message: GetAPISessionTokensResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetAPISessionTokensResponse;
+  static deserializeBinaryFromReader(message: GetAPISessionTokensResponse, reader: jspb.BinaryReader): GetAPISessionTokensResponse;
+}
+
+export namespace GetAPISessionTokensResponse {
+  export type AsObject = {
+    hubtoken: string,
+    servicestoken: string,
   }
 }
 
