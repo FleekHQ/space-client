@@ -642,3 +642,32 @@ document.getElementById('get-recently-shared-with').onclick = async () => {
     console.log(error);
   }
 };
+
+
+document.getElementById('generate-public-file-link').onclick = async () => {
+  const bucket = document.getElementById('generate-public-file-link-bucket').value;
+  const password = document.getElementById('generate-public-file-link-password').value;
+  const itemPathsList = document.getElementById('generate-public-file-link-item-paths').value;
+
+  const itemPaths = itemPathsList.replace(' ', '').split(',');
+
+  const payload = {
+    bucket,
+    password,
+    itemPaths,
+  };
+
+  console.log('Generating public file link...');
+  console.log('payload', payload);
+  try {
+    const res = await client.generatePublicFileLink(payload);
+    const fileInfo = {
+      link: res.getLink(),
+      fileCid: res.getFilecid(),
+    };
+
+    console.log(fileInfo);
+  } catch (error) {
+    console.log(error);
+  }
+};

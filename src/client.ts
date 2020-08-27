@@ -21,6 +21,7 @@ import {
   RestoreKeyPairViaMnemonicPayload,
   GetSharedWithMeFilesPayload,
   ShareFilesViaPublicKeyPayload,
+  GeneratePublicFileLinkPayload,
 } from './types';
 
 import {
@@ -79,6 +80,8 @@ import {
   GetAPISessionTokensResponse,
   GetRecentlySharedWithResponse,
   GetRecentlySharedWithRequest,
+  GeneratePublicFileLinkRequest,
+  GeneratePublicFileLinkResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -757,6 +760,35 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GetRecentlySharedWithResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  generatePublicFileLink(
+    payload: GeneratePublicFileLinkPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GeneratePublicFileLinkResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GeneratePublicFileLinkRequest();
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      const itemPaths = payload.itemPaths.map((path) => path.replace(/^\//, ''));
+
+      request.setPassword(payload.password);
+      request.setItempathsList(itemPaths);
+      request.setBucket(bucket || this.defaultBucket);
+
+      this.instance.generatePublicFileLink(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GeneratePublicFileLinkResponse) => {
           if (err) {
             reject(err);
             return;
