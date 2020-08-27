@@ -118,6 +118,7 @@ it('createFolder makes the right requests', async () => {
 
 it('backupKeysByPassphrase makes the right requests', async () => {
   client.backupKeysByPassphrase({
+    uuid: '123',
     passphrase: '123',
   });
 
