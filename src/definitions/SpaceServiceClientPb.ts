@@ -45,6 +45,8 @@ import {
   GetNotificationsResponse,
   GetPublicKeyRequest,
   GetPublicKeyResponse,
+  GetRecentlySharedWithRequest,
+  GetRecentlySharedWithResponse,
   GetSharedWithMeFilesRequest,
   GetSharedWithMeFilesResponse,
   GetStoredMnemonicRequest,
@@ -1438,6 +1440,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGetAPISessionTokens);
+  }
+
+  methodInfoGetRecentlySharedWith = new grpcWeb.AbstractClientBase.MethodInfo(
+    GetRecentlySharedWithResponse,
+    (request: GetRecentlySharedWithRequest) => {
+      return request.serializeBinary();
+    },
+    GetRecentlySharedWithResponse.deserializeBinary
+  );
+
+  getRecentlySharedWith(
+    request: GetRecentlySharedWithRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetRecentlySharedWithResponse>;
+
+  getRecentlySharedWith(
+    request: GetRecentlySharedWithRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: GetRecentlySharedWithResponse) => void): grpcWeb.ClientReadableStream<GetRecentlySharedWithResponse>;
+
+  getRecentlySharedWith(
+    request: GetRecentlySharedWithRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: GetRecentlySharedWithResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/GetRecentlySharedWith', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoGetRecentlySharedWith,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetRecentlySharedWith',
+    request,
+    metadata || {},
+    this.methodInfoGetRecentlySharedWith);
   }
 
 }
