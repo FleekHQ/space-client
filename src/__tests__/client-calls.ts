@@ -40,6 +40,7 @@ client.instance = {
   getSharedWithMeFiles: jest.fn(),
   shareFilesViaPublicKey: jest.fn(),
   getAPISessionTokens: jest.fn(),
+  getRecentlySharedWith: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -252,4 +253,10 @@ it('getAPISessionTooken makes the right request', async () => {
   client.getAPISessionTokens();
 
   expect(client.instance.getAPISessionTokens).toHaveBeenCalledTimes(1);
+});
+
+it('getRecentlySharedWith makes the right request', async () => {
+  client.getRecentlySharedWith();
+
+  expect(client.instance.getRecentlySharedWith).toHaveBeenCalledTimes(1);
 });

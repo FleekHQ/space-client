@@ -895,6 +895,36 @@ Get the current api session tokens.
   };
 ```
 
+
+#### .getRecentlySharedWith()
+
+Returns a list of the recently members that you shared with
+
+```js
+  client
+    .getRecentlySharedWith()
+    .then((res) => {
+      const membersList = res.getMembersList();
+
+      const members = membersList.map((member) => ({
+        address: member.getAddress(),
+        publicKey: member.getPublickey(),
+      }));
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getRecentlySharedWith();
+
+    const membersList = res.getMembersList();
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
