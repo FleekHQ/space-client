@@ -41,6 +41,7 @@ client.instance = {
   shareFilesViaPublicKey: jest.fn(),
   getAPISessionTokens: jest.fn(),
   getRecentlySharedWith: jest.fn(),
+  generatePublicFileLink: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -260,4 +261,14 @@ it('getRecentlySharedWith makes the right request', async () => {
   client.getRecentlySharedWith();
 
   expect(client.instance.getRecentlySharedWith).toHaveBeenCalledTimes(1);
+});
+
+it('generatePublicFileLink makes the right request', async () => {
+  client.generatePublicFileLink({
+    bucket: 'personal',
+    password: '123asd',
+    itemPaths: ['path/to/file1.txt', 'path/to/file2.txt'],
+  });
+
+  expect(client.instance.generatePublicFileLink).toHaveBeenCalledTimes(1);
 });
