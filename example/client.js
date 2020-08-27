@@ -345,8 +345,8 @@ document.getElementById('recover-keys-by-passphrase').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const res = await client.recoverKeysByPassphrase(payload);
-    console.log('result', res.getResult());
+    await client.recoverKeysByPassphrase(payload);
+    console.log('keys recovered');
   } catch (error) {
     console.error(error);
   }
