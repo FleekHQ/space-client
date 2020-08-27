@@ -308,6 +308,7 @@ class SpaceClient {
   ): Promise<BackupKeysByPassphraseResponse> {
     return new Promise((resolve, reject) => {
       const request = new BackupKeysByPassphraseRequest();
+      request.setUuid(payload.uuid);
       request.setPassphrase(payload.passphrase);
 
       this.instance.backupKeysByPassphrase(

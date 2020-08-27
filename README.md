@@ -312,15 +312,14 @@ Toggles whether or not to back up the content of a bucket to Space.
   };
 ```
 
-#### `[WIP]` <em>.backupKeysByPassphrase({ passphrase: string })</em>
+#### .backupKeysByPassphrase({ uuid: string, passphrase: string })
 
-> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
-
-Backup keys by passphrase
+Backup keys by a passphrase
 
 ```js
   client
     .backupKeysByPassphrase({
+      uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     })
     .then(() => {
@@ -334,6 +333,7 @@ Backup keys by passphrase
 
   const asyncFunc = async () => {
     await client.backupKeysByPassphrase({
+      uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     });
   };

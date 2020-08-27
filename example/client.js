@@ -607,3 +607,18 @@ document.getElementById('get-api-session-tokens').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('backup-keys-by-passphrase').onclick = async () => {
+  const uuid = document.getElementById("backup-keys-by-passphrase-uuid").value;
+  const passphrase = document.getElementById("backup-keys-by-passphrase-passphrase").value;
+  try {
+    await client.backupKeysByPassphrase({
+      uuid,
+      passphrase
+    });
+
+    console.log('Successfully keys backup');
+  } catch (error) {
+    console.error(error);
+  }
+};
