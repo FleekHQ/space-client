@@ -624,3 +624,21 @@ document.getElementById('backup-keys-by-passphrase').onclick = async () => {
     console.error(error);
   }
 };
+
+
+document.getElementById('get-recently-shared-with').onclick = async () => {
+  console.log('getting recently shared with');
+
+  try {
+    const res = await client.getRecentlySharedWith();
+    const membersList = res.getMembersList();
+    const members = membersList.map((member) => ({
+      address: member.getAddress(),
+      publicKey: member.getPublickey(),
+    }));
+
+    console.log(members);
+  } catch (error) {
+    console.log(error);
+  }
+};
