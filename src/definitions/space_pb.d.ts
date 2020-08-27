@@ -779,6 +779,9 @@ export namespace CreateFolderResponse {
 }
 
 export class BackupKeysByPassphraseRequest extends jspb.Message {
+  getUuid(): string;
+  setUuid(value: string): BackupKeysByPassphraseRequest;
+
   getPassphrase(): string;
   setPassphrase(value: string): BackupKeysByPassphraseRequest;
 
@@ -792,6 +795,7 @@ export class BackupKeysByPassphraseRequest extends jspb.Message {
 
 export namespace BackupKeysByPassphraseRequest {
   export type AsObject = {
+    uuid: string,
     passphrase: string,
   }
 }
@@ -811,6 +815,9 @@ export namespace BackupKeysByPassphraseResponse {
 }
 
 export class RecoverKeysByPassphraseRequest extends jspb.Message {
+  getUuid(): string;
+  setUuid(value: string): RecoverKeysByPassphraseRequest;
+
   getPassphrase(): string;
   setPassphrase(value: string): RecoverKeysByPassphraseRequest;
 
@@ -824,6 +831,7 @@ export class RecoverKeysByPassphraseRequest extends jspb.Message {
 
 export namespace RecoverKeysByPassphraseRequest {
   export type AsObject = {
+    uuid: string,
     passphrase: string,
   }
 }
@@ -1573,6 +1581,40 @@ export namespace GetAPISessionTokensResponse {
   export type AsObject = {
     hubtoken: string,
     servicestoken: string,
+  }
+}
+
+export class GetRecentlySharedWithRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetRecentlySharedWithRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetRecentlySharedWithRequest): GetRecentlySharedWithRequest.AsObject;
+  static serializeBinaryToWriter(message: GetRecentlySharedWithRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetRecentlySharedWithRequest;
+  static deserializeBinaryFromReader(message: GetRecentlySharedWithRequest, reader: jspb.BinaryReader): GetRecentlySharedWithRequest;
+}
+
+export namespace GetRecentlySharedWithRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetRecentlySharedWithResponse extends jspb.Message {
+  getMembersList(): Array<FileMember>;
+  setMembersList(value: Array<FileMember>): GetRecentlySharedWithResponse;
+  clearMembersList(): GetRecentlySharedWithResponse;
+  addMembers(value?: FileMember, index?: number): FileMember;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetRecentlySharedWithResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetRecentlySharedWithResponse): GetRecentlySharedWithResponse.AsObject;
+  static serializeBinaryToWriter(message: GetRecentlySharedWithResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetRecentlySharedWithResponse;
+  static deserializeBinaryFromReader(message: GetRecentlySharedWithResponse, reader: jspb.BinaryReader): GetRecentlySharedWithResponse;
+}
+
+export namespace GetRecentlySharedWithResponse {
+  export type AsObject = {
+    membersList: Array<FileMember.AsObject>,
   }
 }
 

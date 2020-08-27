@@ -187,6 +187,11 @@ service SpaceApi {
   rpc GetAPISessionTokens(GetAPISessionTokensRequest) returns (GetAPISessionTokensResponse) {
 
   }
+
+  // Returns a list of addresses / public keys of clients to which files where shared or received, ordered by date
+  rpc GetRecentlySharedWith(GetRecentlySharedWithRequest) returns (GetRecentlySharedWithResponse) {
+
+  }
 }
 
 message GetSharedWithMeFilesRequest {
@@ -368,13 +373,15 @@ message CreateFolderResponse {
 }
 
 message BackupKeysByPassphraseRequest {
-  string passphrase = 1;
+  string uuid = 1;
+  string passphrase = 2;
 }
 
 message BackupKeysByPassphraseResponse {}
 
 message RecoverKeysByPassphraseRequest {
-  string passphrase = 1;
+  string uuid = 1;
+  string passphrase = 2;
 }
 
 message RecoverKeysByPassphraseResponse {}
@@ -537,4 +544,10 @@ message GetAPISessionTokensRequest {}
 message GetAPISessionTokensResponse {
   string hubToken = 1;
   string servicesToken = 2;
+}
+
+message GetRecentlySharedWithRequest {}
+
+message GetRecentlySharedWithResponse {
+ repeated FileMember members = 1;
 }
