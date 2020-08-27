@@ -297,11 +297,6 @@ class SpaceClient {
     });
   }
 
-  /**
-   * [WIP] backupKeysByPassphrase
-   *
-   * Not supported by space daemon
-   */
   backupKeysByPassphrase(
     payload: BackupKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
@@ -326,17 +321,13 @@ class SpaceClient {
     });
   }
 
-  /**
-   * [WIP] recoverKeysByPassphrase
-   *
-   * Not supported by space daemon
-   */
   recoverKeysByPassphrase(
     payload: RecoverKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<RecoverKeysByPassphraseResponse> {
     return new Promise((resolve, reject) => {
       const request = new RecoverKeysByPassphraseRequest();
+      request.setUuid(payload.uuid);
       request.setPassphrase(payload.passphrase);
 
       this.instance.recoverKeysByPassphrase(

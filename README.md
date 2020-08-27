@@ -339,15 +339,14 @@ Backup keys by a passphrase
   };
 ```
 
-#### `[WIP]` <em>.recoverKeysByPassphrase({ passphrase: string })</em>
-
-> this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
+#### .recoverKeysByPassphrase({ uuid: string, passphrase: string })
 
 Recovery keys by passphrase
 
 ```js
   client
     .recoverKeysByPassphrase({
+      uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     })
     .then(() => {
@@ -361,6 +360,7 @@ Recovery keys by passphrase
 
   const asyncFunc = async () => {
     await client.recoverKeysByPassphrase({
+      uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     });
   };

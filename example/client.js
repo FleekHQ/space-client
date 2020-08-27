@@ -334,8 +334,10 @@ document.getElementById('join-bucket').onclick = async () => {
 
 
 document.getElementById('recover-keys-by-passphrase').onclick = async () => {
-  const passphrase = document.getElementById('recover-keys-by-passphrase-input').value;
+  const uuid = document.getElementById('recover-keys-by-passphrase-uuid').value;
+  const passphrase = document.getElementById('recover-keys-by-passphrase-passphrase').value;
   const payload = {
+    uuid,
     passphrase,
   };
 
@@ -343,8 +345,8 @@ document.getElementById('recover-keys-by-passphrase').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const res = await client.recoverKeysByPassphrase(payload);
-    console.log('result', res.getResult());
+    await client.recoverKeysByPassphrase(payload);
+    console.log('keys recovered');
   } catch (error) {
     console.error(error);
   }

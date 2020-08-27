@@ -29,6 +29,7 @@ export interface BackupKeysByPassphrasePayload {
 }
 
 export interface RecoverKeysByPassphrasePayload {
+  uuid: string;
   passphrase: string;
 }
 

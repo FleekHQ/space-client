@@ -127,6 +127,7 @@ it('backupKeysByPassphrase makes the right requests', async () => {
 
 it('recoverKeysByPassphrase makes the right requests', async () => {
   client.recoverKeysByPassphrase({
+    uuid: 'user-uuid',
     passphrase: '123',
   });
 
