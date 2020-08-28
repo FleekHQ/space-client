@@ -16,8 +16,8 @@ import * as grpcWeb from 'grpc-web';
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
 import {
-  AcceptBucketInvitationRequest,
-  AcceptBucketInvitationResponse,
+  AcceptFilesInvitationRequest,
+  AcceptFilesInvitationResponse,
   AddItemsRequest,
   AddItemsResponse,
   BackupKeysByPassphraseRequest,
@@ -72,14 +72,18 @@ import {
   RecoverKeysByLocalBackupResponse,
   RecoverKeysByPassphraseRequest,
   RecoverKeysByPassphraseResponse,
-  RejectBucketInvitationRequest,
-  RejectBucketInvitationResponse,
+  RejectFilesInvitationRequest,
+  RejectFilesInvitationResponse,
   RestoreKeyPairViaMnemonicRequest,
   RestoreKeyPairViaMnemonicResponse,
+  SetNotificationsLastSeenAtRequest,
+  SetNotificationsLastSeenAtResponse,
   ShareBucketRequest,
   ShareBucketResponse,
   ShareFilesViaPublicKeyRequest,
   ShareFilesViaPublicKeyResponse,
+  TestKeysPassphraseRequest,
+  TestKeysPassphraseResponse,
   TextileEventResponse,
   ToggleBucketBackupRequest,
   ToggleBucketBackupResponse,
@@ -878,6 +882,45 @@ export class SpaceApiClient {
     this.methodInfoRecoverKeysByPassphrase);
   }
 
+  methodInfoTestKeysPassphrase = new grpcWeb.AbstractClientBase.MethodInfo(
+    TestKeysPassphraseResponse,
+    (request: TestKeysPassphraseRequest) => {
+      return request.serializeBinary();
+    },
+    TestKeysPassphraseResponse.deserializeBinary
+  );
+
+  testKeysPassphrase(
+    request: TestKeysPassphraseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<TestKeysPassphraseResponse>;
+
+  testKeysPassphrase(
+    request: TestKeysPassphraseRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: TestKeysPassphraseResponse) => void): grpcWeb.ClientReadableStream<TestKeysPassphraseResponse>;
+
+  testKeysPassphrase(
+    request: TestKeysPassphraseRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: TestKeysPassphraseResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/TestKeysPassphrase', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoTestKeysPassphrase,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/TestKeysPassphrase',
+    request,
+    metadata || {},
+    this.methodInfoTestKeysPassphrase);
+  }
+
   methodInfoCreateLocalKeysBackup = new grpcWeb.AbstractClientBase.MethodInfo(
     CreateLocalKeysBackupResponse,
     (request: CreateLocalKeysBackupRequest) => {
@@ -1073,82 +1116,82 @@ export class SpaceApiClient {
     this.methodInfoShareFilesViaPublicKey);
   }
 
-  methodInfoAcceptBucketInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
-    AcceptBucketInvitationResponse,
-    (request: AcceptBucketInvitationRequest) => {
+  methodInfoAcceptFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
+    AcceptFilesInvitationResponse,
+    (request: AcceptFilesInvitationRequest) => {
       return request.serializeBinary();
     },
-    AcceptBucketInvitationResponse.deserializeBinary
+    AcceptFilesInvitationResponse.deserializeBinary
   );
 
-  acceptBucketInvitation(
-    request: AcceptBucketInvitationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<AcceptBucketInvitationResponse>;
+  acceptFilesInvitation(
+    request: AcceptFilesInvitationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<AcceptFilesInvitationResponse>;
 
-  acceptBucketInvitation(
-    request: AcceptBucketInvitationRequest,
+  acceptFilesInvitation(
+    request: AcceptFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: AcceptBucketInvitationResponse) => void): grpcWeb.ClientReadableStream<AcceptBucketInvitationResponse>;
+               response: AcceptFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<AcceptFilesInvitationResponse>;
 
-  acceptBucketInvitation(
-    request: AcceptBucketInvitationRequest,
+  acceptFilesInvitation(
+    request: AcceptFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: AcceptBucketInvitationResponse) => void) {
+               response: AcceptFilesInvitationResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/space.SpaceApi/AcceptBucketInvitation', this.hostname_).toString(),
+        new URL('/space.SpaceApi/AcceptFilesInvitation', this.hostname_).toString(),
         request,
         metadata || {},
-        this.methodInfoAcceptBucketInvitation,
+        this.methodInfoAcceptFilesInvitation,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/space.SpaceApi/AcceptBucketInvitation',
+      '/space.SpaceApi/AcceptFilesInvitation',
     request,
     metadata || {},
-    this.methodInfoAcceptBucketInvitation);
+    this.methodInfoAcceptFilesInvitation);
   }
 
-  methodInfoRejectBucketInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
-    RejectBucketInvitationResponse,
-    (request: RejectBucketInvitationRequest) => {
+  methodInfoRejectFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
+    RejectFilesInvitationResponse,
+    (request: RejectFilesInvitationRequest) => {
       return request.serializeBinary();
     },
-    RejectBucketInvitationResponse.deserializeBinary
+    RejectFilesInvitationResponse.deserializeBinary
   );
 
-  rejectBucketInvitation(
-    request: RejectBucketInvitationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<RejectBucketInvitationResponse>;
+  rejectFilesInvitation(
+    request: RejectFilesInvitationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RejectFilesInvitationResponse>;
 
-  rejectBucketInvitation(
-    request: RejectBucketInvitationRequest,
+  rejectFilesInvitation(
+    request: RejectFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: RejectBucketInvitationResponse) => void): grpcWeb.ClientReadableStream<RejectBucketInvitationResponse>;
+               response: RejectFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<RejectFilesInvitationResponse>;
 
-  rejectBucketInvitation(
-    request: RejectBucketInvitationRequest,
+  rejectFilesInvitation(
+    request: RejectFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: RejectBucketInvitationResponse) => void) {
+               response: RejectFilesInvitationResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/space.SpaceApi/RejectBucketInvitation', this.hostname_).toString(),
+        new URL('/space.SpaceApi/RejectFilesInvitation', this.hostname_).toString(),
         request,
         metadata || {},
-        this.methodInfoRejectBucketInvitation,
+        this.methodInfoRejectFilesInvitation,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/space.SpaceApi/RejectBucketInvitation',
+      '/space.SpaceApi/RejectFilesInvitation',
     request,
     metadata || {},
-    this.methodInfoRejectBucketInvitation);
+    this.methodInfoRejectFilesInvitation);
   }
 
   methodInfoNotificationSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
@@ -1479,6 +1522,45 @@ export class SpaceApiClient {
     request,
     metadata || {},
     this.methodInfoGetRecentlySharedWith);
+  }
+
+  methodInfoSetNotificationsLastSeenAt = new grpcWeb.AbstractClientBase.MethodInfo(
+    SetNotificationsLastSeenAtResponse,
+    (request: SetNotificationsLastSeenAtRequest) => {
+      return request.serializeBinary();
+    },
+    SetNotificationsLastSeenAtResponse.deserializeBinary
+  );
+
+  setNotificationsLastSeenAt(
+    request: SetNotificationsLastSeenAtRequest,
+    metadata: grpcWeb.Metadata | null): Promise<SetNotificationsLastSeenAtResponse>;
+
+  setNotificationsLastSeenAt(
+    request: SetNotificationsLastSeenAtRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: SetNotificationsLastSeenAtResponse) => void): grpcWeb.ClientReadableStream<SetNotificationsLastSeenAtResponse>;
+
+  setNotificationsLastSeenAt(
+    request: SetNotificationsLastSeenAtRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: SetNotificationsLastSeenAtResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/SetNotificationsLastSeenAt', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoSetNotificationsLastSeenAt,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/SetNotificationsLastSeenAt',
+    request,
+    metadata || {},
+    this.methodInfoSetNotificationsLastSeenAt);
   }
 
 }
