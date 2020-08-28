@@ -2,6 +2,38 @@ import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
+export class SetNotificationsLastSeenAtRequest extends jspb.Message {
+  getTimestamp(): number;
+  setTimestamp(value: number): SetNotificationsLastSeenAtRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetNotificationsLastSeenAtRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SetNotificationsLastSeenAtRequest): SetNotificationsLastSeenAtRequest.AsObject;
+  static serializeBinaryToWriter(message: SetNotificationsLastSeenAtRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetNotificationsLastSeenAtRequest;
+  static deserializeBinaryFromReader(message: SetNotificationsLastSeenAtRequest, reader: jspb.BinaryReader): SetNotificationsLastSeenAtRequest;
+}
+
+export namespace SetNotificationsLastSeenAtRequest {
+  export type AsObject = {
+    timestamp: number,
+  }
+}
+
+export class SetNotificationsLastSeenAtResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SetNotificationsLastSeenAtResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SetNotificationsLastSeenAtResponse): SetNotificationsLastSeenAtResponse.AsObject;
+  static serializeBinaryToWriter(message: SetNotificationsLastSeenAtResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SetNotificationsLastSeenAtResponse;
+  static deserializeBinaryFromReader(message: SetNotificationsLastSeenAtResponse, reader: jspb.BinaryReader): SetNotificationsLastSeenAtResponse;
+}
+
+export namespace SetNotificationsLastSeenAtResponse {
+  export type AsObject = {
+  }
+}
+
 export class GetSharedWithMeFilesRequest extends jspb.Message {
   getSeek(): string;
   setSeek(value: string): GetSharedWithMeFilesRequest;
@@ -850,6 +882,42 @@ export namespace RecoverKeysByPassphraseResponse {
   }
 }
 
+export class TestKeysPassphraseRequest extends jspb.Message {
+  getUuid(): string;
+  setUuid(value: string): TestKeysPassphraseRequest;
+
+  getPassphrase(): string;
+  setPassphrase(value: string): TestKeysPassphraseRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TestKeysPassphraseRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: TestKeysPassphraseRequest): TestKeysPassphraseRequest.AsObject;
+  static serializeBinaryToWriter(message: TestKeysPassphraseRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TestKeysPassphraseRequest;
+  static deserializeBinaryFromReader(message: TestKeysPassphraseRequest, reader: jspb.BinaryReader): TestKeysPassphraseRequest;
+}
+
+export namespace TestKeysPassphraseRequest {
+  export type AsObject = {
+    uuid: string,
+    passphrase: string,
+  }
+}
+
+export class TestKeysPassphraseResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TestKeysPassphraseResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: TestKeysPassphraseResponse): TestKeysPassphraseResponse.AsObject;
+  static serializeBinaryToWriter(message: TestKeysPassphraseResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TestKeysPassphraseResponse;
+  static deserializeBinaryFromReader(message: TestKeysPassphraseResponse, reader: jspb.BinaryReader): TestKeysPassphraseResponse;
+}
+
+export namespace TestKeysPassphraseResponse {
+  export type AsObject = {
+  }
+}
+
 export class ThreadInfo extends jspb.Message {
   getAddressesList(): Array<string>;
   setAddressesList(value: Array<string>): ThreadInfo;
@@ -1234,66 +1302,66 @@ export namespace Notification {
   }
 }
 
-export class AcceptBucketInvitationRequest extends jspb.Message {
+export class AcceptFilesInvitationRequest extends jspb.Message {
   getInvitationid(): string;
-  setInvitationid(value: string): AcceptBucketInvitationRequest;
+  setInvitationid(value: string): AcceptFilesInvitationRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): AcceptBucketInvitationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: AcceptBucketInvitationRequest): AcceptBucketInvitationRequest.AsObject;
-  static serializeBinaryToWriter(message: AcceptBucketInvitationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): AcceptBucketInvitationRequest;
-  static deserializeBinaryFromReader(message: AcceptBucketInvitationRequest, reader: jspb.BinaryReader): AcceptBucketInvitationRequest;
+  toObject(includeInstance?: boolean): AcceptFilesInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: AcceptFilesInvitationRequest): AcceptFilesInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: AcceptFilesInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AcceptFilesInvitationRequest;
+  static deserializeBinaryFromReader(message: AcceptFilesInvitationRequest, reader: jspb.BinaryReader): AcceptFilesInvitationRequest;
 }
 
-export namespace AcceptBucketInvitationRequest {
+export namespace AcceptFilesInvitationRequest {
   export type AsObject = {
     invitationid: string,
   }
 }
 
-export class AcceptBucketInvitationResponse extends jspb.Message {
+export class AcceptFilesInvitationResponse extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): AcceptBucketInvitationResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: AcceptBucketInvitationResponse): AcceptBucketInvitationResponse.AsObject;
-  static serializeBinaryToWriter(message: AcceptBucketInvitationResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): AcceptBucketInvitationResponse;
-  static deserializeBinaryFromReader(message: AcceptBucketInvitationResponse, reader: jspb.BinaryReader): AcceptBucketInvitationResponse;
+  toObject(includeInstance?: boolean): AcceptFilesInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: AcceptFilesInvitationResponse): AcceptFilesInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: AcceptFilesInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AcceptFilesInvitationResponse;
+  static deserializeBinaryFromReader(message: AcceptFilesInvitationResponse, reader: jspb.BinaryReader): AcceptFilesInvitationResponse;
 }
 
-export namespace AcceptBucketInvitationResponse {
+export namespace AcceptFilesInvitationResponse {
   export type AsObject = {
   }
 }
 
-export class RejectBucketInvitationRequest extends jspb.Message {
+export class RejectFilesInvitationRequest extends jspb.Message {
   getInvitationid(): string;
-  setInvitationid(value: string): RejectBucketInvitationRequest;
+  setInvitationid(value: string): RejectFilesInvitationRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RejectBucketInvitationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: RejectBucketInvitationRequest): RejectBucketInvitationRequest.AsObject;
-  static serializeBinaryToWriter(message: RejectBucketInvitationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationRequest;
-  static deserializeBinaryFromReader(message: RejectBucketInvitationRequest, reader: jspb.BinaryReader): RejectBucketInvitationRequest;
+  toObject(includeInstance?: boolean): RejectFilesInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectFilesInvitationRequest): RejectFilesInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: RejectFilesInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectFilesInvitationRequest;
+  static deserializeBinaryFromReader(message: RejectFilesInvitationRequest, reader: jspb.BinaryReader): RejectFilesInvitationRequest;
 }
 
-export namespace RejectBucketInvitationRequest {
+export namespace RejectFilesInvitationRequest {
   export type AsObject = {
     invitationid: string,
   }
 }
 
-export class RejectBucketInvitationResponse extends jspb.Message {
+export class RejectFilesInvitationResponse extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RejectBucketInvitationResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: RejectBucketInvitationResponse): RejectBucketInvitationResponse.AsObject;
-  static serializeBinaryToWriter(message: RejectBucketInvitationResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RejectBucketInvitationResponse;
-  static deserializeBinaryFromReader(message: RejectBucketInvitationResponse, reader: jspb.BinaryReader): RejectBucketInvitationResponse;
+  toObject(includeInstance?: boolean): RejectFilesInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RejectFilesInvitationResponse): RejectFilesInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: RejectFilesInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RejectFilesInvitationResponse;
+  static deserializeBinaryFromReader(message: RejectFilesInvitationResponse, reader: jspb.BinaryReader): RejectFilesInvitationResponse;
 }
 
-export namespace RejectBucketInvitationResponse {
+export namespace RejectFilesInvitationResponse {
   export type AsObject = {
   }
 }
@@ -1346,8 +1414,11 @@ export class GetNotificationsResponse extends jspb.Message {
   clearNotificationsList(): GetNotificationsResponse;
   addNotifications(value?: Notification, index?: number): Notification;
 
-  getNextoffset(): number;
-  setNextoffset(value: number): GetNotificationsResponse;
+  getNextoffset(): string;
+  setNextoffset(value: string): GetNotificationsResponse;
+
+  getLastseenat(): number;
+  setLastseenat(value: number): GetNotificationsResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetNotificationsResponse.AsObject;
@@ -1360,7 +1431,8 @@ export class GetNotificationsResponse extends jspb.Message {
 export namespace GetNotificationsResponse {
   export type AsObject = {
     notificationsList: Array<Notification.AsObject>,
-    nextoffset: number,
+    nextoffset: string,
+    lastseenat: number,
   }
 }
 
