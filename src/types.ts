@@ -33,6 +33,11 @@ export interface RecoverKeysByPassphrasePayload {
   passphrase: string;
 }
 
+export interface TestKeysPassphrasePayload {
+  uuid: string;
+  passphrase: string;
+}
+
 export interface ToggleFusePayload {
   mountDrive: boolean;
 }
