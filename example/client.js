@@ -550,21 +550,27 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
 
     console.log({
       nextOffset: result.getNextoffset(),
-      items: result.getItemsList().map((item) => ({
-        path: item.getPath(),
-        isDir: item.getIsdir(),
-        name: item.getName(),
-        sizeInBytes: item.getSizeinbytes(),
-        created: item.getCreated(),
-        updated: item.getUpdated(),
-        fileExtension: item.getFileextension(),
-        ipfsHash: item.getIpfshash(),
-        isLocallyAvailable: item.getIslocallyavailable(),
-        backupCount: item.getBackupcount(),
-        members: item.getMembersList().map((member) => ({
-          publicKey: member.getPublickey(),
-        })),
-      })),
+      items: result.getItemsList().map((item) => {
+        const entry = item.getEntry();
+
+        return {
+          dbId: item.getDbid(),
+          bucket: item.getBucket(),
+          path: entry.getEntrygetPath(),
+          isDir: entry.getIsdir(),
+          name: entry.getName(),
+          sizeInBytes: entry.getSizeinbytes(),
+          created: entry.getCreated(),
+          updated: entry.getUpdated(),
+          fileExtension: entry.getFileextension(),
+          ipfsHash: entry.getIpfshash(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList().map((member) => ({
+            publicKey: member.getPublickey(),
+          })),
+        };
+      }),
     });
   } catch (error) {
     console.log(error);
@@ -645,6 +651,7 @@ document.getElementById('get-recently-shared-with').onclick = async () => {
 
 
 document.getElementById('generate-public-file-link').onclick = async () => {
+  const dbId = document.getElementById('generate-public-file-link-dbid').value;
   const bucket = document.getElementById('generate-public-file-link-bucket').value;
   const password = document.getElementById('generate-public-file-link-password').value;
   const itemPathsList = document.getElementById('generate-public-file-link-item-paths').value;
@@ -652,6 +659,7 @@ document.getElementById('generate-public-file-link').onclick = async () => {
   const itemPaths = itemPathsList.replace(' ', '').split(',');
 
   const payload = {
+    dbId,
     bucket,
     password,
     itemPaths,

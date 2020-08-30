@@ -781,6 +781,7 @@ class SpaceClient {
 
       const itemPaths = payload.itemPaths.map((path) => path.replace(/^\//, ''));
 
+      request.setDbid(payload.dbId);
       request.setPassword(payload.password);
       request.setItempathsList(itemPaths);
       request.setBucket(bucket || this.defaultBucket);
