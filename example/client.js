@@ -671,3 +671,22 @@ document.getElementById('generate-public-file-link').onclick = async () => {
     console.log(error);
   }
 };
+
+document.getElementById('test-keys-passphrase').onclick = async () => {
+  const uuid = document.getElementById('test-keys-passphrase-uuid').value;
+  const passphrase = document.getElementById('test-keys-passphrase-passphrase').value;
+  const payload = {
+    uuid,
+    passphrase,
+  };
+
+  console.log('test keys passphrase...');
+  console.log('payload', payload);
+
+  try {
+    await client.testKeysPassphrase(payload);
+    console.log('test success');
+  } catch (error) {
+    console.error(error);
+  }
+};

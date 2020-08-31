@@ -22,6 +22,7 @@ import {
   GetSharedWithMeFilesPayload,
   ShareFilesViaPublicKeyPayload,
   GeneratePublicFileLinkPayload,
+  TestKeysPassphrasePayload,
 } from './types';
 
 import {
@@ -82,6 +83,8 @@ import {
   GetRecentlySharedWithRequest,
   GeneratePublicFileLinkRequest,
   GeneratePublicFileLinkResponse,
+  TestKeysPassphraseRequest,
+  TestKeysPassphraseResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -789,6 +792,30 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GeneratePublicFileLinkResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  testKeysPassphrase(
+    payload: TestKeysPassphrasePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<TestKeysPassphraseResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new TestKeysPassphraseRequest();
+      request.setUuid(payload.uuid);
+      request.setPassphrase(payload.passphrase);
+
+      this.instance.testKeysPassphrase(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: TestKeysPassphraseResponse) => {
           if (err) {
             reject(err);
             return;

@@ -42,6 +42,7 @@ client.instance = {
   getAPISessionTokens: jest.fn(),
   getRecentlySharedWith: jest.fn(),
   generatePublicFileLink: jest.fn(),
+  testKeysPassphrase: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -271,4 +272,13 @@ it('generatePublicFileLink makes the right request', async () => {
   });
 
   expect(client.instance.generatePublicFileLink).toHaveBeenCalledTimes(1);
+});
+
+it('testKeysPassphrase makes the right request', async () => {
+  client.testKeysPassphrase({
+    uuid: 'user-uuid',
+    passphrase: '123',
+  });
+
+  expect(client.instance.testKeysPassphrase).toHaveBeenCalledTimes(1);
 });

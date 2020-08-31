@@ -366,6 +366,33 @@ Recovery keys by passphrase
   };
 ```
 
+#### .testKeysPassphrase({ uuid: string, passphrase: string })
+
+Test keys with passphrase
+
+```js
+  client
+    .testKeysPassphrase({
+      uuid: 'user-uuid',
+      passphrase: 'my-passphrase',
+    })
+    .then(() => {
+      console.log('test success');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.testKeysPassphrase({
+      uuid: 'user-uuid',
+      passphrase: 'my-passphrase',
+    });
+  };
+```
+
 #### `[WIP]` <em>.toggleFuseDrive({ mountDrive: boolean })</em>
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
