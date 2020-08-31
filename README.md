@@ -681,22 +681,9 @@ This timestamp can be used to track which notification has not yet been seen by 
 
 ```js
   client
-    .getNotifications({ seek: 'some-value', limit: 20 })
-    .then((res) => {
-      const objectRes = {
-        nextOffset: res.getNextoffset(),
-        notifications: res.getNotificationsList().map((notification) => ({
-          id: notification.getId(),
-          body: notification.getBody(),
-          type: notification.getType(),
-          readAt: notification.getReadat(),
-          subject: notification.getSubject(),
-          createdAt: notification.getCreatedat(),
-          relatedObject: notification.getRelatedobjectCase(),
-        })),
-      };
-
-      console.log(objectRes);
+    .setNotificationsLastSeenAt({ timestamp: 1598889151456 })
+    .then(() => {
+      console.log('Updated the notifications timestamp');
     })
     .catch((err) => {
       console.error(err);
@@ -705,9 +692,7 @@ This timestamp can be used to track which notification has not yet been seen by 
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    const res = await client.getNotifications({ seek: 'some-value', limit: 20 });
-
-    console.log(res);
+    await client.setNotificationsLastSeenAt({ timestamp: 1598889151456 });
     ...
   };
 ```
