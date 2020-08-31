@@ -80,6 +80,10 @@ export interface GetNotificationsPayload {
   limit: number;
 }
 
+export interface SetNotificationsLastSeenAtPayload {
+  timestamp: number;
+}
+
 export interface RestoreKeyPairViaMnemonicPayload {
   mnemonic: string;
 }

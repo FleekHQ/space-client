@@ -675,6 +675,43 @@ Returns a list of notifications objects. Notifications objects represent just sh
   };
 ```
 
+#### .setNotificationsLastSeenAt({ timestamp: number })
+Updates the timestamp which is returned by the `getNotifications()` method through calling `getLastseenat()`.
+This timestamp can be used to track which notification has not yet been seen by the user.
+
+```js
+  client
+    .getNotifications({ seek: 'some-value', limit: 20 })
+    .then((res) => {
+      const objectRes = {
+        nextOffset: res.getNextoffset(),
+        notifications: res.getNotificationsList().map((notification) => ({
+          id: notification.getId(),
+          body: notification.getBody(),
+          type: notification.getType(),
+          readAt: notification.getReadat(),
+          subject: notification.getSubject(),
+          createdAt: notification.getCreatedat(),
+          relatedObject: notification.getRelatedobjectCase(),
+        })),
+      };
+
+      console.log(objectRes);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getNotifications({ seek: 'some-value', limit: 20 });
+
+    console.log(res);
+    ...
+  };
+```
+
 #### .deleteAccount()
 
 Delete an account.
