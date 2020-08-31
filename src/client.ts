@@ -23,6 +23,7 @@ import {
   ShareFilesViaPublicKeyPayload,
   GeneratePublicFileLinkPayload,
   TestKeysPassphrasePayload,
+  SetNotificationsLastSeenAtPayload,
 } from './types';
 
 import {
@@ -85,6 +86,8 @@ import {
   GeneratePublicFileLinkResponse,
   TestKeysPassphraseRequest,
   TestKeysPassphraseResponse,
+  SetNotificationsLastSeenAtRequest,
+  SetNotificationsLastSeenAtResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -486,6 +489,29 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  setNotificationsLastSeenAt(
+    payload: SetNotificationsLastSeenAtPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<SetNotificationsLastSeenAtResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new SetNotificationsLastSeenAtRequest();
+      request.setTimestamp(payload.timestamp);
+
+      this.instance.setNotificationsLastSeenAt(
+        request,
+        metadata,
+        (err, res) => {
           if (err) {
             reject(err);
             return;

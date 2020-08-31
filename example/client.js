@@ -698,3 +698,19 @@ document.getElementById('test-keys-passphrase').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('set-notifications-last-seen-at').onclick = async () => {
+  const timestamp = Number(document.getElementById('set-notifications-last-seen-at-timestamp').value);
+  const payload = {
+    timestamp,
+  };
+
+  console.log('payload', payload);
+
+  try {
+    await client.setNotificationsLastSeenAt(payload);
+    console.log('successfully updated notifications timestamp');
+  } catch (error) {
+    console.error(error);
+  }
+};

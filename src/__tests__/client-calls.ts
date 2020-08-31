@@ -33,6 +33,7 @@ client.instance = {
   getPublicKey: jest.fn(),
   readNotification: jest.fn(),
   getNotifications: jest.fn(),
+  setNotificationsLastSeenAt: jest.fn(),
   deleteKeyPair: jest.fn(),
   deleteAccount: jest.fn(),
   getUsageInfo: jest.fn(),
@@ -207,6 +208,12 @@ it('should call getNotifications', async () => {
   client.getNotifications({ seek: 'value', limit: 10 });
 
   expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+});
+
+it('should call setNotificationsLastSeenAt', async () => {
+  client.setNotificationsLastSeenAt({ timestamp: 10 });
+
+  expect(client.instance.setNotificationsLastSeenAt).toHaveBeenCalledTimes(1);
 });
 
 it('should call deleteKeyPair', async () => {

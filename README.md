@@ -675,6 +675,28 @@ Returns a list of notifications objects. Notifications objects represent just sh
   };
 ```
 
+#### .setNotificationsLastSeenAt({ timestamp: number })
+Updates the timestamp which is returned by the `getNotifications()` method through calling `getLastseenat()`.
+This timestamp can be used to track which notification has not yet been seen by the user.
+
+```js
+  client
+    .setNotificationsLastSeenAt({ timestamp: 1598889151456 })
+    .then(() => {
+      console.log('Updated the notifications timestamp');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.setNotificationsLastSeenAt({ timestamp: 1598889151456 });
+    ...
+  };
+```
+
 #### .deleteAccount()
 
 Delete an account.
