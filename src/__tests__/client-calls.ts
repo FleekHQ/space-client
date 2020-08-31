@@ -266,6 +266,7 @@ it('getRecentlySharedWith makes the right request', async () => {
 
 it('generatePublicFileLink makes the right request', async () => {
   client.generatePublicFileLink({
+    dbId: 'db-id-string',
     bucket: 'personal',
     password: '123asd',
     itemPaths: ['path/to/file1.txt', 'path/to/file2.txt'],

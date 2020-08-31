@@ -823,21 +823,27 @@ Returns the list of files shared with me
     .then((res) => {
       const result = {
         nextOffset: result.getNextoffset(),
-        items: result.getItemsList().map((item) => ({
-          path: item.getPath(),
-          isDir: item.getIsdir(),
-          name: item.getName(),
-          sizeInBytes: item.getSizeinbytes(),
-          created: item.getCreated(),
-          updated: item.getUpdated(),
-          fileExtension: item.getFileextension(),
-          ipfsHash: item.getIpfshash(),
-          isLocallyAvailable: item.getIslocallyavailable(),
-          backupCount: item.getBackupcount(),
-          members: item.getMembersList().map((member) => ({
-            publicKey: member.getPublickey(),
-          })),
-        })),
+        items: result.getItemsList().map((item) => {
+          const entry = item.getEntry();
+
+          return {
+            dbId: item.getDbid(),
+            bucket: item.getBucket(),
+            path: entry.getEntrygetPath(),
+            isDir: entry.getIsdir(),
+            name: entry.getName(),
+            sizeInBytes: entry.getSizeinbytes(),
+            created: entry.getCreated(),
+            updated: entry.getUpdated(),
+            fileExtension: entry.getFileextension(),
+            ipfsHash: entry.getIpfshash(),
+            isLocallyAvailable: entry.getIslocallyavailable(),
+            backupCount: entry.getBackupcount(),
+            members: entry.getMembersList().map((member) => ({
+              publicKey: member.getPublickey(),
+            })),
+          };
+        }),
       };
 
       console.log(result);
@@ -953,7 +959,7 @@ Returns a list of the recently members that you shared with
 ```
 
 
-#### .generatePublicFileLink({ bucket?: string, password: string, itemPaths: [string] })
+#### .generatePublicFileLink({ bucket?: string, password: string, itemPaths: [string], dbId: string })
 
 Generates a sharing public link for the files specified.
 If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
@@ -961,6 +967,7 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
 ```js
   client
     .generatePublicFileLink({
+      dbId: 'db-id-string',
       bucket: 'my-bucket',
       password: '123asd',
       itemPaths: ['path/to/file1.txt', 'path/to/file2.txt'],

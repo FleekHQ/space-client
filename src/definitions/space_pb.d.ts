@@ -57,13 +57,13 @@ export namespace GetSharedWithMeFilesRequest {
 }
 
 export class GetSharedWithMeFilesResponse extends jspb.Message {
-  getItemsList(): Array<ListDirectoryEntry>;
-  setItemsList(value: Array<ListDirectoryEntry>): GetSharedWithMeFilesResponse;
+  getItemsList(): Array<SharedListDirectoryEntry>;
+  setItemsList(value: Array<SharedListDirectoryEntry>): GetSharedWithMeFilesResponse;
   clearItemsList(): GetSharedWithMeFilesResponse;
-  addItems(value?: ListDirectoryEntry, index?: number): ListDirectoryEntry;
+  addItems(value?: SharedListDirectoryEntry, index?: number): SharedListDirectoryEntry;
 
-  getNextoffset(): number;
-  setNextoffset(value: number): GetSharedWithMeFilesResponse;
+  getNextoffset(): string;
+  setNextoffset(value: string): GetSharedWithMeFilesResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetSharedWithMeFilesResponse.AsObject;
@@ -75,8 +75,8 @@ export class GetSharedWithMeFilesResponse extends jspb.Message {
 
 export namespace GetSharedWithMeFilesResponse {
   export type AsObject = {
-    itemsList: Array<ListDirectoryEntry.AsObject>,
-    nextoffset: number,
+    itemsList: Array<SharedListDirectoryEntry.AsObject>,
+    nextoffset: string,
   }
 }
 
@@ -261,6 +261,34 @@ export namespace ListDirectoryEntry {
     islocallyavailable: boolean,
     backupcount: number,
     membersList: Array<FileMember.AsObject>,
+  }
+}
+
+export class SharedListDirectoryEntry extends jspb.Message {
+  getEntry(): ListDirectoryEntry | undefined;
+  setEntry(value?: ListDirectoryEntry): SharedListDirectoryEntry;
+  hasEntry(): boolean;
+  clearEntry(): SharedListDirectoryEntry;
+
+  getDbid(): string;
+  setDbid(value: string): SharedListDirectoryEntry;
+
+  getBucket(): string;
+  setBucket(value: string): SharedListDirectoryEntry;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SharedListDirectoryEntry.AsObject;
+  static toObject(includeInstance: boolean, msg: SharedListDirectoryEntry): SharedListDirectoryEntry.AsObject;
+  static serializeBinaryToWriter(message: SharedListDirectoryEntry, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SharedListDirectoryEntry;
+  static deserializeBinaryFromReader(message: SharedListDirectoryEntry, reader: jspb.BinaryReader): SharedListDirectoryEntry;
+}
+
+export namespace SharedListDirectoryEntry {
+  export type AsObject = {
+    entry?: ListDirectoryEntry.AsObject,
+    dbid: string,
+    bucket: string,
   }
 }
 
@@ -1078,6 +1106,9 @@ export class GeneratePublicFileLinkRequest extends jspb.Message {
   getPassword(): string;
   setPassword(value: string): GeneratePublicFileLinkRequest;
 
+  getDbid(): string;
+  setDbid(value: string): GeneratePublicFileLinkRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GeneratePublicFileLinkRequest.AsObject;
   static toObject(includeInstance: boolean, msg: GeneratePublicFileLinkRequest): GeneratePublicFileLinkRequest.AsObject;
@@ -1091,6 +1122,7 @@ export namespace GeneratePublicFileLinkRequest {
     bucket: string,
     itempathsList: Array<string>,
     password: string,
+    dbid: string,
   }
 }
 

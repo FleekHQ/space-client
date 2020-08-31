@@ -96,6 +96,7 @@ export interface ShareFilesViaPublicKeyPayload {
 }
 
 export interface GeneratePublicFileLinkPayload {
+  dbId: string;
   bucket?: string;
   password: string;
   itemPaths: [string],
