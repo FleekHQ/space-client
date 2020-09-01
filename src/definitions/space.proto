@@ -152,11 +152,7 @@ service SpaceApi {
 
   }
 
-  rpc AcceptFilesInvitation(AcceptFilesInvitationRequest) returns (AcceptFilesInvitationResponse) {
-
-  }
-
-  rpc RejectFilesInvitation(RejectFilesInvitationRequest) returns (RejectFilesInvitationResponse) {
+  rpc HandleFilesInvitation(HandleFilesInvitationRequest) returns (HandleFilesInvitationResponse) {
 
   }
 
@@ -512,17 +508,12 @@ message Notification {
   int64 readAt = 8;
 }
 
-message AcceptFilesInvitationRequest {
+message HandleFilesInvitationRequest {
   string invitationID = 1;
+  bool accept = 2;
 }
 
-message AcceptFilesInvitationResponse {}
-
-message RejectFilesInvitationRequest {
-  string invitationID = 1;
-}
-
-message RejectFilesInvitationResponse {}
+message HandleFilesInvitationResponse {}
 
 message NotificationEventResponse {
   Notification notification = 1;
