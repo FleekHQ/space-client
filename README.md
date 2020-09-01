@@ -675,6 +675,25 @@ Returns a list of notifications objects. Notifications objects represent just sh
   };
 ```
 
+#### .handleFilesInvitation({ invitationID: string, accept: boolean })
+Returns a list of notifications objects. Notifications objects represent just share file invitations for now.
+
+```js
+  client
+    .handleFilesInvitation({ invitationID: '123-123-123', accept: true })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    
+    await client.handleFilesInvitation({ invitationID: '123-123-123', accept: true });
+    ...
+  };
+```
+
 #### .setNotificationsLastSeenAt({ timestamp: number })
 Updates the timestamp which is returned by the `getNotifications()` method through calling `getLastseenat()`.
 This timestamp can be used to track which notification has not yet been seen by the user.
