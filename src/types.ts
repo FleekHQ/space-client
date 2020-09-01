@@ -80,6 +80,11 @@ export interface GetNotificationsPayload {
   limit: number;
 }
 
+export interface HandleFilesInvitationPayload {
+  invitationID: string,
+  accept: boolean,
+}
+
 export interface SetNotificationsLastSeenAtPayload {
   timestamp: number;
 }

@@ -24,6 +24,7 @@ import {
   GeneratePublicFileLinkPayload,
   TestKeysPassphrasePayload,
   SetNotificationsLastSeenAtPayload,
+  HandleFilesInvitationPayload,
 } from './types';
 
 import {
@@ -64,6 +65,8 @@ import {
   ReadNotificationResponse,
   GetNotificationsRequest,
   GetNotificationsResponse,
+  HandleFilesInvitationResponse,
+  HandleFilesInvitationRequest,
   DeleteKeyPairRequest,
   DeleteKeyPairResponse,
   DeleteAccountRequest,
@@ -533,6 +536,30 @@ class SpaceClient {
       request.setLimit(payload.limit);
 
       this.instance.getNotifications(
+        request,
+        metadata,
+        (err, res) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  handleFilesInvitation(
+    payload: HandleFilesInvitationPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<HandleFilesInvitationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new HandleFilesInvitationRequest();
+      request.setInvitationid(payload.invitationID);
+      request.setAccept(payload.accept);
+
+      this.instance.handleFilesInvitation(
         request,
         metadata,
         (err, res) => {
