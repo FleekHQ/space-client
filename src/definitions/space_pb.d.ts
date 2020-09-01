@@ -1334,66 +1334,38 @@ export namespace Notification {
   }
 }
 
-export class AcceptFilesInvitationRequest extends jspb.Message {
+export class HandleFilesInvitationRequest extends jspb.Message {
   getInvitationid(): string;
-  setInvitationid(value: string): AcceptFilesInvitationRequest;
+  setInvitationid(value: string): HandleFilesInvitationRequest;
+
+  getAccept(): boolean;
+  setAccept(value: boolean): HandleFilesInvitationRequest;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): AcceptFilesInvitationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: AcceptFilesInvitationRequest): AcceptFilesInvitationRequest.AsObject;
-  static serializeBinaryToWriter(message: AcceptFilesInvitationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): AcceptFilesInvitationRequest;
-  static deserializeBinaryFromReader(message: AcceptFilesInvitationRequest, reader: jspb.BinaryReader): AcceptFilesInvitationRequest;
+  toObject(includeInstance?: boolean): HandleFilesInvitationRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: HandleFilesInvitationRequest): HandleFilesInvitationRequest.AsObject;
+  static serializeBinaryToWriter(message: HandleFilesInvitationRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): HandleFilesInvitationRequest;
+  static deserializeBinaryFromReader(message: HandleFilesInvitationRequest, reader: jspb.BinaryReader): HandleFilesInvitationRequest;
 }
 
-export namespace AcceptFilesInvitationRequest {
+export namespace HandleFilesInvitationRequest {
   export type AsObject = {
     invitationid: string,
+    accept: boolean,
   }
 }
 
-export class AcceptFilesInvitationResponse extends jspb.Message {
+export class HandleFilesInvitationResponse extends jspb.Message {
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): AcceptFilesInvitationResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: AcceptFilesInvitationResponse): AcceptFilesInvitationResponse.AsObject;
-  static serializeBinaryToWriter(message: AcceptFilesInvitationResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): AcceptFilesInvitationResponse;
-  static deserializeBinaryFromReader(message: AcceptFilesInvitationResponse, reader: jspb.BinaryReader): AcceptFilesInvitationResponse;
+  toObject(includeInstance?: boolean): HandleFilesInvitationResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: HandleFilesInvitationResponse): HandleFilesInvitationResponse.AsObject;
+  static serializeBinaryToWriter(message: HandleFilesInvitationResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): HandleFilesInvitationResponse;
+  static deserializeBinaryFromReader(message: HandleFilesInvitationResponse, reader: jspb.BinaryReader): HandleFilesInvitationResponse;
 }
 
-export namespace AcceptFilesInvitationResponse {
-  export type AsObject = {
-  }
-}
-
-export class RejectFilesInvitationRequest extends jspb.Message {
-  getInvitationid(): string;
-  setInvitationid(value: string): RejectFilesInvitationRequest;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RejectFilesInvitationRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: RejectFilesInvitationRequest): RejectFilesInvitationRequest.AsObject;
-  static serializeBinaryToWriter(message: RejectFilesInvitationRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RejectFilesInvitationRequest;
-  static deserializeBinaryFromReader(message: RejectFilesInvitationRequest, reader: jspb.BinaryReader): RejectFilesInvitationRequest;
-}
-
-export namespace RejectFilesInvitationRequest {
-  export type AsObject = {
-    invitationid: string,
-  }
-}
-
-export class RejectFilesInvitationResponse extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RejectFilesInvitationResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: RejectFilesInvitationResponse): RejectFilesInvitationResponse.AsObject;
-  static serializeBinaryToWriter(message: RejectFilesInvitationResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RejectFilesInvitationResponse;
-  static deserializeBinaryFromReader(message: RejectFilesInvitationResponse, reader: jspb.BinaryReader): RejectFilesInvitationResponse;
-}
-
-export namespace RejectFilesInvitationResponse {
+export namespace HandleFilesInvitationResponse {
   export type AsObject = {
   }
 }

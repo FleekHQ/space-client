@@ -16,8 +16,6 @@ import * as grpcWeb from 'grpc-web';
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
 import {
-  AcceptFilesInvitationRequest,
-  AcceptFilesInvitationResponse,
   AddItemsRequest,
   AddItemsResponse,
   BackupKeysByPassphraseRequest,
@@ -53,6 +51,8 @@ import {
   GetStoredMnemonicResponse,
   GetUsageInfoRequest,
   GetUsageInfoResponse,
+  HandleFilesInvitationRequest,
+  HandleFilesInvitationResponse,
   JoinBucketRequest,
   JoinBucketResponse,
   ListBucketsRequest,
@@ -72,8 +72,6 @@ import {
   RecoverKeysByLocalBackupResponse,
   RecoverKeysByPassphraseRequest,
   RecoverKeysByPassphraseResponse,
-  RejectFilesInvitationRequest,
-  RejectFilesInvitationResponse,
   RestoreKeyPairViaMnemonicRequest,
   RestoreKeyPairViaMnemonicResponse,
   SetNotificationsLastSeenAtRequest,
@@ -1116,82 +1114,43 @@ export class SpaceApiClient {
     this.methodInfoShareFilesViaPublicKey);
   }
 
-  methodInfoAcceptFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
-    AcceptFilesInvitationResponse,
-    (request: AcceptFilesInvitationRequest) => {
+  methodInfoHandleFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
+    HandleFilesInvitationResponse,
+    (request: HandleFilesInvitationRequest) => {
       return request.serializeBinary();
     },
-    AcceptFilesInvitationResponse.deserializeBinary
+    HandleFilesInvitationResponse.deserializeBinary
   );
 
-  acceptFilesInvitation(
-    request: AcceptFilesInvitationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<AcceptFilesInvitationResponse>;
+  handleFilesInvitation(
+    request: HandleFilesInvitationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<HandleFilesInvitationResponse>;
 
-  acceptFilesInvitation(
-    request: AcceptFilesInvitationRequest,
+  handleFilesInvitation(
+    request: HandleFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: AcceptFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<AcceptFilesInvitationResponse>;
+               response: HandleFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<HandleFilesInvitationResponse>;
 
-  acceptFilesInvitation(
-    request: AcceptFilesInvitationRequest,
+  handleFilesInvitation(
+    request: HandleFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: AcceptFilesInvitationResponse) => void) {
+               response: HandleFilesInvitationResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/space.SpaceApi/AcceptFilesInvitation', this.hostname_).toString(),
+        new URL('/space.SpaceApi/HandleFilesInvitation', this.hostname_).toString(),
         request,
         metadata || {},
-        this.methodInfoAcceptFilesInvitation,
+        this.methodInfoHandleFilesInvitation,
         callback);
     }
     return this.client_.unaryCall(
     this.hostname_ +
-      '/space.SpaceApi/AcceptFilesInvitation',
+      '/space.SpaceApi/HandleFilesInvitation',
     request,
     metadata || {},
-    this.methodInfoAcceptFilesInvitation);
-  }
-
-  methodInfoRejectFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
-    RejectFilesInvitationResponse,
-    (request: RejectFilesInvitationRequest) => {
-      return request.serializeBinary();
-    },
-    RejectFilesInvitationResponse.deserializeBinary
-  );
-
-  rejectFilesInvitation(
-    request: RejectFilesInvitationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<RejectFilesInvitationResponse>;
-
-  rejectFilesInvitation(
-    request: RejectFilesInvitationRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.Error,
-               response: RejectFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<RejectFilesInvitationResponse>;
-
-  rejectFilesInvitation(
-    request: RejectFilesInvitationRequest,
-    metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.Error,
-               response: RejectFilesInvitationResponse) => void) {
-    if (callback !== undefined) {
-      return this.client_.rpcCall(
-        new URL('/space.SpaceApi/RejectFilesInvitation', this.hostname_).toString(),
-        request,
-        metadata || {},
-        this.methodInfoRejectFilesInvitation,
-        callback);
-    }
-    return this.client_.unaryCall(
-    this.hostname_ +
-      '/space.SpaceApi/RejectFilesInvitation',
-    request,
-    metadata || {},
-    this.methodInfoRejectFilesInvitation);
+    this.methodInfoHandleFilesInvitation);
   }
 
   methodInfoNotificationSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
