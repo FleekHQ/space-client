@@ -443,7 +443,6 @@ document.getElementById('get-public-key').onclick = async () => {
 
     console.log({
       publicKey: res.getPublickey(),
-      hubAuthToken: res.getHubauthtoken(),
     });
   } catch (error) {
     console.error(error);
