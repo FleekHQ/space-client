@@ -676,7 +676,8 @@ Returns a list of notifications objects. Notifications objects represent just sh
 ```
 
 #### .handleFilesInvitation({ invitationID: string, accept: boolean })
-Returns a list of notifications objects. Notifications objects represent just share file invitations for now.
+
+This method is for accept or rejecting an invitation to a sharing request of a file.
 
 ```js
   client
