@@ -45,6 +45,7 @@ client.instance = {
   getRecentlySharedWith: jest.fn(),
   generatePublicFileLink: jest.fn(),
   testKeysPassphrase: jest.fn(),
+  generateKeyPairWithForce: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -296,4 +297,10 @@ it('testKeysPassphrase makes the right request', async () => {
   });
 
   expect(client.instance.testKeysPassphrase).toHaveBeenCalledTimes(1);
+});
+
+it('generateKeyPairWithForce makes the right request', async () => {
+  client.generateKeyPairWithForce();
+
+  expect(client.instance.generateKeyPairWithForce).toHaveBeenCalledTimes(1);
 });

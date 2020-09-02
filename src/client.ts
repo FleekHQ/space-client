@@ -91,6 +91,8 @@ import {
   TestKeysPassphraseResponse,
   SetNotificationsLastSeenAtRequest,
   SetNotificationsLastSeenAtResponse,
+  GenerateKeyPairRequest,
+  GenerateKeyPairResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -870,6 +872,27 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: TestKeysPassphraseResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  generateKeyPairWithForce(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GenerateKeyPairResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GenerateKeyPairRequest();
+
+      this.instance.generateKeyPairWithForce(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GenerateKeyPairResponse) => {
           if (err) {
             reject(err);
             return;

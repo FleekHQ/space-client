@@ -393,6 +393,27 @@ Test keys with passphrase
   };
 ```
 
+#### .generateKeyPairWithForce()
+
+Generate key pair with force
+
+```js
+  client
+    .generateKeyPairWithForce()
+    .then(() => {
+      console.log('keys generated');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.generateKeyPairWithForce();
+  };
+```
+
 #### `[WIP]` <em>.toggleFuseDrive({ mountDrive: boolean })</em>
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 

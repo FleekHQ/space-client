@@ -733,3 +733,13 @@ document.getElementById('handle-files-invitation').onclick = async () => {
     console.error(error);
   }
 };
+
+document.getElementById('generate-key-pair-withForce').onclick = async () => {
+  try {
+    await client.generateKeyPairWithForce();
+    
+    console.log('Keys was generated');
+  } catch (error) {
+    console.log(error);
+  }
+};
