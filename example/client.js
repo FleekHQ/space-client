@@ -714,3 +714,22 @@ document.getElementById('set-notifications-last-seen-at').onclick = async () => 
     console.error(error);
   }
 };
+
+document.getElementById('handle-files-invitation').onclick = async () => {
+  const accept = document.getElementById('handle-files-invitation-accept').checked;
+  const invitationID = document.getElementById('handle-files-invitation-id').value;
+
+  const payload = {
+    invitationID,
+    accept,
+  };
+
+  console.log('payload', payload);
+
+  try {
+    await client.handleFilesInvitation(payload);
+    console.log('successfully updated notification invitation status');
+  } catch (error) {
+    console.error(error);
+  }
+};

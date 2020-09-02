@@ -33,6 +33,7 @@ client.instance = {
   getPublicKey: jest.fn(),
   readNotification: jest.fn(),
   getNotifications: jest.fn(),
+  handleFilesInvitation: jest.fn(),
   setNotificationsLastSeenAt: jest.fn(),
   deleteKeyPair: jest.fn(),
   deleteAccount: jest.fn(),
@@ -208,6 +209,12 @@ it('should call getNotifications', async () => {
   client.getNotifications({ seek: 'value', limit: 10 });
 
   expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+});
+
+it('handleFilesInvitation makes the right request', async () => {
+  client.handleFilesInvitation({ invitationID: '123', accept: true });
+
+  expect(client.instance.handleFilesInvitation).toHaveBeenCalledTimes(1);
 });
 
 it('should call setNotificationsLastSeenAt', async () => {
