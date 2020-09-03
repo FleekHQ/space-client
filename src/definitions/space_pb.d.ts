@@ -1056,13 +1056,10 @@ export class ShareFilesViaPublicKeyRequest extends jspb.Message {
   clearPublickeysList(): ShareFilesViaPublicKeyRequest;
   addPublickeys(value: string, index?: number): ShareFilesViaPublicKeyRequest;
 
-  getBucket(): string;
-  setBucket(value: string): ShareFilesViaPublicKeyRequest;
-
-  getPathsList(): Array<string>;
-  setPathsList(value: Array<string>): ShareFilesViaPublicKeyRequest;
+  getPathsList(): Array<FullPath>;
+  setPathsList(value: Array<FullPath>): ShareFilesViaPublicKeyRequest;
   clearPathsList(): ShareFilesViaPublicKeyRequest;
-  addPaths(value: string, index?: number): ShareFilesViaPublicKeyRequest;
+  addPaths(value?: FullPath, index?: number): FullPath;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ShareFilesViaPublicKeyRequest.AsObject;
@@ -1075,8 +1072,33 @@ export class ShareFilesViaPublicKeyRequest extends jspb.Message {
 export namespace ShareFilesViaPublicKeyRequest {
   export type AsObject = {
     publickeysList: Array<string>,
+    pathsList: Array<FullPath.AsObject>,
+  }
+}
+
+export class FullPath extends jspb.Message {
+  getDbid(): string;
+  setDbid(value: string): FullPath;
+
+  getBucket(): string;
+  setBucket(value: string): FullPath;
+
+  getPath(): string;
+  setPath(value: string): FullPath;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FullPath.AsObject;
+  static toObject(includeInstance: boolean, msg: FullPath): FullPath.AsObject;
+  static serializeBinaryToWriter(message: FullPath, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FullPath;
+  static deserializeBinaryFromReader(message: FullPath, reader: jspb.BinaryReader): FullPath;
+}
+
+export namespace FullPath {
+  export type AsObject = {
+    dbid: string,
     bucket: string,
-    pathsList: Array<string>,
+    path: string,
   }
 }
 
