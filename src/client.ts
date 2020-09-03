@@ -93,6 +93,7 @@ import {
   SetNotificationsLastSeenAtResponse,
   GenerateKeyPairRequest,
   GenerateKeyPairResponse,
+  FullPath,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -766,11 +767,23 @@ class SpaceClient {
   ): Promise<ShareFilesViaPublicKeyResponse> {
     return new Promise((resolve, reject) => {
       const request = new ShareFilesViaPublicKeyRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
 
-      request.setPathsList(payload.paths);
+      const paths = payload.paths.map((path) => {
+        const fullPath = new FullPath();
+        const bucket = path.bucket === '' ? null : path.bucket;
+
+        fullPath.setBucket(bucket || this.defaultBucket);
+        fullPath.setPath(path.path);
+
+        if (path.dbId) {
+          fullPath.setDbid(path.dbId);
+        }
+
+        return fullPath;
+      });
+
+      request.setPathsList(paths);
       request.setPublickeysList(payload.publicKeys);
-      request.setBucket(bucket || this.defaultBucket);
 
       this.instance.shareFilesViaPublicKey(
         request,

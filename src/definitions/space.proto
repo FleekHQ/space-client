@@ -437,8 +437,12 @@ message JoinBucketResponse {
 
 message ShareFilesViaPublicKeyRequest {
   repeated string publicKeys = 1;
+  repeated FullPath paths = 2;
+}
+message FullPath {
+  string dbId = 1; // optional field to specify shared with me file
   string bucket = 2;
-  repeated string paths = 3;
+  string path = 3;
 }
 
 message ShareFilesViaPublicKeyResponse {}

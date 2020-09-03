@@ -99,8 +99,11 @@ export interface GetSharedWithMeFilesPayload {
 }
 
 export interface ShareFilesViaPublicKeyPayload {
-  paths: [string];
-  bucket?: string;
+  paths: {
+    dbId?: string;
+    bucket?: string;
+    path: string;
+  }[];
   publicKeys: [string];
 }
 

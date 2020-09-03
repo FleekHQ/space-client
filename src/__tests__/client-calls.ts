@@ -259,9 +259,12 @@ it('getSharedWithMeFiles makes the right request', async () => {
 
 it('shareFilesViaPublicKey makes the right request', async () => {
   client.shareFilesViaPublicKey({
-    bucket: 'my-bucket',
-    paths: ['path1/file.jpeg', 'path2/file.txt'],
     publicKeys: ['pubkey1', 'pubkey2', 'pubkey3'],
+    paths: [{
+      path: 'path1/file.jpeg',
+      dbId: 'db-id-1',
+      bucket: 'my-bucket',
+    }],
   });
 
   expect(client.instance.shareFilesViaPublicKey).toHaveBeenCalledTimes(1);

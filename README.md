@@ -932,16 +932,19 @@ Returns the list of files shared with me
 ```
 
 
-#### .shareFilesViaPublicKey({ bucket?: string, paths: [string], publicKeys: [string] })
+#### .shareFilesViaPublicKey({ publicKeys: [string], paths: [{ dbId?: string, bucket?: string, path: string }] })
 
 Share files with other users via their public keys
 
 ```js
   client
     .shareFilesViaPublicKey({
-      bucket: 'my-bucket',
-      paths: ['path/to/my/file.txt', 'second/path/file2.txt'],
       publicKeys: ['pubKey1', 'pubKey2', 'pubKey3'],
+      paths: [{
+        path: 'path1/file.jpeg',
+        dbId: 'db-id-1',
+        bucket: 'my-bucket',
+      }],
     })
     .then((res) => {
       console.log(res);
@@ -954,9 +957,12 @@ Share files with other users via their public keys
 
   const asyncFunc = async () => {
     const res = await client.shareFilesViaPublicKey({
-      bucket: 'my-bucket',
-      paths: ['path/to/my/file.txt', 'second/path/file2.txt'],
       publicKeys: ['pubKey1', 'pubKey2', 'pubKey3'],
+      paths: [{
+        path: 'path1/file.jpeg',
+        dbId: 'db-id-1',
+        bucket: 'my-bucket',
+      }],
     });
 
     console.log(res);

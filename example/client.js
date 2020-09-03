@@ -578,16 +578,23 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
 
 
 document.getElementById("share-files-via-public-key").onclick = async () => {
-  const bucket = document.getElementById("share-files-via-public-key-bucket").value;
+  const buckets = document.getElementById("share-files-via-public-key-bucket").value;
   const paths = document.getElementById("share-files-via-public-key-paths").value;
   const pubKeys = document.getElementById("share-files-via-public-key-pubkeys").value;
+  const dbids = document.getElementById("share-files-via-public-key-dbid").value;
 
   const pathsList = paths.replace(' ', '').split(',');
   const pubKeysList = pubKeys.replace(' ', '').split(',');
+  const dbIdsList = dbids.replace(' ', '').split(',');
+  const bucketsList = buckets.replace(' ', '').split(',');
+
 
   const payload = {
-    bucket,
-    paths: pathsList,
+    paths: pathsList.map((path, index) => ({
+      path,
+      dbId: dbIdsList[index],
+      bucket: bucketsList[index],
+    })),
     publicKeys: pubKeysList,
   };
 
@@ -618,11 +625,17 @@ document.getElementById('get-api-session-tokens').onclick = async () => {
 document.getElementById('backup-keys-by-passphrase').onclick = async () => {
   const uuid = document.getElementById("backup-keys-by-passphrase-uuid").value;
   const passphrase = document.getElementById("backup-keys-by-passphrase-passphrase").value;
+
+  const payload = {
+    uuid,
+    passphrase,
+  };
+
+  console.log('Backup keys by passphrase...');
+  console.log('payload', payload);
+
   try {
-    await client.backupKeysByPassphrase({
-      uuid,
-      passphrase
-    });
+    await client.backupKeysByPassphrase(payload);
 
     console.log('Successfully keys backup');
   } catch (error) {
@@ -736,7 +749,7 @@ document.getElementById('handle-files-invitation').onclick = async () => {
 document.getElementById('generate-key-pair-withForce').onclick = async () => {
   try {
     await client.generateKeyPairWithForce();
-    
+
     console.log('Keys was generated');
   } catch (error) {
     console.log(error);
