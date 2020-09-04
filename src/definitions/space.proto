@@ -3,6 +3,7 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 
+
 package space;
 
 option go_package = ".;pb";
@@ -22,14 +23,23 @@ service SpaceApi {
 
   }
 
-  // Get Config information installed daemon
-  rpc GetConfigInfo(google.protobuf.Empty) returns (ConfigInfoResponse) {
-
-  }
-
   // Generate Key Pair for current account.
   // This will return error if daemon account already has keypairs
   rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
+
+  }
+
+  rpc GetStoredMnemonic(GetStoredMnemonicRequest) returns (GetStoredMnemonicResponse) {
+
+  }
+
+  // Restores a keypair given a mnemonic.
+  // This will override any existing key pair
+  rpc RestoreKeyPairViaMnemonic(RestoreKeyPairViaMnemonicRequest) returns (RestoreKeyPairViaMnemonicResponse) {
+
+  }
+
+  rpc DeleteKeyPair(DeleteKeyPairRequest) returns (DeleteKeyPairResponse) {
 
   }
 
@@ -38,8 +48,17 @@ service SpaceApi {
 
   }
 
+  rpc GetPublicKey(GetPublicKeyRequest) returns (GetPublicKeyResponse) {
+
+  }
+
   // Subscribe to file events. This streams responses to the caller
   rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
+
+  }
+
+  // Subscribe to file info events. This streams responses to the caller
+  rpc FileInfoSubscribe(google.protobuf.Empty) returns (stream FileInfoEventResponse) {
 
   }
 
@@ -51,6 +70,22 @@ service SpaceApi {
   // Open a file in the daemon.
   // Daemon keeps track of all open files and closes them if no activity is noticed after a while
   rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
+
+  }
+
+  // Generates a copy of the file that's accessible through IPFS gateways
+  rpc GeneratePublicFileLink(GeneratePublicFileLinkRequest) returns (GeneratePublicFileLinkResponse) {
+
+  }
+
+  // Gets the files that are shared with this recipient
+  rpc GetSharedWithMeFiles(GetSharedWithMeFilesRequest) returns (GetSharedWithMeFilesResponse) {
+
+  }
+
+  // Open an encrypted public shared file in the daemon.
+  // This requires the decryption key and file hash/cid to work
+  rpc OpenPublicFile(OpenPublicFileRequest) returns (OpenPublicFileResponse) {
 
   }
 
@@ -79,16 +114,6 @@ service SpaceApi {
 
   }
 
-  // Get Identity by Username
-  rpc GetIdentityByUsername(GetIdentityByUsernameRequest) returns (GetIdentityByUsernameResponse) {
-
-  }
-
-  // Create a new user identity. Username and Email required.
-  rpc CreateUsernameAndEmail(CreateUsernameAndEmailRequest) returns (CreateUsernameAndEmailResponse) {
-
-  }
-
   // Backup Key by Passphrase
   rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
 
@@ -96,6 +121,19 @@ service SpaceApi {
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
+
+  }
+
+  // Tests a passphrase to see if it matches the one previously used
+  rpc TestKeysPassphrase(TestKeysPassphraseRequest) returns (TestKeysPassphraseResponse) {
+
+  }
+
+  rpc CreateLocalKeysBackup(CreateLocalKeysBackupRequest) returns (CreateLocalKeysBackupResponse) {
+
+  }
+
+  rpc RecoverKeysByLocalBackup(RecoverKeysByLocalBackupRequest) returns (RecoverKeysByLocalBackupResponse) {
 
   }
 
@@ -109,28 +147,100 @@ service SpaceApi {
 
   }
 
-  // Share bucket via email
-  rpc ShareBucketViaEmail(ShareBucketViaEmailRequest) returns (ShareBucketViaEmailResponse) {
+  // Share bucket via public key using Textile Hub inboxing
+  rpc ShareFilesViaPublicKey(ShareFilesViaPublicKeyRequest) returns (ShareFilesViaPublicKeyResponse) {
 
   }
 
-  // Share bucket via identity information
-  rpc ShareBucketViaIdentity(ShareBucketViaIdentityRequest) returns (ShareBucketViaIdentityResponse) {
+  rpc HandleFilesInvitation(HandleFilesInvitationRequest) returns (HandleFilesInvitationResponse) {
 
   }
 
-  // Generate sharing link for file in bucket
-  rpc GenerateFileShareLink(GenerateFileShareLinkRequest) returns (GenerateFileShareLinkResponse) {
+  rpc NotificationSubscribe(google.protobuf.Empty) returns (stream NotificationEventResponse) {
 
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
 
   }
+
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {
+
+  }
+
+
+  rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse) {
+
+  }
+
+  rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
+
+  }
+
+  rpc ToggleBucketBackup(ToggleBucketBackupRequest) returns (ToggleBucketBackupResponse) {
+
+  }
+
+  rpc GetUsageInfo(GetUsageInfoRequest) returns (GetUsageInfoResponse) {
+
+  }
+
+  rpc GetAPISessionTokens(GetAPISessionTokensRequest) returns (GetAPISessionTokensResponse) {
+
+  }
+
+  // Returns a list of addresses / public keys of clients to which files where shared or received, ordered by date
+  rpc GetRecentlySharedWith(GetRecentlySharedWithRequest) returns (GetRecentlySharedWithResponse) {
+
+  }
+
+  // This will set the last read timestamp for the user so that the client
+  // can check if newer notifications are present for UX
+  rpc SetNotificationsLastSeenAt(SetNotificationsLastSeenAtRequest) returns (SetNotificationsLastSeenAtResponse) {
+
+  }
 }
+
+message SetNotificationsLastSeenAtRequest {
+  int64 timestamp = 1;
+}
+
+message SetNotificationsLastSeenAtResponse {}
+
+message GetSharedWithMeFilesRequest {
+  string seek = 1;
+  int64 limit = 2;
+}
+
+message GetSharedWithMeFilesResponse {
+  repeated SharedListDirectoryEntry items = 1;
+  string nextOffset = 2;
+}
+
+message GetUsageInfoRequest {}
+
+message GetUsageInfoResponse {
+  uint64 localStarogeUsed = 1;
+  uint64 localBandwidthUsed = 2;
+  uint64 spaceStorageUsed = 3;
+  uint64 spaceBandwidthUsed = 4;
+  uint64 usageQuota = 5;
+}
+
+message ToggleBucketBackupRequest {
+  string bucket = 1;
+  bool backup = 2;
+}
+
+message ToggleBucketBackupResponse {}
 
 message ListDirectoriesRequest {
   string bucket = 1;
+}
+
+message FileMember {
+  string publicKey = 1;
+  string address = 2;
 }
 
 message ListDirectoryEntry {
@@ -142,8 +252,16 @@ message ListDirectoryEntry {
   string updated = 6;
   string fileExtension = 7;
   string ipfsHash = 8;
+  bool isLocallyAvailable = 9;
+  int64 backupCount = 10;
+  repeated FileMember members = 11;
 }
 
+message SharedListDirectoryEntry {
+  ListDirectoryEntry entry = 1;
+  string dbId = 2;
+  string bucket = 3;
+}
 
 message ListDirectoriesResponse {
   repeated ListDirectoryEntry entries = 1;
@@ -158,22 +276,26 @@ message ListDirectoryResponse {
   repeated ListDirectoryEntry entries = 1;
 }
 
-message ConfigInfoResponse {
-  string port = 1;
-  string appPath = 2;
-}
-
 message CreateBucketRequest {
   string slug = 1;
 }
 
-// TODO: import from textile instead
+message BucketMember {
+  string address = 1;
+  string publicKey = 2;
+  bool isOwner = 3;
+  bool hasJoined = 4;
+}
+
 message Bucket {
   string key = 1;
   string name = 2;
   string path = 3;
   int64 createdAt = 4;
   int64 updatedAt = 5;
+  repeated BucketMember members = 6;
+  bool isPersonalBucket = 7;
+  bool isBackupEnabled = 8;
 }
 
 message CreateBucketResponse {
@@ -183,9 +305,20 @@ message CreateBucketResponse {
 message GenerateKeyPairRequest {}
 
 message GenerateKeyPairResponse {
-  string publicKey = 1;
-  string privateKey = 2;
+  string mnemonic = 1;
 }
+
+message GetStoredMnemonicRequest {}
+
+message GetStoredMnemonicResponse {
+  string mnemonic = 1;
+}
+
+message RestoreKeyPairViaMnemonicRequest {
+  string mnemonic = 1;
+}
+
+message RestoreKeyPairViaMnemonicResponse {}
 
 enum EventType {
   ENTRY_ADDED = 0;
@@ -198,6 +331,10 @@ message FileEventResponse {
   ListDirectoryEntry entry = 2;
 }
 
+message FileInfoEventResponse {
+  ListDirectoryEntry file = 1;
+}
+
 message TextileEventResponse {
   string bucket = 1;
 }
@@ -208,6 +345,16 @@ message OpenFileRequest {
 }
 
 message OpenFileResponse {
+  string location = 1;
+}
+
+message OpenPublicFileRequest {
+  string fileCid = 1;
+  string fileKey = 2;
+  string filename = 3;
+}
+
+message OpenPublicFileResponse {
   string location = 1;
 }
 
@@ -244,39 +391,26 @@ message CreateFolderRequest {
 message CreateFolderResponse {
 }
 
-message GetIdentityByUsernameRequest {
-  string username = 1;
-}
-
-message Identity {
-  string address = 1;
-  string publicKey = 2;
-  string username = 3;
-}
-
-message GetIdentityByUsernameResponse {
-  Identity identity = 1;
-}
-
-message CreateUsernameAndEmailRequest {
-  string username = 1;
-  // Optional. Send "" to skip.
-  string email = 2;
-}
-
-message CreateUsernameAndEmailResponse {}
-
 message BackupKeysByPassphraseRequest {
-  string passphrase = 1;
+  string uuid = 1;
+  string passphrase = 2;
 }
 
 message BackupKeysByPassphraseResponse {}
 
 message RecoverKeysByPassphraseRequest {
-  string passphrase = 1;
+  string uuid = 1;
+  string passphrase = 2;
 }
 
 message RecoverKeysByPassphraseResponse {}
+
+message TestKeysPassphraseRequest {
+  string uuid = 1;
+  string passphrase = 2;
+}
+
+message TestKeysPassphraseResponse {}
 
 message ThreadInfo {
   repeated string addresses = 1;
@@ -300,35 +434,31 @@ message JoinBucketResponse {
   bool result = 1;
 }
 
-message ShareBucketViaEmailRequest {
+
+message ShareFilesViaPublicKeyRequest {
+  repeated string publicKeys = 1;
+  repeated FullPath paths = 2;
+}
+message FullPath {
+  string dbId = 1; // optional field to specify shared with me file
+  string bucket = 2;
+  string path = 3;
+}
+
+message ShareFilesViaPublicKeyResponse {}
+
+message GeneratePublicFileLinkRequest {
   string bucket = 1;
-  string email = 2;
+  repeated string itemPaths = 2;
+  string password = 3;
+  // optional field to specify db id
+  // for shared with me files
+  string dbId = 4;
 }
 
-message ShareBucketViaEmailResponse {}
-
-enum IdentityType {
-  USERNAME = 0;
-  EMAIL = 1;
-}
-
-message ShareBucketViaIdentityRequest {
-  // identityType is either USERNAME or EMAIL
-  IdentityType identityType = 1;
-  // E.g. if identityType is USERNAME, identityValue is the actual username
-  string identityValue = 2;
-  string bucket = 3;
-}
-
-message ShareBucketViaIdentityResponse {}
-
-message GenerateFileShareLinkRequest {
-  string bucket = 1;
-  string filePath = 2;
-}
-
-message GenerateFileShareLinkResponse {
+message GeneratePublicFileLinkResponse {
   string link = 1;
+  string fileCid = 2;
 }
 
 message ToggleFuseRequest {
@@ -343,4 +473,110 @@ message ListBucketsRequest {}
 
 message ListBucketsResponse {
   repeated Bucket buckets = 1;
+}
+
+enum NotificationType {
+  INVITATION = 0;
+  USAGEALERT = 1;
+}
+
+enum InvitationStatus {
+  PENDING = 0;
+  ACCEPTED = 1;
+  REJECTED = 2;
+}
+
+message Invitation {
+  string inviterPublicKey = 1;
+  string invitationID = 2;
+  InvitationStatus status = 4;
+  repeated string itemPaths = 5;
+}
+
+message UsageAlert {
+  int64 used = 1;
+  int64 limit = 2;
+  string message = 3;
+}
+
+message Notification {
+  string ID = 1; // underlying message id from textile
+  string subject = 2;
+  string body = 3;
+  oneof relatedObject {
+    Invitation invitationValue = 4;
+    UsageAlert usageAlert = 5;
+  }
+  NotificationType type = 6;
+  int64 createdAt = 7;
+  int64 readAt = 8;
+}
+
+message HandleFilesInvitationRequest {
+  string invitationID = 1;
+  bool accept = 2;
+}
+
+message HandleFilesInvitationResponse {}
+
+message NotificationEventResponse {
+  Notification notification = 1;
+}
+
+message GetNotificationsRequest {
+  string seek = 1;
+  int64 limit = 2;
+}
+
+message GetNotificationsResponse {
+  repeated Notification notifications= 1;
+  string nextOffset = 2;
+  int64 lastSeenAt = 3;
+}
+message ReadNotificationRequest {
+  string ID = 1;
+}
+
+message ReadNotificationResponse {
+}
+
+message GetPublicKeyRequest {}
+
+message GetPublicKeyResponse {
+  // Public key encoded in hex
+  string publicKey = 1;
+}
+
+message RecoverKeysByLocalBackupRequest {
+  string pathToKeyBackup = 1;
+}
+
+message RecoverKeysByLocalBackupResponse {}
+
+message CreateLocalKeysBackupRequest {
+  // The path in which to save the backup
+  string pathToKeyBackup = 1;
+}
+
+message CreateLocalKeysBackupResponse {}
+
+message DeleteAccountRequest {}
+
+message DeleteAccountResponse {}
+
+message DeleteKeyPairRequest {}
+
+message DeleteKeyPairResponse {}
+
+message GetAPISessionTokensRequest {}
+
+message GetAPISessionTokensResponse {
+  string hubToken = 1;
+  string servicesToken = 2;
+}
+
+message GetRecentlySharedWithRequest {}
+
+message GetRecentlySharedWithResponse {
+ repeated FileMember members = 1;
 }

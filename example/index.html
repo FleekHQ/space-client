@@ -55,39 +55,6 @@
   </div>
 
   <div>
-    <button id="share-email">ShareBucketViaEmail</button>
-    <input type="text" id="share-email-bucket" placeholder="bucket">
-    <input type="text" id="share-email-input" placeholder="email">
-  </div>
-
-  <div>
-    <button id="share-identity">ShareBucketViaIdentity</button>
-    <input type="text" id="share-identity-bucket" placeholder="bucket">
-    <select name="identity-type" id="identity-type">
-      <option value="USERNAME">USERNAME</option>
-      <option value="EMAIL">EMAIL</option>
-    </select>
-    <input type="text" id="share-identity-value" placeholder="value">
-  </div>
-
-  <div>
-    <button id="share-link">GenerateFileShareLink</button>
-    <input type="text" id="share-link-bucket" placeholder="bucket">
-    <input type="text" id="share-link-filepath" placeholder="/bucket/path/of/your/file">
-  </div>
-
-  <div>
-    <button id="get-identity">GetIdentityByUsername</button>
-    <input type="text" id="get-identity-username" placeholder="username">
-  </div>
-
-  <div>
-    <button id="create-user">CreateUsernameAndEmail</button>
-    <input type="text" id="create-user-username" placeholder="username">
-    <input type="text" id="create-user-email" placeholder="email">
-  </div>
-
-  <div>
     <button id="toggle-fuse-drive">ToggleFuseDrive</button>
     <input type="checkbox" id="toggle-fuse-drive-input">
   </div>
@@ -109,6 +76,112 @@
     <input type="text" id="join-bucket-key" placeholder="key">
     <input type="text" id="join-bucket-addresses" multiple placeholder="address1, address2, address3, ...">
   </div>
+
+  <div>
+    <button id="get-notifications">GetNotifications</button>
+    <input type="text" id="get-notifications-seek" placeholder="seek">
+    <input type="text" id="get-notifications-limit" placeholder="limit">
+  </div>
+
+  <div>
+    <button id="read-notification">ReadNotifications</button>
+    <input type="text" id="read-notification-id" placeholder="id">
+  </div>
+
+  <div>
+    <button id="delete-keypair">DeleteKeyPair</button>
+  </div>
+
+  <div>
+    <button id="get-public-key">GetPublicKey</button>
+  </div>
+
+  <div>
+    <button id="delete-account">DeleteAccount</button>
+  </div>
+
+  <div>
+    <button id="toggle-bucket-backup">Toggle Bucket Backup</button>
+    <input type="text" id="toggle-bucket-backup-input" placeholder="Bucket name">
+  </div>
+
+  <div>
+    <button id="get-usage-info">GetUsageInfo</button>
+  </div>
+
+  <div>
+    <button id="get-stored-mnemonic">GetStoredMnemonic</button>
+  </div>
+
+  <div>
+    <button id="recover-keys-by-passphrase">RecoverKeysByPassphrase</button>
+    <input type="text" id="recover-keys-by-passphrase-uuid" placeholder="uuid">
+    <input type="text" id="recover-keys-by-passphrase-passphrase" placeholder="Passphrase">
+  </div>
+
+  <div>
+    <button id="restore-key-pair-via-mnemonic">RestoreKeyPairViaMnemonic</button>
+    <input type="text" id="restore-key-pair-via-mnemonic-input" placeholder="Passphrase">
+  </div>
+
+  <div>
+    <button id="get-shared-with-me-files">GetSharedWithMeFiles</button>
+    <input type="text" id="get-shared-with-me-seek" placeholder="seek">
+    <input type="text" id="get-shared-with-me-limit" placeholder="limit">
+  </div>
+
+  <div>
+    <button id="share-files-via-public-key">ShareFilesViaPublicKey</button>
+    <input type="text" id="share-files-via-public-key-pubkeys" placeholder="pubkey1, pubkey2, ...">
+    <input type="text" id="share-files-via-public-key-paths" placeholder="path1, path2, path3, ...">
+    <input type="text" id="share-files-via-public-key-bucket" placeholder="bucket1, bucket2, ...">
+    <input type="text" id="share-files-via-public-key-dbid" placeholder="dbid1, dbid2, ...">
+  </div>
+
+  <div>
+    <button id="get-api-session-tokens">GetAPISessionTokens</button>
+  </div>
+
+  <div>
+    <button id="backup-keys-by-passphrase">BackupKeysByPassphrase</button>
+    <input type="text" id="backup-keys-by-passphrase-uuid" placeholder="uuid">
+    <input type="text" id="backup-keys-by-passphrase-passphrase" placeholder="passphrase">
+  </div>
+
+  <div>
+    <button id="get-recently-shared-with">GetRecentlySharedWith</button>
+  </div>
+
+  <div>
+    <button id="generate-public-file-link">GeneratePublicFileLink</button>
+    <input type="text" id="generate-public-file-link-bucket" placeholder="bucket">
+    <input type="text" id="generate-public-file-link-password" placeholder="password">
+    <input type="text" id="generate-public-file-link-dbid" placeholder="dbId">
+    <input type="text" id="generate-public-file-link-item-paths" placeholder="itemPath1, itemPath2, ...">
+  </div>
+
+  <div>
+    <button id="test-keys-passphrase">RecoverKeysByPassphrase</button>
+    <input type="text" id="test-keys-passphrase-uuid" placeholder="uuid">
+    <input type="text" id="test-keys-passphrase-passphrase" placeholder="Passphrase">
+  </div>
+
+  <div>
+    <button id="set-notifications-last-seen-at">SetNotificationsLastSeenAt</button>
+    <input type="text" id="set-notifications-last-seen-at-timestamp" placeholder="timestamp">
+  </div>
+
+  <div>
+    <button id="handle-files-invitation">HandleFilesInvitation</button>
+    <input type="text" id="handle-files-invitation-id" placeholder="invitationID">
+    <input type="checkbox" id="handle-files-invitation-accept">
+    <label>Accept Invitation</label>
+  </div>
+
+  <div>
+    <button id="generate-key-pair-withForce">GenerateKeyPairWithForce</button>
+  </div>
+
 </body>
 <script src="main.js"></script>
 </html>

@@ -8,7 +8,9 @@ const client = new SpaceClient({ url: 'url' });
 client.instance = {
   listDirectory: jest.fn(),
   listDirectories: jest.fn(),
+  toggleBucketBackup: jest.fn(),
   addItems: jest.fn(),
+  fileInfoSubscribe: jest.fn(),
   txlSubscribe: jest.fn(),
   openFile: jest.fn(),
   createBucket: jest.fn(),
@@ -26,6 +28,24 @@ client.instance = {
   listBuckets: jest.fn(),
   shareBucket: jest.fn(),
   joinBucket: jest.fn(),
+  shareItemsToSelectGroup: jest.fn(),
+  notificationSubscribe: jest.fn(),
+  getPublicKey: jest.fn(),
+  readNotification: jest.fn(),
+  getNotifications: jest.fn(),
+  handleFilesInvitation: jest.fn(),
+  setNotificationsLastSeenAt: jest.fn(),
+  deleteKeyPair: jest.fn(),
+  deleteAccount: jest.fn(),
+  getUsageInfo: jest.fn(),
+  getStoredMnemonic: jest.fn(),
+  getSharedWithMeFiles: jest.fn(),
+  shareFilesViaPublicKey: jest.fn(),
+  getAPISessionTokens: jest.fn(),
+  getRecentlySharedWith: jest.fn(),
+  generatePublicFileLink: jest.fn(),
+  testKeysPassphrase: jest.fn(),
+  generateKeyPairWithForce: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -51,6 +71,12 @@ it('txlSubscribe makes the right requests', async () => {
   expect(client.instance.txlSubscribe).toHaveBeenCalledTimes(1);
 });
 
+it('fileInfoSubscribe makes the right requests', async () => {
+  client.fileInfoSubscribe({});
+
+  expect(client.instance.fileInfoSubscribe).toHaveBeenCalledTimes(1);
+});
+
 it('openFile makes the right requests', async () => {
   client.openFile({
     bucket: 'my-bucket',
@@ -66,6 +92,15 @@ it('createBucket makes the right requests', async () => {
   });
 
   expect(client.instance.createBucket).toHaveBeenCalledTimes(1);
+});
+
+it('toggleBucketBackup makes the right requests', async () => {
+  client.toggleBucketBackup({
+    bucket: 'my-bucket',
+    backup: true,
+  });
+
+  expect(client.instance.toggleBucketBackup).toHaveBeenCalledTimes(1);
 });
 
 it('addItems makes the right requests', async () => {
@@ -87,53 +122,9 @@ it('createFolder makes the right requests', async () => {
   expect(client.instance.createFolder).toHaveBeenCalledTimes(1);
 });
 
-it('createUsernameAndEmail makes the right requests', async () => {
-  client.createUsernameAndEmail({
-    email: 'hi@fleek.co',
-    username: 'fleek',
-  });
-
-  expect(client.instance.createUsernameAndEmail).toHaveBeenCalledTimes(1);
-});
-
-it('getIdentityByUsername makes the right requests', async () => {
-  client.getIdentityByUsername({
-    username: 'fleek',
-  });
-
-  expect(client.instance.getIdentityByUsername).toHaveBeenCalledTimes(1);
-});
-
-it('shareBucketViaEmail makes the right requests', async () => {
-  client.shareBucketViaEmail({
-    email: 'hi@fleek.co',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.shareBucketViaEmail).toHaveBeenCalledTimes(1);
-});
-
-it('shareBucketViaIdentity makes the right requests', async () => {
-  client.shareBucketViaIdentity({
-    identityType: 0,
-    identityValue: 'fleek',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.shareBucketViaIdentity).toHaveBeenCalledTimes(1);
-});
-
-it('generateFileShareLink makes the right requests', async () => {
-  client.generateFileShareLink({
-    filepath: '/',
-    bucket: 'my-bucket',
-  });
-
-  expect(client.instance.generateFileShareLink).toHaveBeenCalledTimes(1);
-});
-
 it('backupKeysByPassphrase makes the right requests', async () => {
   client.backupKeysByPassphrase({
+    uuid: '123',
     passphrase: '123',
   });
 
@@ -142,6 +133,7 @@ it('backupKeysByPassphrase makes the right requests', async () => {
 
 it('recoverKeysByPassphrase makes the right requests', async () => {
   client.recoverKeysByPassphrase({
+    uuid: 'user-uuid',
     passphrase: '123',
   });
 
@@ -192,4 +184,126 @@ it('joinBucket makes the right requests', async () => {
   });
 
   expect(client.instance.joinBucket).toHaveBeenCalledTimes(1);
+});
+
+it('notificationSubscribe makes the right requests', async () => {
+  client.notificationSubscribe({});
+
+  expect(client.instance.notificationSubscribe).toHaveBeenCalledTimes(1);
+});
+
+it('getPublicKey makes the right requests', async () => {
+  client.getPublicKey({});
+
+  expect(client.instance.getPublicKey).toHaveBeenCalledTimes(1);
+});
+
+it('readNotification makes the right requests', async () => {
+  client.readNotification({
+    ID: '1234',
+  });
+
+  expect(client.instance.readNotification).toHaveBeenCalledTimes(1);
+});
+
+it('should call getNotifications', async () => {
+  client.getNotifications({ seek: 'value', limit: 10 });
+
+  expect(client.instance.getNotifications).toHaveBeenCalledTimes(1);
+});
+
+it('handleFilesInvitation makes the right request', async () => {
+  client.handleFilesInvitation({ invitationID: '123', accept: true });
+
+  expect(client.instance.handleFilesInvitation).toHaveBeenCalledTimes(1);
+});
+
+it('should call setNotificationsLastSeenAt', async () => {
+  client.setNotificationsLastSeenAt({ timestamp: 10 });
+
+  expect(client.instance.setNotificationsLastSeenAt).toHaveBeenCalledTimes(1);
+});
+
+it('should call deleteKeyPair', async () => {
+  client.deleteKeyPair();
+
+  expect(client.instance.deleteKeyPair).toHaveBeenCalledTimes(1);
+});
+
+it('should call deleteAccount', async () => {
+  client.deleteAccount();
+
+  expect(client.instance.deleteAccount).toHaveBeenCalledTimes(1);
+});
+
+it('getUsageInfo makes the right request', async () => {
+  client.getUsageInfo({});
+
+  expect(client.instance.getUsageInfo).toHaveBeenCalledTimes(1);
+});
+
+it('getStoredMnemonic makes the right request', async () => {
+  client.getStoredMnemonic();
+
+  expect(client.instance.getStoredMnemonic).toHaveBeenCalledTimes(1);
+});
+
+it('getSharedWithMeFiles makes the right request', async () => {
+  client.getSharedWithMeFiles({
+    limit: 10,
+    seek: 'seek',
+  });
+
+  expect(client.instance.getSharedWithMeFiles).toHaveBeenCalledTimes(1);
+});
+
+it('shareFilesViaPublicKey makes the right request', async () => {
+  client.shareFilesViaPublicKey({
+    publicKeys: ['pubkey1', 'pubkey2', 'pubkey3'],
+    paths: [{
+      path: 'path1/file.jpeg',
+      dbId: 'db-id-1',
+      bucket: 'my-bucket',
+    }],
+  });
+
+  expect(client.instance.shareFilesViaPublicKey).toHaveBeenCalledTimes(1);
+});
+
+it('getAPISessionTooken makes the right request', async () => {
+  client.getAPISessionTokens();
+
+  expect(client.instance.getAPISessionTokens).toHaveBeenCalledTimes(1);
+});
+
+it('getRecentlySharedWith makes the right request', async () => {
+  client.getRecentlySharedWith();
+
+  expect(client.instance.getRecentlySharedWith).toHaveBeenCalledTimes(1);
+});
+
+it('generatePublicFileLink makes the right request', async () => {
+  client.generatePublicFileLink({
+    dbId: 'db-id-string',
+    bucket: 'personal',
+    password: '123asd',
+    itemPaths: ['path/to/file1.txt', 'path/to/file2.txt'],
+  });
+
+  expect(client.instance.generatePublicFileLink).toHaveBeenCalledTimes(1);
+});
+
+it('testKeysPassphrase makes the right request', async () => {
+  client.testKeysPassphrase({
+    uuid: 'user-uuid',
+    passphrase: '123',
+  });
+
+  expect(client.instance.testKeysPassphrase).toHaveBeenCalledTimes(1);
+});
+
+it('generateKeyPairWithForce makes the right request', async () => {
+  client.generateKeyPairWithForce();
+
+  expect(client.instance.generateKeyPairWithForce).toHaveBeenCalledTimes(1);
 });

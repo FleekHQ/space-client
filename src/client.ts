@@ -7,25 +7,32 @@ import {
   CreateBucketPayload,
   AddItemsPayload,
   CreateFolderPayload,
-  GetIdentityByUsernamePayload,
-  CreateUsernameAndEmailPayload,
-  ShareBucketViaEmailPayload,
-  ShareBucketViaIdentityPayload,
-  GenerateFileShareLinkPayload,
   BackupKeysByPassphrasePayload,
   RecoverKeysByPassphrasePayload,
   ToggleFusePayload,
   GetFuseDriveStatusPayload,
   ListDirectoriesPayload,
   ListDirectoryPayload,
+  ToggleBucketBackupPayload,
   ShareBucketPayload,
   JoinBucketPayload,
+  ReadNotificationPayload,
+  GetNotificationsPayload,
+  RestoreKeyPairViaMnemonicPayload,
+  GetSharedWithMeFilesPayload,
+  ShareFilesViaPublicKeyPayload,
+  GeneratePublicFileLinkPayload,
+  TestKeysPassphrasePayload,
+  SetNotificationsLastSeenAtPayload,
+  HandleFilesInvitationPayload,
 } from './types';
 
 import {
   TextileEventResponse,
   ListDirectoriesRequest,
   ListDirectoriesResponse,
+  ToggleBucketBackupResponse,
+  ToggleBucketBackupRequest,
   OpenFileRequest,
   OpenFileResponse,
   CreateBucketRequest,
@@ -34,16 +41,6 @@ import {
   AddItemsResponse,
   CreateFolderRequest,
   CreateFolderResponse,
-  GetIdentityByUsernameRequest,
-  GetIdentityByUsernameResponse,
-  CreateUsernameAndEmailRequest,
-  CreateUsernameAndEmailResponse,
-  ShareBucketViaEmailRequest,
-  ShareBucketViaEmailResponse,
-  ShareBucketViaIdentityRequest,
-  ShareBucketViaIdentityResponse,
-  GenerateFileShareLinkRequest,
-  GenerateFileShareLinkResponse,
   BackupKeysByPassphraseRequest,
   BackupKeysByPassphraseResponse,
   RecoverKeysByPassphraseRequest,
@@ -51,7 +48,7 @@ import {
   ToggleFuseRequest,
   FuseDriveResponse,
   FileEventResponse,
-  IdentityType,
+  FileInfoEventResponse,
   ListBucketsRequest,
   ListBucketsResponse,
   ListDirectoryRequest,
@@ -61,6 +58,42 @@ import {
   JoinBucketRequest,
   JoinBucketResponse,
   ThreadInfo,
+  GetPublicKeyRequest,
+  GetPublicKeyResponse,
+  NotificationEventResponse,
+  ReadNotificationRequest,
+  ReadNotificationResponse,
+  GetNotificationsRequest,
+  GetNotificationsResponse,
+  HandleFilesInvitationResponse,
+  HandleFilesInvitationRequest,
+  DeleteKeyPairRequest,
+  DeleteKeyPairResponse,
+  DeleteAccountRequest,
+  DeleteAccountResponse,
+  GetUsageInfoRequest,
+  GetUsageInfoResponse,
+  GetStoredMnemonicRequest,
+  GetStoredMnemonicResponse,
+  RestoreKeyPairViaMnemonicRequest,
+  RestoreKeyPairViaMnemonicResponse,
+  GetSharedWithMeFilesRequest,
+  GetSharedWithMeFilesResponse,
+  ShareFilesViaPublicKeyRequest,
+  ShareFilesViaPublicKeyResponse,
+  GetAPISessionTokensRequest,
+  GetAPISessionTokensResponse,
+  GetRecentlySharedWithResponse,
+  GetRecentlySharedWithRequest,
+  GeneratePublicFileLinkRequest,
+  GeneratePublicFileLinkResponse,
+  TestKeysPassphraseRequest,
+  TestKeysPassphraseResponse,
+  SetNotificationsLastSeenAtRequest,
+  SetNotificationsLastSeenAtResponse,
+  GenerateKeyPairRequest,
+  GenerateKeyPairResponse,
+  FullPath,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -140,6 +173,40 @@ class SpaceClient {
         },
       );
     });
+  }
+
+  toggleBucketBackup(
+    payload: ToggleBucketBackupPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ToggleBucketBackupResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ToggleBucketBackupRequest();
+      const { backup, bucket } = payload;
+
+      request.setBucket(bucket);
+      request.setBackup(backup);
+
+      this.instance.toggleBucketBackup(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ToggleBucketBackupResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  fileInfoSubscribe(
+    metadata: grpcWeb.Metadata = {},
+  ): grpcWeb.ClientReadableStream<FileInfoEventResponse> {
+    const request = new Empty();
+
+    return this.instance.fileInfoSubscribe(request, metadata);
   }
 
   txlSubscribe(
@@ -247,153 +314,13 @@ class SpaceClient {
     });
   }
 
-  createUsernameAndEmail(
-    payload: CreateUsernameAndEmailPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<CreateUsernameAndEmailResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new CreateUsernameAndEmailRequest();
-      request.setEmail(payload.email || '');
-      request.setUsername(payload.username);
-
-      this.instance.createUsernameAndEmail(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: CreateUsernameAndEmailResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  getIdentityByUsername(
-    payload: GetIdentityByUsernamePayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<GetIdentityByUsernameResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new GetIdentityByUsernameRequest();
-      request.setUsername(payload.username);
-
-      this.instance.getIdentityByUsername(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: GetIdentityByUsernameResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  /**
-   * [WIP] shareBucketViaEmail
-   *
-   * Not supported by space daemon
-   */
-  shareBucketViaEmail(
-    payload: ShareBucketViaEmailPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<ShareBucketViaEmailResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new ShareBucketViaEmailRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setEmail(payload.email);
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.shareBucketViaEmail(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: ShareBucketViaEmailResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  shareBucketViaIdentity(
-    payload: ShareBucketViaIdentityPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<ShareBucketViaIdentityResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new ShareBucketViaIdentityRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setIdentitytype(IdentityType[payload.identityType]);
-      request.setIdentityvalue(payload.identityValue);
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.shareBucketViaIdentity(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: ShareBucketViaIdentityResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  /**
-   * [WIP] generateFileShareLink
-   *
-   * Not supported by space daemon
-   */
-  generateFileShareLink(
-    payload: GenerateFileShareLinkPayload,
-    metadata: grpcWeb.Metadata = {},
-  ): Promise<GenerateFileShareLinkResponse> {
-    return new Promise((resolve, reject) => {
-      const request = new GenerateFileShareLinkRequest();
-      const bucket = payload.bucket === '' ? null : payload.bucket;
-
-      request.setFilepath(payload.filePath);
-      request.setBucket(bucket || this.defaultBucket);
-
-      this.instance.generateFileShareLink(
-        request,
-        metadata,
-        (err: grpcWeb.Error, res: GenerateFileShareLinkResponse) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          resolve(res);
-        },
-      );
-    });
-  }
-
-  /**
-   * [WIP] backupKeysByPassphrase
-   *
-   * Not supported by space daemon
-   */
   backupKeysByPassphrase(
     payload: BackupKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<BackupKeysByPassphraseResponse> {
     return new Promise((resolve, reject) => {
       const request = new BackupKeysByPassphraseRequest();
+      request.setUuid(payload.uuid);
       request.setPassphrase(payload.passphrase);
 
       this.instance.backupKeysByPassphrase(
@@ -411,17 +338,13 @@ class SpaceClient {
     });
   }
 
-  /**
-   * [WIP] recoverKeysByPassphrase
-   *
-   * Not supported by space daemon
-   */
   recoverKeysByPassphrase(
     payload: RecoverKeysByPassphrasePayload,
     metadata: grpcWeb.Metadata = {},
   ): Promise<RecoverKeysByPassphraseResponse> {
     return new Promise((resolve, reject) => {
       const request = new RecoverKeysByPassphraseRequest();
+      request.setUuid(payload.uuid);
       request.setPassphrase(payload.passphrase);
 
       this.instance.recoverKeysByPassphrase(
@@ -572,6 +495,417 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: JoinBucketResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  setNotificationsLastSeenAt(
+    payload: SetNotificationsLastSeenAtPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<SetNotificationsLastSeenAtResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new SetNotificationsLastSeenAtRequest();
+      request.setTimestamp(payload.timestamp);
+
+      this.instance.setNotificationsLastSeenAt(
+        request,
+        metadata,
+        (err, res) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getNotifications(
+    payload: GetNotificationsPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetNotificationsResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetNotificationsRequest();
+      request.setSeek(payload.seek);
+      request.setLimit(payload.limit);
+
+      this.instance.getNotifications(
+        request,
+        metadata,
+        (err, res) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  handleFilesInvitation(
+    payload: HandleFilesInvitationPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<HandleFilesInvitationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new HandleFilesInvitationRequest();
+      request.setInvitationid(payload.invitationID);
+      request.setAccept(payload.accept);
+
+      this.instance.handleFilesInvitation(
+        request,
+        metadata,
+        (err, res) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getPublicKey(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetPublicKeyResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetPublicKeyRequest();
+
+      this.instance.getPublicKey(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetPublicKeyResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  notificationSubscribe(
+    metadata: grpcWeb.Metadata = {},
+  ): grpcWeb.ClientReadableStream<NotificationEventResponse> {
+    const request = new Empty();
+
+    return this.instance.notificationSubscribe(request, metadata);
+  }
+
+  readNotification(
+    payload: ReadNotificationPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ReadNotificationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ReadNotificationRequest();
+      request.setId(payload.ID);
+
+      this.instance.readNotification(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ReadNotificationResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  deleteAccount(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    payload = null,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ReadNotificationResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new DeleteAccountRequest();
+
+      this.instance.deleteAccount(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: DeleteAccountResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  deleteKeyPair(metadata: grpcWeb.Metadata = {}): Promise<DeleteKeyPairResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new DeleteKeyPairRequest();
+
+      this.instance.deleteKeyPair(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: DeleteKeyPairResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getUsageInfo(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetUsageInfoResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetUsageInfoRequest();
+
+      this.instance.getUsageInfo(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetUsageInfoResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getStoredMnemonic(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetStoredMnemonicResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetStoredMnemonicRequest();
+
+      this.instance.getStoredMnemonic(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetStoredMnemonicResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  restoreKeyPairViaMnemonic(
+    payload: RestoreKeyPairViaMnemonicPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<RestoreKeyPairViaMnemonicResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new RestoreKeyPairViaMnemonicRequest();
+      request.setMnemonic(payload.mnemonic);
+
+      this.instance.restoreKeyPairViaMnemonic(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: RestoreKeyPairViaMnemonicResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getSharedWithMeFiles(
+    payload: GetSharedWithMeFilesPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetSharedWithMeFilesResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetSharedWithMeFilesRequest();
+
+      request.setSeek(payload.seek);
+      request.setLimit(payload.limit);
+
+      this.instance.getSharedWithMeFiles(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetSharedWithMeFilesResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  shareFilesViaPublicKey(
+    payload: ShareFilesViaPublicKeyPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<ShareFilesViaPublicKeyResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new ShareFilesViaPublicKeyRequest();
+
+      const paths = payload.paths.map((path) => {
+        const fullPath = new FullPath();
+        const bucket = path.bucket === '' ? null : path.bucket;
+
+        fullPath.setBucket(bucket || this.defaultBucket);
+        fullPath.setPath(path.path);
+
+        if (path.dbId) {
+          fullPath.setDbid(path.dbId);
+        }
+
+        return fullPath;
+      });
+
+      request.setPathsList(paths);
+      request.setPublickeysList(payload.publicKeys);
+
+      this.instance.shareFilesViaPublicKey(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: ShareFilesViaPublicKeyResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getAPISessionTokens(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetAPISessionTokensResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetAPISessionTokensRequest();
+
+      this.instance.getAPISessionTokens(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetAPISessionTokensResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  getRecentlySharedWith(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GetRecentlySharedWithResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GetRecentlySharedWithRequest();
+
+      this.instance.getRecentlySharedWith(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GetRecentlySharedWithResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  generatePublicFileLink(
+    payload: GeneratePublicFileLinkPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GeneratePublicFileLinkResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GeneratePublicFileLinkRequest();
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      const itemPaths = payload.itemPaths.map((path) => path.replace(/^\//, ''));
+
+      request.setDbid(payload.dbId);
+      request.setPassword(payload.password);
+      request.setItempathsList(itemPaths);
+      request.setBucket(bucket || this.defaultBucket);
+
+      this.instance.generatePublicFileLink(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GeneratePublicFileLinkResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  testKeysPassphrase(
+    payload: TestKeysPassphrasePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<TestKeysPassphraseResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new TestKeysPassphraseRequest();
+      request.setUuid(payload.uuid);
+      request.setPassphrase(payload.passphrase);
+
+      this.instance.testKeysPassphrase(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: TestKeysPassphraseResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  generateKeyPairWithForce(
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<GenerateKeyPairResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new GenerateKeyPairRequest();
+
+      this.instance.generateKeyPairWithForce(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: GenerateKeyPairResponse) => {
           if (err) {
             reject(err);
             return;
