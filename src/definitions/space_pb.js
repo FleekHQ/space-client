@@ -6515,7 +6515,8 @@ proto.space.OpenFileRequest.prototype.toObject = function(opt_includeInstance) {
 proto.space.OpenFileRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     path: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    bucket: jspb.Message.getFieldWithDefault(msg, 2, "")
+    bucket: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    dbid: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -6560,6 +6561,10 @@ proto.space.OpenFileRequest.deserializeBinaryFromReader = function(msg, reader) 
       var value = /** @type {string} */ (reader.readString());
       msg.setBucket(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDbid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6603,6 +6608,13 @@ proto.space.OpenFileRequest.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
+  f = message.getDbid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -6639,6 +6651,24 @@ proto.space.OpenFileRequest.prototype.getBucket = function() {
  */
 proto.space.OpenFileRequest.prototype.setBucket = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dbId = 3;
+ * @return {string}
+ */
+proto.space.OpenFileRequest.prototype.getDbid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.space.OpenFileRequest} returns this
+ */
+proto.space.OpenFileRequest.prototype.setDbid = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

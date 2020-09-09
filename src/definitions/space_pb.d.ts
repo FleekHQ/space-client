@@ -635,6 +635,9 @@ export class OpenFileRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): OpenFileRequest;
 
+  getDbid(): string;
+  setDbid(value: string): OpenFileRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): OpenFileRequest.AsObject;
   static toObject(includeInstance: boolean, msg: OpenFileRequest): OpenFileRequest.AsObject;
@@ -647,6 +650,7 @@ export namespace OpenFileRequest {
   export type AsObject = {
     path: string,
     bucket: string,
+    dbid: string,
   }
 }
 
