@@ -743,7 +743,7 @@ class SpaceClient {
     return new Promise((resolve, reject) => {
       const request = new GetSharedWithMeFilesRequest();
 
-      // request.setSeek(payload.seek);
+      request.setSeek(payload.seek);
       request.setLimit(payload.limit);
 
       this.instance.getSharedWithMeFiles(
