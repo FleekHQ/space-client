@@ -230,6 +230,10 @@ class SpaceClient {
       request.setPath(path);
       request.setBucket(bucket || this.defaultBucket);
 
+      if (payload.dbId) {
+        request.setDbid(payload.dbId);
+      }
+
       this.instance.openFile(
         request,
         metadata,

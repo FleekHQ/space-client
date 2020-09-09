@@ -5,6 +5,7 @@ export interface ListDirectoryPayload {
 
 export interface OpenFilePayload {
   path: string;
+  dbId?: string;
   bucket?: string;
 }
 
