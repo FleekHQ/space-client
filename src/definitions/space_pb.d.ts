@@ -1250,10 +1250,10 @@ export class Invitation extends jspb.Message {
   getStatus(): InvitationStatus;
   setStatus(value: InvitationStatus): Invitation;
 
-  getItempathsList(): Array<string>;
-  setItempathsList(value: Array<string>): Invitation;
+  getItempathsList(): Array<FullPath>;
+  setItempathsList(value: Array<FullPath>): Invitation;
   clearItempathsList(): Invitation;
-  addItempaths(value: string, index?: number): Invitation;
+  addItempaths(value?: FullPath, index?: number): FullPath;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Invitation.AsObject;
@@ -1268,7 +1268,7 @@ export namespace Invitation {
     inviterpublickey: string,
     invitationid: string,
     status: InvitationStatus,
-    itempathsList: Array<string>,
+    itempathsList: Array<FullPath.AsObject>,
   }
 }
 
@@ -1298,6 +1298,24 @@ export namespace UsageAlert {
   }
 }
 
+export class InvitationAccept extends jspb.Message {
+  getInvitationid(): string;
+  setInvitationid(value: string): InvitationAccept;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InvitationAccept.AsObject;
+  static toObject(includeInstance: boolean, msg: InvitationAccept): InvitationAccept.AsObject;
+  static serializeBinaryToWriter(message: InvitationAccept, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InvitationAccept;
+  static deserializeBinaryFromReader(message: InvitationAccept, reader: jspb.BinaryReader): InvitationAccept;
+}
+
+export namespace InvitationAccept {
+  export type AsObject = {
+    invitationid: string,
+  }
+}
+
 export class Notification extends jspb.Message {
   getId(): string;
   setId(value: string): Notification;
@@ -1317,6 +1335,11 @@ export class Notification extends jspb.Message {
   setUsagealert(value?: UsageAlert): Notification;
   hasUsagealert(): boolean;
   clearUsagealert(): Notification;
+
+  getInvitationaccept(): InvitationAccept | undefined;
+  setInvitationaccept(value?: InvitationAccept): Notification;
+  hasInvitationaccept(): boolean;
+  clearInvitationaccept(): Notification;
 
   getType(): NotificationType;
   setType(value: NotificationType): Notification;
@@ -1344,6 +1367,7 @@ export namespace Notification {
     body: string,
     invitationvalue?: Invitation.AsObject,
     usagealert?: UsageAlert.AsObject,
+    invitationaccept?: InvitationAccept.AsObject,
     type: NotificationType,
     createdat: number,
     readat: number,
@@ -1353,6 +1377,7 @@ export namespace Notification {
     RELATEDOBJECT_NOT_SET = 0,
     INVITATIONVALUE = 4,
     USAGEALERT = 5,
+    INVITATIONACCEPT = 6,
   }
 }
 
