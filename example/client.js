@@ -388,15 +388,47 @@ document.getElementById('get-notifications').onclick = async () => {
 
     const objectRes = {
       nextOffset: res.getNextoffset(),
-      notifications: res.getNotificationsList().map((notification) => ({
-        id: notification.getId(),
-        subject: notification.getSubject(),
-        body: notification.getBody(),
-        type: notification.getType(),
-        createdAt: notification.getCreatedat(),
-        readAt: notification.getReadat(),
-        relatedObject: notification.getRelatedobjectCase(),
-      })),
+      lastSeen: res.getLastseenat(),
+      notifications: res.getNotificationsList().map((notification) => {
+        const relatedObject = notification.getRelatedobjectCase();
+        const invitationValue = notification.getInvitationvalue();
+        const usageAlert = notification.getUsagealert();
+        const invitationAccept = notification.getInvitationaccept();
+
+        return {
+          id: notification.getId(),
+          subject: notification.getSubject(),
+          body: notification.getBody(),
+          type: notification.getType(),
+          createdAt: notification.getCreatedat(),
+          readAt: notification.getReadat(),
+          relatedObject: notification.getRelatedobjectCase(),
+          ...(relatedObject === 4 && {
+            invitationValue: {
+              itemPaths: invitationValue.getItempathsList().map((itemPath) => ({
+                dbId: itemPath.getDbid(),
+                bucket: itemPath.getBucket(),
+                path: itemPath.getPath(),
+              })),
+              inviterPublicKey: invitationValue.getInviterpublickey(),
+              invitationID: invitationValue.getInvitationid(),
+              status: invitationValue.getStatus(),
+            },
+          }),
+          ...(relatedObject === 5 && {
+            usageAlert: {
+              used: usageAlert.getUsed(),
+              limit: usageAlert.getLimit(),
+              message: usageAlert.getMessage(),
+            },
+          }),
+          ...(relatedObject === 6 && {
+            invitationAccept: {
+              invitationID: invitationAccept.getInvitationid(),
+            },
+          }),
+        }
+      }),
     };
 
     console.log(objectRes);
@@ -555,7 +587,7 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
         return {
           dbId: item.getDbid(),
           bucket: item.getBucket(),
-          path: entry.getEntrygetPath(),
+          path: entry.getPath(),
           isDir: entry.getIsdir(),
           name: entry.getName(),
           sizeInBytes: entry.getSizeinbytes(),
