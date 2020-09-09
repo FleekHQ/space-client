@@ -153,8 +153,13 @@ document.getElementById('create-bucket').onclick = async () => {
 document.getElementById('open-file').onclick = async () => {
   const pathfile = document.getElementById('open-file-input').value;
   const bucket = document.getElementById('open-file-bucket').value;
+  const dbId = document.getElementById('open-file-dbid').value;
 
-  const payload = { path: pathfile, bucket };
+  const payload = {
+    bucket,
+    path: pathfile,
+    ...(dbId && dbId !== '' && { dbId }),
+  };
 
   console.log('payload', payload);
 

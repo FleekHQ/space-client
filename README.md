@@ -188,10 +188,12 @@ Returns a ReadableStream that notifies when a change related to the a file has o
   });
 ```
 
-#### .openFile({ path: string, bucket?: string })
+#### .openFile({ path: string, bucket?: string. dbId?: string })
 
 Copies the file referenced by the path arg to a temp folder and returns a Promise that resolves to the file location.
 If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
+
+`dbId` should be used to open shared files. (you can get the `dbId` from `getSharedWithMeFiles` method).
 
 ```js
 const asyncFunc = async () => {
