@@ -14733,8 +14733,10 @@ proto.space.EventType = {
  * @enum {number}
  */
 proto.space.NotificationType = {
-  INVITATION: 0,
-  USAGEALERT: 1
+  UNKNOWN: 0,
+  INVITATION: 1,
+  USAGEALERT: 2,
+  INVITATION_REPLY: 3
 };
 
 /**

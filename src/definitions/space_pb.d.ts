@@ -1751,8 +1751,10 @@ export enum EventType {
   ENTRY_UPDATED = 2,
 }
 export enum NotificationType { 
-  INVITATION = 0,
-  USAGEALERT = 1,
+  UNKNOWN = 0,
+  INVITATION = 1,
+  USAGEALERT = 2,
+  INVITATION_REPLY = 3,
 }
 export enum InvitationStatus { 
   PENDING = 0,
