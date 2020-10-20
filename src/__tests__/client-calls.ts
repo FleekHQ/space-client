@@ -46,6 +46,7 @@ client.instance = {
   generatePublicFileLink: jest.fn(),
   testKeysPassphrase: jest.fn(),
   generateKeyPairWithForce: jest.fn(),
+  openPublicFile: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -306,4 +307,14 @@ it('generateKeyPairWithForce makes the right request', async () => {
   client.generateKeyPairWithForce();
 
   expect(client.instance.generateKeyPairWithForce).toHaveBeenCalledTimes(1);
+});
+
+it('openPublicFile makes the right request', async () => {
+  client.openPublicFile({
+    fileCid: 'some-cid',
+    fileKey: 'some-fileKey',
+    filename: 'some-filename',
+  });
+
+  expect(client.instance.openPublicFile).toHaveBeenCalledTimes(1);
 });

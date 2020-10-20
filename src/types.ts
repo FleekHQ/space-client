@@ -114,3 +114,9 @@ export interface GeneratePublicFileLinkPayload {
   password: string;
   itemPaths: [string],
 }
+
+export interface OpenPublicFilePayload {
+  fileCid: string;
+  fileKey: string;
+  filename: string;
+}
