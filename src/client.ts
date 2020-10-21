@@ -931,7 +931,7 @@ class SpaceClient {
     return new Promise((resolve, reject) => {
       const request = new OpenPublicFileRequest();
       request.setFilecid(payload.fileCid);
-      request.setFilekey(payload.fileKey);
+      request.setPassword(payload.password);
       request.setFilename(payload.filename);
 
       this.instance.openPublicFile(

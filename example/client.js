@@ -795,12 +795,12 @@ document.getElementById('generate-key-pair-withForce').onclick = async () => {
 
 document.getElementById('open-public-file').onclick = async () => {
   const fileCid = document.getElementById('open-public-file-fileCid').value;
-  const fileKey = document.getElementById('open-public-file-fileKey').value;
+  const password = document.getElementById('open-public-file-filePassword').value;
   const filename = document.getElementById('open-public-file-filename').value;
   try {
     const res = await client.openPublicFile({
       fileCid,
-      fileKey,
+      password,
       filename,
     });
 
