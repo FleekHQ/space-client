@@ -312,7 +312,7 @@ it('generateKeyPairWithForce makes the right request', async () => {
 it('openPublicFile makes the right request', async () => {
   client.openPublicFile({
     fileCid: 'some-cid',
-    fileKey: 'some-fileKey',
+    password: 'file-password',
     filename: 'some-filename',
   });
 

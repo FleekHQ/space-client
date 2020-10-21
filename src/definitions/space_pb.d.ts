@@ -168,6 +168,9 @@ export class ListDirectoriesRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): ListDirectoriesRequest;
 
+  getOmitmembers(): boolean;
+  setOmitmembers(value: boolean): ListDirectoriesRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoriesRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoriesRequest): ListDirectoriesRequest.AsObject;
@@ -179,6 +182,7 @@ export class ListDirectoriesRequest extends jspb.Message {
 export namespace ListDirectoriesRequest {
   export type AsObject = {
     bucket: string,
+    omitmembers: boolean,
   }
 }
 
@@ -240,6 +244,9 @@ export class ListDirectoryEntry extends jspb.Message {
   clearMembersList(): ListDirectoryEntry;
   addMembers(value?: FileMember, index?: number): FileMember;
 
+  getIsbackupinprogress(): boolean;
+  setIsbackupinprogress(value: boolean): ListDirectoryEntry;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoryEntry.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoryEntry): ListDirectoryEntry.AsObject;
@@ -261,6 +268,7 @@ export namespace ListDirectoryEntry {
     islocallyavailable: boolean,
     backupcount: number,
     membersList: Array<FileMember.AsObject>,
+    isbackupinprogress: boolean,
   }
 }
 
@@ -276,6 +284,9 @@ export class SharedListDirectoryEntry extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): SharedListDirectoryEntry;
 
+  getIspubliclink(): boolean;
+  setIspubliclink(value: boolean): SharedListDirectoryEntry;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SharedListDirectoryEntry.AsObject;
   static toObject(includeInstance: boolean, msg: SharedListDirectoryEntry): SharedListDirectoryEntry.AsObject;
@@ -289,6 +300,7 @@ export namespace SharedListDirectoryEntry {
     entry?: ListDirectoryEntry.AsObject,
     dbid: string,
     bucket: string,
+    ispubliclink: boolean,
   }
 }
 
@@ -319,6 +331,9 @@ export class ListDirectoryRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): ListDirectoryRequest;
 
+  getOmitmembers(): boolean;
+  setOmitmembers(value: boolean): ListDirectoryRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoryRequest.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoryRequest): ListDirectoryRequest.AsObject;
@@ -331,6 +346,7 @@ export namespace ListDirectoryRequest {
   export type AsObject = {
     path: string,
     bucket: string,
+    omitmembers: boolean,
   }
 }
 
@@ -429,6 +445,9 @@ export class Bucket extends jspb.Message {
   getIsbackupenabled(): boolean;
   setIsbackupenabled(value: boolean): Bucket;
 
+  getItemscount(): number;
+  setItemscount(value: number): Bucket;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Bucket.AsObject;
   static toObject(includeInstance: boolean, msg: Bucket): Bucket.AsObject;
@@ -447,6 +466,7 @@ export namespace Bucket {
     membersList: Array<BucketMember.AsObject>,
     ispersonalbucket: boolean,
     isbackupenabled: boolean,
+    itemscount: number,
   }
 }
 
@@ -676,8 +696,8 @@ export class OpenPublicFileRequest extends jspb.Message {
   getFilecid(): string;
   setFilecid(value: string): OpenPublicFileRequest;
 
-  getFilekey(): string;
-  setFilekey(value: string): OpenPublicFileRequest;
+  getPassword(): string;
+  setPassword(value: string): OpenPublicFileRequest;
 
   getFilename(): string;
   setFilename(value: string): OpenPublicFileRequest;
@@ -693,7 +713,7 @@ export class OpenPublicFileRequest extends jspb.Message {
 export namespace OpenPublicFileRequest {
   export type AsObject = {
     filecid: string,
-    filekey: string,
+    password: string,
     filename: string,
   }
 }

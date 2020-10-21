@@ -3047,7 +3047,8 @@ proto.space.ListDirectoriesRequest.prototype.toObject = function(opt_includeInst
  */
 proto.space.ListDirectoriesRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    bucket: jspb.Message.getFieldWithDefault(msg, 1, "")
+    bucket: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    omitmembers: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -3088,6 +3089,10 @@ proto.space.ListDirectoriesRequest.deserializeBinaryFromReader = function(msg, r
       var value = /** @type {string} */ (reader.readString());
       msg.setBucket(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setOmitmembers(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -3124,6 +3129,13 @@ proto.space.ListDirectoriesRequest.serializeBinaryToWriter = function(message, w
       f
     );
   }
+  f = message.getOmitmembers();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -3142,6 +3154,24 @@ proto.space.ListDirectoriesRequest.prototype.getBucket = function() {
  */
 proto.space.ListDirectoriesRequest.prototype.setBucket = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional bool omitMembers = 2;
+ * @return {boolean}
+ */
+proto.space.ListDirectoriesRequest.prototype.getOmitmembers = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.space.ListDirectoriesRequest} returns this
+ */
+proto.space.ListDirectoriesRequest.prototype.setOmitmembers = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 
@@ -3355,7 +3385,8 @@ proto.space.ListDirectoryEntry.toObject = function(includeInstance, msg) {
     islocallyavailable: jspb.Message.getBooleanFieldWithDefault(msg, 9, false),
     backupcount: jspb.Message.getFieldWithDefault(msg, 10, 0),
     membersList: jspb.Message.toObjectList(msg.getMembersList(),
-    proto.space.FileMember.toObject, includeInstance)
+    proto.space.FileMember.toObject, includeInstance),
+    isbackupinprogress: jspb.Message.getBooleanFieldWithDefault(msg, 12, false)
   };
 
   if (includeInstance) {
@@ -3436,6 +3467,10 @@ proto.space.ListDirectoryEntry.deserializeBinaryFromReader = function(msg, reade
       var value = new proto.space.FileMember;
       reader.readMessage(value,proto.space.FileMember.deserializeBinaryFromReader);
       msg.addMembers(value);
+      break;
+    case 12:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsbackupinprogress(value);
       break;
     default:
       reader.skipField();
@@ -3542,6 +3577,13 @@ proto.space.ListDirectoryEntry.serializeBinaryToWriter = function(message, write
       11,
       f,
       proto.space.FileMember.serializeBinaryToWriter
+    );
+  }
+  f = message.getIsbackupinprogress();
+  if (f) {
+    writer.writeBool(
+      12,
+      f
     );
   }
 };
@@ -3765,6 +3807,24 @@ proto.space.ListDirectoryEntry.prototype.clearMembersList = function() {
 };
 
 
+/**
+ * optional bool isBackupInProgress = 12;
+ * @return {boolean}
+ */
+proto.space.ListDirectoryEntry.prototype.getIsbackupinprogress = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 12, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.space.ListDirectoryEntry} returns this
+ */
+proto.space.ListDirectoryEntry.prototype.setIsbackupinprogress = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 12, value);
+};
+
+
 
 
 
@@ -3799,7 +3859,8 @@ proto.space.SharedListDirectoryEntry.toObject = function(includeInstance, msg) {
   var f, obj = {
     entry: (f = msg.getEntry()) && proto.space.ListDirectoryEntry.toObject(includeInstance, f),
     dbid: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    bucket: jspb.Message.getFieldWithDefault(msg, 3, "")
+    bucket: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    ispubliclink: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -3849,6 +3910,10 @@ proto.space.SharedListDirectoryEntry.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setBucket(value);
       break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIspubliclink(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -3897,6 +3962,13 @@ proto.space.SharedListDirectoryEntry.serializeBinaryToWriter = function(message,
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getIspubliclink();
+  if (f) {
+    writer.writeBool(
+      4,
       f
     );
   }
@@ -3973,6 +4045,24 @@ proto.space.SharedListDirectoryEntry.prototype.getBucket = function() {
  */
 proto.space.SharedListDirectoryEntry.prototype.setBucket = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional bool isPublicLink = 4;
+ * @return {boolean}
+ */
+proto.space.SharedListDirectoryEntry.prototype.getIspubliclink = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.space.SharedListDirectoryEntry} returns this
+ */
+proto.space.SharedListDirectoryEntry.prototype.setIspubliclink = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 
@@ -4169,7 +4259,8 @@ proto.space.ListDirectoryRequest.prototype.toObject = function(opt_includeInstan
 proto.space.ListDirectoryRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     path: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    bucket: jspb.Message.getFieldWithDefault(msg, 2, "")
+    bucket: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    omitmembers: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
   };
 
   if (includeInstance) {
@@ -4214,6 +4305,10 @@ proto.space.ListDirectoryRequest.deserializeBinaryFromReader = function(msg, rea
       var value = /** @type {string} */ (reader.readString());
       msg.setBucket(value);
       break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setOmitmembers(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -4257,6 +4352,13 @@ proto.space.ListDirectoryRequest.serializeBinaryToWriter = function(message, wri
       f
     );
   }
+  f = message.getOmitmembers();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -4293,6 +4395,24 @@ proto.space.ListDirectoryRequest.prototype.getBucket = function() {
  */
 proto.space.ListDirectoryRequest.prototype.setBucket = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bool omitMembers = 3;
+ * @return {boolean}
+ */
+proto.space.ListDirectoryRequest.prototype.getOmitmembers = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.space.ListDirectoryRequest} returns this
+ */
+proto.space.ListDirectoryRequest.prototype.setOmitmembers = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
 };
 
 
@@ -4853,7 +4973,8 @@ proto.space.Bucket.toObject = function(includeInstance, msg) {
     membersList: jspb.Message.toObjectList(msg.getMembersList(),
     proto.space.BucketMember.toObject, includeInstance),
     ispersonalbucket: jspb.Message.getBooleanFieldWithDefault(msg, 7, false),
-    isbackupenabled: jspb.Message.getBooleanFieldWithDefault(msg, 8, false)
+    isbackupenabled: jspb.Message.getBooleanFieldWithDefault(msg, 8, false),
+    itemscount: jspb.Message.getFieldWithDefault(msg, 9, 0)
   };
 
   if (includeInstance) {
@@ -4922,6 +5043,10 @@ proto.space.Bucket.deserializeBinaryFromReader = function(msg, reader) {
     case 8:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIsbackupenabled(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setItemscount(value);
       break;
     default:
       reader.skipField();
@@ -5006,6 +5131,13 @@ proto.space.Bucket.serializeBinaryToWriter = function(message, writer) {
   if (f) {
     writer.writeBool(
       8,
+      f
+    );
+  }
+  f = message.getItemscount();
+  if (f !== 0) {
+    writer.writeInt32(
+      9,
       f
     );
   }
@@ -5173,6 +5305,24 @@ proto.space.Bucket.prototype.getIsbackupenabled = function() {
  */
 proto.space.Bucket.prototype.setIsbackupenabled = function(value) {
   return jspb.Message.setProto3BooleanField(this, 8, value);
+};
+
+
+/**
+ * optional int32 itemsCount = 9;
+ * @return {number}
+ */
+proto.space.Bucket.prototype.getItemscount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.space.Bucket} returns this
+ */
+proto.space.Bucket.prototype.setItemscount = function(value) {
+  return jspb.Message.setProto3IntField(this, 9, value);
 };
 
 
@@ -6835,7 +6985,7 @@ proto.space.OpenPublicFileRequest.prototype.toObject = function(opt_includeInsta
 proto.space.OpenPublicFileRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     filecid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    filekey: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    password: jspb.Message.getFieldWithDefault(msg, 2, ""),
     filename: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
@@ -6879,7 +7029,7 @@ proto.space.OpenPublicFileRequest.deserializeBinaryFromReader = function(msg, re
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setFilekey(value);
+      msg.setPassword(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
@@ -6921,7 +7071,7 @@ proto.space.OpenPublicFileRequest.serializeBinaryToWriter = function(message, wr
       f
     );
   }
-  f = message.getFilekey();
+  f = message.getPassword();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -6957,10 +7107,10 @@ proto.space.OpenPublicFileRequest.prototype.setFilecid = function(value) {
 
 
 /**
- * optional string fileKey = 2;
+ * optional string password = 2;
  * @return {string}
  */
-proto.space.OpenPublicFileRequest.prototype.getFilekey = function() {
+proto.space.OpenPublicFileRequest.prototype.getPassword = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -6969,7 +7119,7 @@ proto.space.OpenPublicFileRequest.prototype.getFilekey = function() {
  * @param {string} value
  * @return {!proto.space.OpenPublicFileRequest} returns this
  */
-proto.space.OpenPublicFileRequest.prototype.setFilekey = function(value) {
+proto.space.OpenPublicFileRequest.prototype.setPassword = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 

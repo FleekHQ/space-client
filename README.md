@@ -1076,7 +1076,7 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
   };
 ```
 
-#### .openPublicFile({ fileCid: string, fileKey: string, filename: string })
+#### .openPublicFile({ fileCid: string, password: string, filename: string })
 
 Open a file from a shared public link.
 
@@ -1084,7 +1084,7 @@ Open a file from a shared public link.
   client
     .openPublicFile({
       fileCid: 'some-id',
-      fileKey: 'some-password',
+      password: 'file-password',
       filename: 'some-filename',
     })
     .then((res) => {
