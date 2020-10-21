@@ -1076,6 +1076,41 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
   };
 ```
 
+#### .openPublicFile({ fileCid: string, password: string, filename: string })
+
+Open a file from a shared public link.
+
+```js
+  client
+    .openPublicFile({
+      fileCid: 'some-id',
+      password: 'file-password',
+      filename: 'some-filename',
+    })
+    .then((res) => {
+      const location = res.getLocation();
+
+      console.log(location);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.openPublicFile({
+      fileCid: 'some-id',
+      fileKey: 'some-password',
+      filename: 'some-filename',
+    });
+
+    res.getLocation()
+
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 

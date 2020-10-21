@@ -792,3 +792,20 @@ document.getElementById('generate-key-pair-withForce').onclick = async () => {
     console.log(error);
   }
 };
+
+document.getElementById('open-public-file').onclick = async () => {
+  const fileCid = document.getElementById('open-public-file-fileCid').value;
+  const password = document.getElementById('open-public-file-filePassword').value;
+  const filename = document.getElementById('open-public-file-filename').value;
+  try {
+    const res = await client.openPublicFile({
+      fileCid,
+      password,
+      filename,
+    });
+
+    console.log('Location: ', res.getLocation());
+  } catch (error) {
+    console.log(error);
+  }
+};

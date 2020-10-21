@@ -25,6 +25,7 @@ import {
   TestKeysPassphrasePayload,
   SetNotificationsLastSeenAtPayload,
   HandleFilesInvitationPayload,
+  OpenPublicFilePayload,
 } from './types';
 
 import {
@@ -94,6 +95,8 @@ import {
   GenerateKeyPairRequest,
   GenerateKeyPairResponse,
   FullPath,
+  OpenPublicFileRequest,
+  OpenPublicFileResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -910,6 +913,31 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: GenerateKeyPairResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  openPublicFile(
+    payload: OpenPublicFilePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<OpenPublicFileResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new OpenPublicFileRequest();
+      request.setFilecid(payload.fileCid);
+      request.setPassword(payload.password);
+      request.setFilename(payload.filename);
+
+      this.instance.openPublicFile(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: OpenPublicFileResponse) => {
           if (err) {
             reject(err);
             return;
