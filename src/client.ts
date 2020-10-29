@@ -26,6 +26,7 @@ import {
   SetNotificationsLastSeenAtPayload,
   HandleFilesInvitationPayload,
   OpenPublicFilePayload,
+  SearchFilesPayload,
 } from './types';
 
 import {
@@ -97,6 +98,8 @@ import {
   FullPath,
   OpenPublicFileRequest,
   OpenPublicFileResponse,
+  SearchFilesRequest,
+  SearchFilesResponse,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -938,6 +941,29 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: OpenPublicFileResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  searchFiles(
+    payload: SearchFilesPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<SearchFilesResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new SearchFilesRequest();
+      request.setQuery(payload.query);
+
+      this.instance.searchFiles(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: SearchFilesResponse) => {
           if (err) {
             reject(err);
             return;

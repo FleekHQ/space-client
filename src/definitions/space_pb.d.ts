@@ -2,6 +2,76 @@ import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
 
+export class SearchFilesRequest extends jspb.Message {
+  getQuery(): string;
+  setQuery(value: string): SearchFilesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchFilesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchFilesRequest): SearchFilesRequest.AsObject;
+  static serializeBinaryToWriter(message: SearchFilesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchFilesRequest;
+  static deserializeBinaryFromReader(message: SearchFilesRequest, reader: jspb.BinaryReader): SearchFilesRequest;
+}
+
+export namespace SearchFilesRequest {
+  export type AsObject = {
+    query: string,
+  }
+}
+
+export class SearchFilesResponse extends jspb.Message {
+  getEntriesList(): Array<SearchFilesDirectoryEntry>;
+  setEntriesList(value: Array<SearchFilesDirectoryEntry>): SearchFilesResponse;
+  clearEntriesList(): SearchFilesResponse;
+  addEntries(value?: SearchFilesDirectoryEntry, index?: number): SearchFilesDirectoryEntry;
+
+  getQuery(): string;
+  setQuery(value: string): SearchFilesResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchFilesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchFilesResponse): SearchFilesResponse.AsObject;
+  static serializeBinaryToWriter(message: SearchFilesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchFilesResponse;
+  static deserializeBinaryFromReader(message: SearchFilesResponse, reader: jspb.BinaryReader): SearchFilesResponse;
+}
+
+export namespace SearchFilesResponse {
+  export type AsObject = {
+    entriesList: Array<SearchFilesDirectoryEntry.AsObject>,
+    query: string,
+  }
+}
+
+export class SearchFilesDirectoryEntry extends jspb.Message {
+  getEntry(): ListDirectoryEntry | undefined;
+  setEntry(value?: ListDirectoryEntry): SearchFilesDirectoryEntry;
+  hasEntry(): boolean;
+  clearEntry(): SearchFilesDirectoryEntry;
+
+  getDbid(): string;
+  setDbid(value: string): SearchFilesDirectoryEntry;
+
+  getBucket(): string;
+  setBucket(value: string): SearchFilesDirectoryEntry;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SearchFilesDirectoryEntry.AsObject;
+  static toObject(includeInstance: boolean, msg: SearchFilesDirectoryEntry): SearchFilesDirectoryEntry.AsObject;
+  static serializeBinaryToWriter(message: SearchFilesDirectoryEntry, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SearchFilesDirectoryEntry;
+  static deserializeBinaryFromReader(message: SearchFilesDirectoryEntry, reader: jspb.BinaryReader): SearchFilesDirectoryEntry;
+}
+
+export namespace SearchFilesDirectoryEntry {
+  export type AsObject = {
+    entry?: ListDirectoryEntry.AsObject,
+    dbid: string,
+    bucket: string,
+  }
+}
+
 export class SetNotificationsLastSeenAtRequest extends jspb.Message {
   getTimestamp(): number;
   setTimestamp(value: number): SetNotificationsLastSeenAtRequest;
@@ -164,6 +234,38 @@ export namespace ToggleBucketBackupResponse {
   }
 }
 
+export class BucketBackupRestoreRequest extends jspb.Message {
+  getBucket(): string;
+  setBucket(value: string): BucketBackupRestoreRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): BucketBackupRestoreRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: BucketBackupRestoreRequest): BucketBackupRestoreRequest.AsObject;
+  static serializeBinaryToWriter(message: BucketBackupRestoreRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BucketBackupRestoreRequest;
+  static deserializeBinaryFromReader(message: BucketBackupRestoreRequest, reader: jspb.BinaryReader): BucketBackupRestoreRequest;
+}
+
+export namespace BucketBackupRestoreRequest {
+  export type AsObject = {
+    bucket: string,
+  }
+}
+
+export class BucketBackupRestoreResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): BucketBackupRestoreResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: BucketBackupRestoreResponse): BucketBackupRestoreResponse.AsObject;
+  static serializeBinaryToWriter(message: BucketBackupRestoreResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BucketBackupRestoreResponse;
+  static deserializeBinaryFromReader(message: BucketBackupRestoreResponse, reader: jspb.BinaryReader): BucketBackupRestoreResponse;
+}
+
+export namespace BucketBackupRestoreResponse {
+  export type AsObject = {
+  }
+}
+
 export class ListDirectoriesRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): ListDirectoriesRequest;
@@ -247,6 +349,9 @@ export class ListDirectoryEntry extends jspb.Message {
   getIsbackupinprogress(): boolean;
   setIsbackupinprogress(value: boolean): ListDirectoryEntry;
 
+  getIsrestoreinprogress(): boolean;
+  setIsrestoreinprogress(value: boolean): ListDirectoryEntry;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ListDirectoryEntry.AsObject;
   static toObject(includeInstance: boolean, msg: ListDirectoryEntry): ListDirectoryEntry.AsObject;
@@ -269,6 +374,7 @@ export namespace ListDirectoryEntry {
     backupcount: number,
     membersList: Array<FileMember.AsObject>,
     isbackupinprogress: boolean,
+    isrestoreinprogress: boolean,
   }
 }
 

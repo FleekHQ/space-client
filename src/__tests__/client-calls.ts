@@ -47,6 +47,7 @@ client.instance = {
   testKeysPassphrase: jest.fn(),
   generateKeyPairWithForce: jest.fn(),
   openPublicFile: jest.fn(),
+  searchFiles: jest.fn(),
 };
 
 it('listDirectory makes the right requests', async () => {
@@ -317,4 +318,12 @@ it('openPublicFile makes the right request', async () => {
   });
 
   expect(client.instance.openPublicFile).toHaveBeenCalledTimes(1);
+});
+
+it('searchFiles makes the right request', async () => {
+  client.searchFiles({
+    query: 'filename',
+  });
+
+  expect(client.instance.searchFiles).toHaveBeenCalledTimes(1);
 });

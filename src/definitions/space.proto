@@ -181,6 +181,10 @@ service SpaceApi {
 
   }
 
+  rpc BucketBackupRestore(BucketBackupRestoreRequest) returns (BucketBackupRestoreResponse) {
+
+  }
+
   rpc GetUsageInfo(GetUsageInfoRequest) returns (GetUsageInfoResponse) {
 
   }
@@ -199,6 +203,26 @@ service SpaceApi {
   rpc SetNotificationsLastSeenAt(SetNotificationsLastSeenAtRequest) returns (SetNotificationsLastSeenAtResponse) {
 
   }
+
+  // Search for files across all users bucket
+  rpc SearchFiles(SearchFilesRequest) returns (SearchFilesResponse) {
+
+  }
+}
+
+message SearchFilesRequest {
+  string query = 1;
+}
+
+message SearchFilesResponse {
+  repeated SearchFilesDirectoryEntry entries = 1;
+  string query = 2;
+}
+
+message SearchFilesDirectoryEntry {
+  ListDirectoryEntry entry = 1;
+  string dbId = 2;
+  string bucket = 3;
 }
 
 message SetNotificationsLastSeenAtRequest {
@@ -234,6 +258,12 @@ message ToggleBucketBackupRequest {
 
 message ToggleBucketBackupResponse {}
 
+message BucketBackupRestoreRequest {
+  string bucket = 1;
+}
+
+message BucketBackupRestoreResponse {}
+
 message ListDirectoriesRequest {
   string bucket = 1;
   bool omitMembers = 2;
@@ -257,6 +287,7 @@ message ListDirectoryEntry {
   int64 backupCount = 10;
   repeated FileMember members = 11;
   bool isBackupInProgress = 12;
+  bool isRestoreInProgress = 13;
 }
 
 message SharedListDirectoryEntry {

@@ -809,3 +809,36 @@ document.getElementById('open-public-file').onclick = async () => {
     console.log(error);
   }
 };
+
+
+document.getElementById('search-files').onclick = async () => {
+  const query = document.getElementById('search-files-query').value;
+  const payload = { query };
+
+  console.log('searching files...');
+  console.log('payload', payload);
+  try {
+    const res = await client.searchFiles(payload);
+    const entriesList = res.getEntriesList();
+
+    const entries = entriesList.map((entry) => {
+      return {
+        path: entry.getPath(),
+        name: entry.getName(),
+        isDir: entry.getIsdir(),
+        created: entry.getCreated(),
+        updated: entry.getUpdated(),
+        ipfsHash: entry.getIpfshash(),
+        sizeInBytes: entry.getSizeinbytes(),
+        fileExtension: entry.getFileextension(),
+        isLocallyAvailable: entry.getIslocallyavailable(),
+        backupCount: entry.getBackupcount(),
+        members: entry.getMembersList()
+      };
+    });
+
+    console.log('entries res:', entries);
+  } catch (error) {
+    console.log(error);
+  }
+};
