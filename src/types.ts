@@ -120,3 +120,7 @@ export interface OpenPublicFilePayload {
   password: string;
   filename: string;
 }
+
+export interface SearchFilesPayload {
+  query: string;
+}

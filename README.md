@@ -1111,6 +1111,53 @@ Open a file from a shared public link.
   };
 ```
 
+
+#### .searchFiles({ query: string })
+
+Search files/folder by name. Returns an EntryList with the results.
+
+```js
+  client
+    .searchFiles({
+      query: 'filename',
+    })
+    .then((res) => {
+      const entriesList = res.getEntriesList();
+
+      const entries = entriesList.map((entry) => {
+        return {
+          path: entry.getPath(),
+          name: entry.getName(),
+          isDir: entry.getIsdir(),
+          created: entry.getCreated(),
+          updated: entry.getUpdated(),
+          ipfsHash: entry.getIpfshash(),
+          sizeInBytes: entry.getSizeinbytes(),
+          fileExtension: entry.getFileextension(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList()
+        };
+      });
+
+      console.log('entries res:', entries);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.searchFiles({ query: 'filename' });
+    
+    const entriesList = res.getEntriesList();
+
+    ...
+  };
+
+```
+
 ## Example
 You can check the example included in the `example` folder.
 
