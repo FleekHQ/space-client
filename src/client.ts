@@ -50,7 +50,6 @@ import {
   ToggleFuseRequest,
   FuseDriveResponse,
   FileEventResponse,
-  FileInfoEventResponse,
   ListBucketsRequest,
   ListBucketsResponse,
   ListDirectoryRequest,
@@ -205,14 +204,6 @@ class SpaceClient {
         },
       );
     });
-  }
-
-  fileInfoSubscribe(
-    metadata: grpcWeb.Metadata = {},
-  ): grpcWeb.ClientReadableStream<FileInfoEventResponse> {
-    const request = new Empty();
-
-    return this.instance.fileInfoSubscribe(request, metadata);
   }
 
   txlSubscribe(
