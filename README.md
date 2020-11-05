@@ -54,6 +54,88 @@ then to initialize the client:
   ...
 ```
 
+## Generate Protobuf Messages and Client Service Stub
+
+### Step 1: Download the binary tools required to generate protobuf messages and client services:
+
+> if you already have the tools, you can skip this step
+
+In order to generate the Protobuf Messages and Client Service Stub you need:
+- `protoc` binary
+- `protoc-gen-grpc-web` plugin
+
+#### Install `protoc`
+Go to the latest release page of protobuf and download the binary for your OS: https://github.com/protocolbuffers/protobuf/releases
+
+In this example we are going to use OSX, so the file that we need is `protoc-3.13.0-osx-x86_64.zip` (https://github.com/protocolbuffers/protobuf/releases/download/v3.13.0/protoc-3.13.0-osx-x86_64.zip)
+
+Unzip the file, rename the uncompressed file to `protoc` and move it to the `bin` directory on your OS (make sure to change the permissions of the file):
+
+```bash
+$ sudo mv ~/Downloads/protoc /usr/local/bin/
+$ sudo chmod 777 /usr/local/bin/protoc
+```
+
+#### Install `protoc-gen-grpc-web`
+Go to the latest release page of grpc-web and download the binary for your OS: https://github.com/grpc/grpc-web/releases
+
+In this example we are going to use OSX, so the file that we need is `protoc-gen-grpc-web-1.2.1-darwin-x86_64` (https://github.com/grpc/grpc-web/releases/download/1.2.1/protoc-gen-grpc-web-1.2.1-darwin-x86_64)
+
+Rename the file to `protoc-gen-grpc-web` and move it to the `bin` directory on your OS (make sure to change the permissions of the file):
+
+```bash
+$ sudo mv ~/Downloads/protoc-gen-grpc-web /usr/local/bin/
+$ sudo chmod 777 /usr/local/bin/protoc-gen-grpc-web
+```
+
+
+### Step 2: Prepare the `space.proto` file
+Download the latest version of the `space.proto` from `master` branch: https://github.com/FleekHQ/space-daemon/blob/master/grpc/proto/space.proto
+
+If you need to update the `space.proto` from the `develop` branch, you can go to: https://github.com/FleekHQ/space-daemon/blob/develop/grpc/proto/space.proto
+
+Download the `space.proto` into `/src/definitions/space.proto` on this project
+
+Then, using a text editor that supports regex (like vscode), open the space.proto and find by the following regex:
+
+```
+(import "google/api/annotations.proto";|(option \(google.api.http\) = \{(\n){0,1}(.*: .*|\n)*.*\};))
+```
+
+remove all the coincidences, and save the file:
+
+![example](https://gpuente-team-bucket.storage.fleek.co/2020-11-04%2016.54.11.gif)
+
+
+### Step 3: Generate Protobuf Messages and Client Service Stub
+
+Open a terminal and move into the definitions folder:
+
+```bash
+cd src/definitions
+```
+
+then execute the following command:
+
+```bash
+protoc -I=. space.proto \
+  --js_out=import_style=commonjs:. \
+  --grpc-web_out=import_style=typescript,mode=grpcwebtext:.
+```
+
+the command is going to generate 3 files: `space_pb.d.ts`, `space_pb.js` and `SpaceServiceClientPb.ts`
+
+
+### Step 4: Test the build
+Once you successfully generated the protobuf messages and the client service stub, you have to test that the build is passing with this new version of the `space.proto`:
+
+```bash
+yarn build
+```
+
+If the build fails, means that you have to update `src/client.ts` file with the latest versions of the types generated.
+
+
 ## API
 
 #### class SpaceClient(opts)
@@ -471,25 +553,46 @@ Get Fuse drive status
 #### .subscribe()
 
 Returns a ReadableStream that notifies when something changed on the bucket (data stream returns the event type + the entry affected).
-Event type can be one of `[ENTRY_ADDED, ENTRY_DELETED, ENTRY_UPDATED]`
+Event type can be one of:
 
+```protobuf
+  enum EventType {
+    ENTRY_ADDED = 0;
+    ENTRY_DELETED = 1;
+    ENTRY_UPDATED = 2;
+    ENTRY_BACKUP_IN_PROGRESS = 3;
+    ENTRY_BACKUP_READY = 4;
+    ENTRY_RESTORE_IN_PROGRESS = 5;
+    ENTRY_RESTORE_READY = 6;
+    FOLDER_ADDED = 7;
+    FOLDER_DELETED = 8;
+    FOLDER_UPDATED = 9;
+  }
+```
+
+example: 
 ```js
   const subscribeStream = client.subscribe();
 
   subscribeStream.on('data', (res) => {
     const eventType = res.getType();
     const entry = res.getEntry();
+    const bucket = res.getBucket();
+    const dbId = res.getDbid();
 
-    console.log('eventType', eventType.toString());
-    console.log('path', entry.getPath());
-    console.log('name', entry.getName());
-    console.log('isDir', entry.getIsdir());
-    console.log('created', entry.getCreated());
-    console.log('updated', entry.getUpdated());
-    console.log('ipfsHash', entry.getIpfshash());
-    console.log('sizeInBytes', entry.getSizeinbytes());
-    console.log('fileExtension', entry.getFileextension());
-  });
+    console.log('subscribe data:', {
+      dbId,
+      bucket,
+      eventType: eventType.toString(),
+      path: entry.getPath(),
+      name: entry.getName(),
+      isDir: entry.getIsdir(),
+      created: entry.getCreated(),
+      updated: entry.getUpdated(),
+      ipfsHash: entry.getIpfshash(),
+      sizeInBytes: entry.getSizeinbytes(),
+      fileExtension: entry.getFileextension(),
+    });
 ```
 
 #### `[WIP]` <em>.listBuckets()</em>
@@ -1124,8 +1227,14 @@ Search files/folder by name. Returns an EntryList with the results.
     .then((res) => {
       const entriesList = res.getEntriesList();
 
-      const entries = entriesList.map((entry) => {
+      const entries = entriesList.map((item) => {
+        const dbId = item.getDbid();
+        const entry = item.getEntry();
+        const bucket = item.getBucket();
+
         return {
+          dbId,
+          bucket,
           path: entry.getPath(),
           name: entry.getName(),
           isDir: entry.getIsdir(),

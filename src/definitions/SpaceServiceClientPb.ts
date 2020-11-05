@@ -33,7 +33,6 @@ import {
   DeleteKeyPairRequest,
   DeleteKeyPairResponse,
   FileEventResponse,
-  FileInfoEventResponse,
   FuseDriveResponse,
   GenerateKeyPairRequest,
   GenerateKeyPairResponse,
@@ -438,24 +437,6 @@ export class SpaceApiClient {
       request,
       metadata || {},
       this.methodInfoSubscribe);
-  }
-
-  methodInfoFileInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    FileInfoEventResponse,
-    (request: google_protobuf_empty_pb.Empty) => {
-      return request.serializeBinary();
-    },
-    FileInfoEventResponse.deserializeBinary
-  );
-
-  fileInfoSubscribe(
-    request: google_protobuf_empty_pb.Empty,
-    metadata?: grpcWeb.Metadata) {
-    return this.client_.serverStreaming(
-      new URL('/space.SpaceApi/FileInfoSubscribe', this.hostname_).toString(),
-      request,
-      metadata || {},
-      this.methodInfoFileInfoSubscribe);
   }
 
   methodInfoTxlSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(

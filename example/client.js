@@ -17,28 +17,27 @@ txlStream.on('data', (res) => {
   console.log(`something changed on ${res.getBucket()} bucket`);
 });
 
-const fileInfoStream = client.fileInfoSubscribe();
-
-fileInfoStream.on('data', (res) => {
-  console.log(`A file  has changed: ${res.getFile()}`);
-});
-
 const subscribe = client.subscribe();
 
 subscribe.on('data', (res) => {
-  console.log('subscribe data:');
   const eventType = res.getType();
   const entry = res.getEntry();
+  const bucket = res.getBucket();
+  const dbId = res.getDbid();
 
-  console.log('eventType:', eventType.toString());
-  console.log('path:', entry.getPath());
-  console.log('name:', entry.getName());
-  console.log('isDir:', entry.getIsdir());
-  console.log('created:', entry.getCreated());
-  console.log('updated:', entry.getUpdated());
-  console.log('ipfsHash:', entry.getIpfshash());
-  console.log('sizeInBytes:', entry.getSizeinbytes());
-  console.log('fileExtension:', entry.getFileextension());
+  console.log('subscribe data:', {
+    dbId,
+    bucket,
+    eventType: eventType.toString(),
+    path: entry.getPath(),
+    name: entry.getName(),
+    isDir: entry.getIsdir(),
+    created: entry.getCreated(),
+    updated: entry.getUpdated(),
+    ipfsHash: entry.getIpfshash(),
+    sizeInBytes: entry.getSizeinbytes(),
+    fileExtension: entry.getFileextension(),
+  });
 });
 
 
@@ -820,9 +819,16 @@ document.getElementById('search-files').onclick = async () => {
   try {
     const res = await client.searchFiles(payload);
     const entriesList = res.getEntriesList();
+    console.log('res', entriesList);
 
-    const entries = entriesList.map((entry) => {
+    const entries = entriesList.map((item) => {
+      const dbId = item.getDbid();
+      const entry = item.getEntry();
+      const bucket = item.getBucket();
+
       return {
+        dbId,
+        bucket,
         path: entry.getPath(),
         name: entry.getName(),
         isDir: entry.getIsdir(),

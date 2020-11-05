@@ -701,6 +701,12 @@ export class FileEventResponse extends jspb.Message {
   hasEntry(): boolean;
   clearEntry(): FileEventResponse;
 
+  getBucket(): string;
+  setBucket(value: string): FileEventResponse;
+
+  getDbid(): string;
+  setDbid(value: string): FileEventResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FileEventResponse.AsObject;
   static toObject(includeInstance: boolean, msg: FileEventResponse): FileEventResponse.AsObject;
@@ -713,26 +719,8 @@ export namespace FileEventResponse {
   export type AsObject = {
     type: EventType,
     entry?: ListDirectoryEntry.AsObject,
-  }
-}
-
-export class FileInfoEventResponse extends jspb.Message {
-  getFile(): ListDirectoryEntry | undefined;
-  setFile(value?: ListDirectoryEntry): FileInfoEventResponse;
-  hasFile(): boolean;
-  clearFile(): FileInfoEventResponse;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): FileInfoEventResponse.AsObject;
-  static toObject(includeInstance: boolean, msg: FileInfoEventResponse): FileInfoEventResponse.AsObject;
-  static serializeBinaryToWriter(message: FileInfoEventResponse, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): FileInfoEventResponse;
-  static deserializeBinaryFromReader(message: FileInfoEventResponse, reader: jspb.BinaryReader): FileInfoEventResponse;
-}
-
-export namespace FileInfoEventResponse {
-  export type AsObject = {
-    file?: ListDirectoryEntry.AsObject,
+    bucket: string,
+    dbid: string,
   }
 }
 
@@ -1875,6 +1863,13 @@ export enum EventType {
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
   ENTRY_UPDATED = 2,
+  ENTRY_BACKUP_IN_PROGRESS = 3,
+  ENTRY_BACKUP_READY = 4,
+  ENTRY_RESTORE_IN_PROGRESS = 5,
+  ENTRY_RESTORE_READY = 6,
+  FOLDER_ADDED = 7,
+  FOLDER_DELETED = 8,
+  FOLDER_UPDATED = 9,
 }
 export enum NotificationType { 
   UNKNOWN = 0,
