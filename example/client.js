@@ -819,9 +819,16 @@ document.getElementById('search-files').onclick = async () => {
   try {
     const res = await client.searchFiles(payload);
     const entriesList = res.getEntriesList();
+    console.log('res', entriesList);
 
-    const entries = entriesList.map((entry) => {
+    const entries = entriesList.map((item) => {
+      const dbId = item.getDbid();
+      const entry = item.getEntry();
+      const bucket = item.getBucket();
+
       return {
+        dbId,
+        bucket,
         path: entry.getPath(),
         name: entry.getName(),
         isDir: entry.getIsdir(),
