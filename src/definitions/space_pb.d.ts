@@ -1,6 +1,7 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
+
 
 export class SearchFilesRequest extends jspb.Message {
   getQuery(): string;
@@ -963,6 +964,9 @@ export class BackupKeysByPassphraseRequest extends jspb.Message {
   getPassphrase(): string;
   setPassphrase(value: string): BackupKeysByPassphraseRequest;
 
+  getType(): KeyBackupType;
+  setType(value: KeyBackupType): BackupKeysByPassphraseRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): BackupKeysByPassphraseRequest.AsObject;
   static toObject(includeInstance: boolean, msg: BackupKeysByPassphraseRequest): BackupKeysByPassphraseRequest.AsObject;
@@ -975,6 +979,7 @@ export namespace BackupKeysByPassphraseRequest {
   export type AsObject = {
     uuid: string,
     passphrase: string,
+    type: KeyBackupType,
   }
 }
 
@@ -1870,6 +1875,10 @@ export enum EventType {
   FOLDER_ADDED = 7,
   FOLDER_DELETED = 8,
   FOLDER_UPDATED = 9,
+}
+export enum KeyBackupType { 
+  PASSWORD = 0,
+  ETH = 1,
 }
 export enum NotificationType { 
   UNKNOWN = 0,

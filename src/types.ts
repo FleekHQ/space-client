@@ -26,6 +26,7 @@ export interface CreateFolderPayload {
 
 export interface BackupKeysByPassphrasePayload {
   uuid: string;
+  type: 0 | 1;
   passphrase: string;
 }
 

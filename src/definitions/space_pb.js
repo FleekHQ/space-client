@@ -63,6 +63,7 @@ goog.exportSymbol('proto.space.InvitationAccept', null, global);
 goog.exportSymbol('proto.space.InvitationStatus', null, global);
 goog.exportSymbol('proto.space.JoinBucketRequest', null, global);
 goog.exportSymbol('proto.space.JoinBucketResponse', null, global);
+goog.exportSymbol('proto.space.KeyBackupType', null, global);
 goog.exportSymbol('proto.space.ListBucketsRequest', null, global);
 goog.exportSymbol('proto.space.ListBucketsResponse', null, global);
 goog.exportSymbol('proto.space.ListDirectoriesRequest', null, global);
@@ -9032,7 +9033,8 @@ proto.space.BackupKeysByPassphraseRequest.prototype.toObject = function(opt_incl
 proto.space.BackupKeysByPassphraseRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    passphrase: jspb.Message.getFieldWithDefault(msg, 2, "")
+    passphrase: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    type: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
 
   if (includeInstance) {
@@ -9077,6 +9079,10 @@ proto.space.BackupKeysByPassphraseRequest.deserializeBinaryFromReader = function
       var value = /** @type {string} */ (reader.readString());
       msg.setPassphrase(value);
       break;
+    case 3:
+      var value = /** @type {!proto.space.KeyBackupType} */ (reader.readEnum());
+      msg.setType(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -9120,6 +9126,13 @@ proto.space.BackupKeysByPassphraseRequest.serializeBinaryToWriter = function(mes
       f
     );
   }
+  f = message.getType();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -9156,6 +9169,24 @@ proto.space.BackupKeysByPassphraseRequest.prototype.getPassphrase = function() {
  */
 proto.space.BackupKeysByPassphraseRequest.prototype.setPassphrase = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional KeyBackupType type = 3;
+ * @return {!proto.space.KeyBackupType}
+ */
+proto.space.BackupKeysByPassphraseRequest.prototype.getType = function() {
+  return /** @type {!proto.space.KeyBackupType} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {!proto.space.KeyBackupType} value
+ * @return {!proto.space.BackupKeysByPassphraseRequest} returns this
+ */
+proto.space.BackupKeysByPassphraseRequest.prototype.setType = function(value) {
+  return jspb.Message.setProto3EnumField(this, 3, value);
 };
 
 
@@ -15673,6 +15704,14 @@ proto.space.EventType = {
   FOLDER_ADDED: 7,
   FOLDER_DELETED: 8,
   FOLDER_UPDATED: 9
+};
+
+/**
+ * @enum {number}
+ */
+proto.space.KeyBackupType = {
+  PASSWORD: 0,
+  ETH: 1
 };
 
 /**
