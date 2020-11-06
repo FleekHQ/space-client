@@ -396,13 +396,14 @@ Toggles whether or not to back up the content of a bucket to Space.
   };
 ```
 
-#### .backupKeysByPassphrase({ uuid: string, passphrase: string })
+#### .backupKeysByPassphrase({ uuid: string, passphrase: string, type: number })
 
 Backup keys by a passphrase
 
 ```js
   client
     .backupKeysByPassphrase({
+      type: 0, // 0 = PASSWORD; 1 = ETH
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     })
@@ -419,6 +420,7 @@ Backup keys by a passphrase
     await client.backupKeysByPassphrase({
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
+      type: 0, // 0 = PASSWORD; 1 = ETH
     });
   };
 ```

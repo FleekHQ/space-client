@@ -660,11 +660,13 @@ document.getElementById('get-api-session-tokens').onclick = async () => {
 
 document.getElementById('backup-keys-by-passphrase').onclick = async () => {
   const uuid = document.getElementById("backup-keys-by-passphrase-uuid").value;
+  const type = document.getElementById("backup-keys-by-passphrase-type").value;
   const passphrase = document.getElementById("backup-keys-by-passphrase-passphrase").value;
 
   const payload = {
     uuid,
     passphrase,
+    type: parseInt(type, 10),
   };
 
   console.log('Backup keys by passphrase...');
