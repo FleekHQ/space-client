@@ -14,194 +14,194 @@ option go_package = ".;pb";
 service SpaceApi {
   // Get all folder or files in the default bucket. It fetches all subdirectories too.
   rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {
-
+    
   }
 
   // Get the folder or files in the path directory.
   // Unlike ListDirectories, this only returns immediate children at path.
   rpc ListDirectory(ListDirectoryRequest) returns (ListDirectoryResponse) {
-
+    
   }
 
   // Generate Key Pair for current account.
   // This will return error if daemon account already has keypairs
   rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-
+    
   }
 
   rpc GetStoredMnemonic(GetStoredMnemonicRequest) returns (GetStoredMnemonicResponse) {
-
+    
   }
 
   // Restores a keypair given a mnemonic.
   // This will override any existing key pair
   rpc RestoreKeyPairViaMnemonic(RestoreKeyPairViaMnemonicRequest) returns (RestoreKeyPairViaMnemonicResponse) {
-
+    
   }
 
   rpc DeleteKeyPair(DeleteKeyPairRequest) returns (DeleteKeyPairResponse) {
-
+    
   }
 
   // Force Generation of KeyPair. This will override existing keys stored in daemon.
   rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-
+    
   }
 
   rpc GetPublicKey(GetPublicKeyRequest) returns (GetPublicKeyResponse) {
-
+    
   }
 
   // Subscribe to file events. This streams responses to the caller
   rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
-
+    
   }
 
   // Subscribe to textile events. This streams responses to the caller
   rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {
-
+    
   }
 
   // Open a file in the daemon.
   // Daemon keeps track of all open files and closes them if no activity is noticed after a while
   rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
-
+    
   }
 
   // Generates a copy of the file that's accessible through IPFS gateways
   rpc GeneratePublicFileLink(GeneratePublicFileLinkRequest) returns (GeneratePublicFileLinkResponse) {
-
+    
   }
 
   // Gets the files that are shared with this recipient
   rpc GetSharedWithMeFiles(GetSharedWithMeFilesRequest) returns (GetSharedWithMeFilesResponse) {
-
+    
   }
 
   // Open an encrypted public shared file in the daemon.
   // This requires the decryption key and file hash/cid to work
   rpc OpenPublicFile(OpenPublicFileRequest) returns (OpenPublicFileResponse) {
-
+    
   }
 
   // Adds items (files/folders) to be uploaded to the bucket.
   rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {
-
+    
   }
 
   // Creates a folder/directory at the specified path
   rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
-
+    
   }
 
   // Toggle FUSE drive to be mounted or unmounted
   rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {
-
+    
   }
 
   // Get status of FUSE drive. If mounted or unmounted
   rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {
-
+    
   }
 
   // Create a new bucket owned by current user (aka keypair)
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {
-
+    
   }
 
   // Backup Key by Passphrase
   rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
-
+    
   }
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
-
+    
   }
 
   // Tests a passphrase to see if it matches the one previously used
   rpc TestKeysPassphrase(TestKeysPassphraseRequest) returns (TestKeysPassphraseResponse) {
-
+    
   }
 
   rpc CreateLocalKeysBackup(CreateLocalKeysBackupRequest) returns (CreateLocalKeysBackupResponse) {
-
+    
   }
 
   rpc RecoverKeysByLocalBackup(RecoverKeysByLocalBackupRequest) returns (RecoverKeysByLocalBackupResponse) {
-
+    
   }
 
   // Share bucket
   rpc ShareBucket(ShareBucketRequest) returns (ShareBucketResponse) {
-
+    
   }
 
   // Join bucket
   rpc JoinBucket(JoinBucketRequest) returns (JoinBucketResponse) {
-
+    
   }
 
   // Share bucket via public key using Textile Hub inboxing
   rpc ShareFilesViaPublicKey(ShareFilesViaPublicKeyRequest) returns (ShareFilesViaPublicKeyResponse) {
-
+    
   }
 
   rpc HandleFilesInvitation(HandleFilesInvitationRequest) returns (HandleFilesInvitationResponse) {
-
+    
   }
 
   rpc NotificationSubscribe(google.protobuf.Empty) returns (stream NotificationEventResponse) {
-
+    
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
-
+    
   }
 
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {
-
+    
   }
 
 
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse) {
-
+    
   }
 
   rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
-
+    
   }
 
   rpc ToggleBucketBackup(ToggleBucketBackupRequest) returns (ToggleBucketBackupResponse) {
-
+    
   }
 
   rpc BucketBackupRestore(BucketBackupRestoreRequest) returns (BucketBackupRestoreResponse) {
-
+    
   }
 
   rpc GetUsageInfo(GetUsageInfoRequest) returns (GetUsageInfoResponse) {
-
+    
   }
 
   rpc GetAPISessionTokens(GetAPISessionTokensRequest) returns (GetAPISessionTokensResponse) {
-
+    
   }
 
   // Returns a list of addresses / public keys of clients to which files where shared or received, ordered by date
   rpc GetRecentlySharedWith(GetRecentlySharedWithRequest) returns (GetRecentlySharedWithResponse) {
-
+    
   }
 
   // This will set the last read timestamp for the user so that the client
   // can check if newer notifications are present for UX
   rpc SetNotificationsLastSeenAt(SetNotificationsLastSeenAtRequest) returns (SetNotificationsLastSeenAtResponse) {
-
+    
   }
 
   // Search for files across all users bucket
   rpc SearchFiles(SearchFilesRequest) returns (SearchFilesResponse) {
-
+    
   }
 }
 
@@ -428,9 +428,15 @@ message CreateFolderRequest {
 message CreateFolderResponse {
 }
 
+enum KeyBackupType {
+  PASSWORD = 0;
+  ETH = 1;
+}
+
 message BackupKeysByPassphraseRequest {
   string uuid = 1;
   string passphrase = 2;
+  KeyBackupType type = 3;
 }
 
 message BackupKeysByPassphraseResponse {}
