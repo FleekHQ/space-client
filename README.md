@@ -7,7 +7,7 @@
 Space Client it's a [grpc-web](https://www.npmjs.com/package/grpc-web) wrapper that allows you to connect with the [space daemon](https://github.com/FleekHQ/space-daemon) and interact with it.
 
 
-#### Initialaze client
+#### Initialize client
 > Before initialize the client you need to have the [space-daemon](https://github.com/FleekHQ/space-daemon) up and running. You can find the daemon installation docs [here](https://github.com/FleekHQ/space-daemon#installation)
 
 
@@ -339,11 +339,11 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
     targetPath: '/',
     sourcePaths: ['/path-to-my-folder-or-file-to-upload']
   });
-    
+
   stream.on('data', (data) => {
     console.log('data: ', data);
   });
-  
+
   stream.on('error', (error) => {
     console.error('error: ', error);
   });
@@ -523,7 +523,7 @@ Toggle Fuse drive
     const res = await client.toggleFuseDrive({
       mountDrive: true || false,
     });
-    
+
     console.log(res.getFusedrivemounted());
   };
 ```
@@ -547,7 +547,7 @@ Get Fuse drive status
 
   const asyncFunc = async () => {
     const res = await client.getFuseDriveStatus({});
-    
+
     console.log(res.getFusedrivemounted());
   };
 ```
@@ -572,7 +572,7 @@ Event type can be one of:
   }
 ```
 
-example: 
+example:
 ```js
   const subscribeStream = client.subscribe();
 
@@ -608,7 +608,7 @@ Returns all the buckets available
     .listBuckets()
     .then((res) => {
       const buckets = res.getBucketsList();
-      
+
       buckets.forEach((bucket) => {
         console.log('key:', bucket.getKey());
         console.log('name:', bucket.getName());
@@ -642,7 +642,7 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
     .shareBucket({ bucket: 'my-bucket' })
     .then((res) => {
       const threadInfo = res.getThreadinfo();
-      
+
       console.log('key:', threadInfo.getKey());
       console.log('addresses:', threadInfo.getAddressesList());
     })
@@ -820,7 +820,7 @@ This method is for accepting or rejecting an invitation to a sharing request of 
   /* Or using Async/Await */
 
   const asyncFunc = async () => {
-    
+
     await client.handleFilesInvitation({ invitationID: '123-123-123', accept: true });
     ...
   };
@@ -895,7 +895,7 @@ Deletes the Key Pair
 
 #### .getUsageInfo()
 
-Fetches account storage usage info such as amount of space used locally and in Space, alongside bandwith quotas and limits. 
+Fetches account storage usage info such as amount of space used locally and in Space, alongside bandwith quotas and limits.
 
 ```js
   client
@@ -935,7 +935,7 @@ Fetches account storage usage info such as amount of space used locally and in S
 
 #### .getStoredMnemonic()
 
-Get the stored mnemonic seed. 
+Get the stored mnemonic seed.
 
 ```js
   client
@@ -1261,7 +1261,7 @@ Search files/folder by name. Returns an EntryList with the results.
 
   const asyncFunc = async () => {
     const res = await client.searchFiles({ query: 'filename' });
-    
+
     const entriesList = res.getEntriesList();
 
     ...

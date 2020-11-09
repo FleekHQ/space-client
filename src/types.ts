@@ -125,3 +125,5 @@ export interface OpenPublicFilePayload {
 export interface SearchFilesPayload {
   query: string;
 }
+
+export interface InitializeMasterAppPayload {}

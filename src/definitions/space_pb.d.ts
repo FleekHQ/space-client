@@ -1864,6 +1864,94 @@ export namespace GetRecentlySharedWithResponse {
   }
 }
 
+export class InitializeMasterAppTokenRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InitializeMasterAppTokenRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: InitializeMasterAppTokenRequest): InitializeMasterAppTokenRequest.AsObject;
+  static serializeBinaryToWriter(message: InitializeMasterAppTokenRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InitializeMasterAppTokenRequest;
+  static deserializeBinaryFromReader(message: InitializeMasterAppTokenRequest, reader: jspb.BinaryReader): InitializeMasterAppTokenRequest;
+}
+
+export namespace InitializeMasterAppTokenRequest {
+  export type AsObject = {
+  }
+}
+
+export class InitializeMasterAppTokenResponse extends jspb.Message {
+  getApptoken(): string;
+  setApptoken(value: string): InitializeMasterAppTokenResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): InitializeMasterAppTokenResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: InitializeMasterAppTokenResponse): InitializeMasterAppTokenResponse.AsObject;
+  static serializeBinaryToWriter(message: InitializeMasterAppTokenResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): InitializeMasterAppTokenResponse;
+  static deserializeBinaryFromReader(message: InitializeMasterAppTokenResponse, reader: jspb.BinaryReader): InitializeMasterAppTokenResponse;
+}
+
+export namespace InitializeMasterAppTokenResponse {
+  export type AsObject = {
+    apptoken: string,
+  }
+}
+
+export class AllowedMethod extends jspb.Message {
+  getMethodname(): string;
+  setMethodname(value: string): AllowedMethod;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): AllowedMethod.AsObject;
+  static toObject(includeInstance: boolean, msg: AllowedMethod): AllowedMethod.AsObject;
+  static serializeBinaryToWriter(message: AllowedMethod, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): AllowedMethod;
+  static deserializeBinaryFromReader(message: AllowedMethod, reader: jspb.BinaryReader): AllowedMethod;
+}
+
+export namespace AllowedMethod {
+  export type AsObject = {
+    methodname: string,
+  }
+}
+
+export class GenerateAppTokenRequest extends jspb.Message {
+  getAllowedmethodsList(): Array<AllowedMethod>;
+  setAllowedmethodsList(value: Array<AllowedMethod>): GenerateAppTokenRequest;
+  clearAllowedmethodsList(): GenerateAppTokenRequest;
+  addAllowedmethods(value?: AllowedMethod, index?: number): AllowedMethod;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GenerateAppTokenRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GenerateAppTokenRequest): GenerateAppTokenRequest.AsObject;
+  static serializeBinaryToWriter(message: GenerateAppTokenRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GenerateAppTokenRequest;
+  static deserializeBinaryFromReader(message: GenerateAppTokenRequest, reader: jspb.BinaryReader): GenerateAppTokenRequest;
+}
+
+export namespace GenerateAppTokenRequest {
+  export type AsObject = {
+    allowedmethodsList: Array<AllowedMethod.AsObject>,
+  }
+}
+
+export class GenerateAppTokenResponse extends jspb.Message {
+  getApptoken(): string;
+  setApptoken(value: string): GenerateAppTokenResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GenerateAppTokenResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GenerateAppTokenResponse): GenerateAppTokenResponse.AsObject;
+  static serializeBinaryToWriter(message: GenerateAppTokenResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GenerateAppTokenResponse;
+  static deserializeBinaryFromReader(message: GenerateAppTokenResponse, reader: jspb.BinaryReader): GenerateAppTokenResponse;
+}
+
+export namespace GenerateAppTokenResponse {
+  export type AsObject = {
+    apptoken: string,
+  }
+}
+
 export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,

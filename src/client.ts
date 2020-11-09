@@ -27,6 +27,7 @@ import {
   HandleFilesInvitationPayload,
   OpenPublicFilePayload,
   SearchFilesPayload,
+  InitializeMasterAppPayload,
 } from './types';
 
 import {
@@ -99,6 +100,8 @@ import {
   OpenPublicFileResponse,
   SearchFilesRequest,
   SearchFilesResponse,
+  InitializeMasterAppTokenResponse,
+  InitializeMasterAppTokenRequest,
 } from './definitions/space_pb';
 
 export interface SpaceClientOpts {
@@ -956,6 +959,28 @@ class SpaceClient {
         request,
         metadata,
         (err: grpcWeb.Error, res: SearchFilesResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  initializeMasterAppToken(
+    payload: InitializeMasterAppPayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<InitializeMasterAppTokenResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new InitializeMasterAppTokenRequest();
+
+      this.instance.initializeMasterAppToken(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: InitializeMasterAppTokenResponse) => {
           if (err) {
             reject(err);
             return;
