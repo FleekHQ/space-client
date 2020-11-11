@@ -850,3 +850,47 @@ document.getElementById('search-files').onclick = async () => {
     console.log(error);
   }
 };
+
+document.getElementById("get-shared-by-me-files").onclick = async () => {
+  const seek = document.getElementById("get-shared-by-me-seek").value;
+  const limit = parseInt(document.getElementById("get-shared-by-me-limit").value, 10);
+
+  const payload = {
+    seek,
+    limit,
+  };
+
+  console.log("getting files shared by me...");
+  console.log("payload", payload);
+
+  try {
+    const result = await client.getSharedByMeFiles(payload);
+
+    console.log({
+      nextOffset: result.getNextoffset(),
+      items: result.getItemsList().map((item) => {
+        const entry = item.getEntry();
+
+        return {
+          dbId: item.getDbid(),
+          bucket: item.getBucket(),
+          path: entry.getPath(),
+          isDir: entry.getIsdir(),
+          name: entry.getName(),
+          sizeInBytes: entry.getSizeinbytes(),
+          created: entry.getCreated(),
+          updated: entry.getUpdated(),
+          fileExtension: entry.getFileextension(),
+          ipfsHash: entry.getIpfshash(),
+          isLocallyAvailable: entry.getIslocallyavailable(),
+          backupCount: entry.getBackupcount(),
+          members: entry.getMembersList().map((member) => ({
+            publicKey: member.getPublickey(),
+          })),
+        };
+      }),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
