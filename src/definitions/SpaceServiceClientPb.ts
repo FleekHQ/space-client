@@ -514,6 +514,46 @@ export class SpaceApiClient {
     this.methodInfoGetSharedWithMeFiles);
   }
 
+  methodInfoGetSharedByMeFiles = new grpcWeb.AbstractClientBase.MethodInfo(
+    space_pb.GetSharedByMeFilesResponse,
+    (request: space_pb.GetSharedByMeFilesRequest) => {
+      return request.serializeBinary();
+    },
+    space_pb.GetSharedByMeFilesResponse.deserializeBinary
+  );
+
+  getSharedByMeFiles(
+    request: space_pb.GetSharedByMeFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetSharedByMeFilesResponse>;
+
+  getSharedByMeFiles(
+    request: space_pb.GetSharedByMeFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: space_pb.GetSharedByMeFilesResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetSharedByMeFilesResponse>;
+
+  getSharedByMeFiles(
+    request: space_pb.GetSharedByMeFilesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: space_pb.GetSharedByMeFilesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/space.SpaceApi/GetSharedByMeFiles',
+        request,
+        metadata || {},
+        this.methodInfoGetSharedByMeFiles,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GetSharedByMeFiles',
+    request,
+    metadata || {},
+    this.methodInfoGetSharedByMeFiles);
+  }
+
   methodInfoOpenPublicFile = new grpcWeb.AbstractClientBase.MethodInfo(
     space_pb.OpenPublicFileResponse,
     (request: space_pb.OpenPublicFileRequest) => {

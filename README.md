@@ -1269,6 +1269,116 @@ Search files/folder by name. Returns an EntryList with the results.
 
 ```
 
+#### .getSharedWithMeFiles({ seek: string, limit: number })
+
+Returns the list of files shared with me
+
+```js
+  client
+    .getSharedWithMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    })
+    .then((res) => {
+      const result = {
+        nextOffset: result.getNextoffset(),
+        items: result.getItemsList().map((item) => {
+          const entry = item.getEntry();
+
+          return {
+            dbId: item.getDbid(),
+            bucket: item.getBucket(),
+            path: entry.getEntrygetPath(),
+            isDir: entry.getIsdir(),
+            name: entry.getName(),
+            sizeInBytes: entry.getSizeinbytes(),
+            created: entry.getCreated(),
+            updated: entry.getUpdated(),
+            fileExtension: entry.getFileextension(),
+            ipfsHash: entry.getIpfshash(),
+            isLocallyAvailable: entry.getIslocallyavailable(),
+            backupCount: entry.getBackupcount(),
+            members: entry.getMembersList().map((member) => ({
+              publicKey: member.getPublickey(),
+            })),
+          };
+        }),
+      };
+
+      console.log(result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getSharedWithMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    });
+
+    console.log(res.getItemsList());
+    ...
+  };
+```
+
+#### .getSharedByMeFiles({ seek: string, limit: number })
+
+Returns the list of files shared by me
+
+```js
+  client
+    .getSharedByMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    })
+    .then((res) => {
+      const result = {
+        nextOffset: result.getNextoffset(),
+        items: result.getItemsList().map((item) => {
+          const entry = item.getEntry();
+
+          return {
+            dbId: item.getDbid(),
+            bucket: item.getBucket(),
+            path: entry.getEntrygetPath(),
+            isDir: entry.getIsdir(),
+            name: entry.getName(),
+            sizeInBytes: entry.getSizeinbytes(),
+            created: entry.getCreated(),
+            updated: entry.getUpdated(),
+            fileExtension: entry.getFileextension(),
+            ipfsHash: entry.getIpfshash(),
+            isLocallyAvailable: entry.getIslocallyavailable(),
+            backupCount: entry.getBackupcount(),
+            members: entry.getMembersList().map((member) => ({
+              publicKey: member.getPublickey(),
+            })),
+          };
+        }),
+      };
+
+      console.log(result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getSharedByMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    });
+
+    console.log(res.getItemsList());
+    ...
+  };
+```
+
 ## Example
 You can check the example included in the `example` folder.
 

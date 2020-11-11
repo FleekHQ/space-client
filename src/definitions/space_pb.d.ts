@@ -151,6 +151,52 @@ export namespace GetSharedWithMeFilesResponse {
   }
 }
 
+export class GetSharedByMeFilesRequest extends jspb.Message {
+  getSeek(): string;
+  setSeek(value: string): GetSharedByMeFilesRequest;
+
+  getLimit(): number;
+  setLimit(value: number): GetSharedByMeFilesRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSharedByMeFilesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSharedByMeFilesRequest): GetSharedByMeFilesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetSharedByMeFilesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSharedByMeFilesRequest;
+  static deserializeBinaryFromReader(message: GetSharedByMeFilesRequest, reader: jspb.BinaryReader): GetSharedByMeFilesRequest;
+}
+
+export namespace GetSharedByMeFilesRequest {
+  export type AsObject = {
+    seek: string,
+    limit: number,
+  }
+}
+
+export class GetSharedByMeFilesResponse extends jspb.Message {
+  getItemsList(): Array<SharedListDirectoryEntry>;
+  setItemsList(value: Array<SharedListDirectoryEntry>): GetSharedByMeFilesResponse;
+  clearItemsList(): GetSharedByMeFilesResponse;
+  addItems(value?: SharedListDirectoryEntry, index?: number): SharedListDirectoryEntry;
+
+  getNextoffset(): string;
+  setNextoffset(value: string): GetSharedByMeFilesResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSharedByMeFilesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSharedByMeFilesResponse): GetSharedByMeFilesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetSharedByMeFilesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSharedByMeFilesResponse;
+  static deserializeBinaryFromReader(message: GetSharedByMeFilesResponse, reader: jspb.BinaryReader): GetSharedByMeFilesResponse;
+}
+
+export namespace GetSharedByMeFilesResponse {
+  export type AsObject = {
+    itemsList: Array<SharedListDirectoryEntry.AsObject>,
+    nextoffset: string,
+  }
+}
+
 export class GetUsageInfoRequest extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetUsageInfoRequest.AsObject;
