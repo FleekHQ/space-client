@@ -1299,6 +1299,61 @@ Search files/folder by name. Returns an EntryList with the results.
 
 ```
 
+#### .getSharedWithMeFiles({ seek: string, limit: number })
+
+Returns the list of files shared with me
+
+```js
+  client
+    .getSharedWithMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    })
+    .then((res) => {
+      const result = {
+        nextOffset: result.getNextoffset(),
+        items: result.getItemsList().map((item) => {
+          const entry = item.getEntry();
+
+          return {
+            dbId: item.getDbid(),
+            bucket: item.getBucket(),
+            path: entry.getEntrygetPath(),
+            isDir: entry.getIsdir(),
+            name: entry.getName(),
+            sizeInBytes: entry.getSizeinbytes(),
+            created: entry.getCreated(),
+            updated: entry.getUpdated(),
+            fileExtension: entry.getFileextension(),
+            ipfsHash: entry.getIpfshash(),
+            isLocallyAvailable: entry.getIslocallyavailable(),
+            backupCount: entry.getBackupcount(),
+            members: entry.getMembersList().map((member) => ({
+              publicKey: member.getPublickey(),
+            })),
+          };
+        }),
+      };
+
+      console.log(result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getSharedWithMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    });
+
+    console.log(res.getItemsList());
+    ...
+  };
+```
+
 #### .initializeMasterAppToken()
 
 Initializes the daemon with a master app token. This token is required in following requests otherwise they will fail with an unauthorized error. If the daemon already has a master app token, this call will throw.
@@ -1325,6 +1380,61 @@ Initializes the daemon with a master app token. This token is required in follow
     ...
   };
 
+```
+
+#### .getSharedByMeFiles({ seek: string, limit: number })
+
+Returns the list of files shared by me
+
+```js
+  client
+    .getSharedByMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    })
+    .then((res) => {
+      const result = {
+        nextOffset: result.getNextoffset(),
+        items: result.getItemsList().map((item) => {
+          const entry = item.getEntry();
+
+          return {
+            dbId: item.getDbid(),
+            bucket: item.getBucket(),
+            path: entry.getEntrygetPath(),
+            isDir: entry.getIsdir(),
+            name: entry.getName(),
+            sizeInBytes: entry.getSizeinbytes(),
+            created: entry.getCreated(),
+            updated: entry.getUpdated(),
+            fileExtension: entry.getFileextension(),
+            ipfsHash: entry.getIpfshash(),
+            isLocallyAvailable: entry.getIslocallyavailable(),
+            backupCount: entry.getBackupcount(),
+            members: entry.getMembersList().map((member) => ({
+              publicKey: member.getPublickey(),
+            })),
+          };
+        }),
+      };
+
+      console.log(result);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.getSharedByMeFiles({
+      seek: "seek_value",
+      limit: 30,
+    });
+
+    console.log(res.getItemsList());
+    ...
+  };
 ```
 
 ## Example
