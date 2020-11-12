@@ -152,8 +152,7 @@ If you want to grant third-party apps access to a subset of methods after the ma
 const initializeMasterAppTokenRes = await client.initializeMasterAppToken();
 const token = initializeMasterAppTokenRes.getApptoken();
 
-// token should be stored for later usage
-// ...
+// token should be stored for later usage...
 
 // The authorized call
 await client.openFile(
