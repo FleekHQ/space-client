@@ -4,20 +4,33 @@ const client = new SpaceClient({
   url: `http://0.0.0.0:9998`,
 });
 
+const appTokenStoreKey = 'appToken'
 
-const notificationStream = client.notificationSubscribe();
+const getAppTokenMetadata = (metadata = {}) => {
+  const token = localStorage.getItem(appTokenStoreKey);
+  if (!token) {
+    throw new Error('App Token not initialized. Call InitializeMasterAppToken first.')
+  }
+
+  return {
+    ...metadata,
+    authorization: `AppToken ${token}`,
+  }
+}
+
+const notificationStream = client.notificationSubscribe(getAppTokenMetadata());
 
 notificationStream.on('data', (res) => {
   console.log(`new notification: ${res.getNotification()}`);
 });
 
-const txlStream = client.txlSubscribe();
+const txlStream = client.txlSubscribe(getAppTokenMetadata());
 
 txlStream.on('data', (res) => {
   console.log(`something changed on ${res.getBucket()} bucket`);
 });
 
-const subscribe = client.subscribe();
+const subscribe = client.subscribe(getAppTokenMetadata());
 
 subscribe.on('data', (res) => {
   const eventType = res.getType();
@@ -57,7 +70,7 @@ document.getElementById("add-file").onclick = async () => {
     console.log('payload', payload);
     console.log('uploading file...');
 
-    const uploadRes = client.addItems(payload)
+    const uploadRes = client.addItems(payload, getAppTokenMetadata())
 
     uploadRes.on('data', (data) => {
       const addItemResult = data.getResult();
@@ -92,7 +105,7 @@ document.getElementById('list-entries').onclick = async () => {
   try {
     console.log('getting entries...');
 
-    const directoriesRes = await client.listDirectories(payload);
+    const directoriesRes = await client.listDirectories(payload, getAppTokenMetadata());
 
     const entriesList = directoriesRes.getEntriesList();
 
@@ -131,7 +144,7 @@ document.getElementById('create-bucket').onclick = async () => {
     console.log('payload', payload);
     console.log('creating bucket...');
 
-    const createBucketRes = await client.createBucket(payload);
+    const createBucketRes = await client.createBucket(payload, getAppTokenMetadata());
     const bucket = createBucketRes.getBucket();
 
     const bucketObj = {
@@ -164,7 +177,7 @@ document.getElementById('open-file').onclick = async () => {
 
   console.log('opening file...');
   try {
-    const openFileRes = await client.openFile(payload)
+    const openFileRes = await client.openFile(payload, getAppTokenMetadata())
     console.log('temp file location:', openFileRes.getLocation());
   } catch (error) {
     console.error(error);
@@ -175,7 +188,7 @@ document.getElementById('open-file').onclick = async () => {
 document.getElementById('list-buckets').onclick = async () => {
   try {
     console.log('listing buckets...');
-    const res = await client.listBuckets();
+    const res = await client.listBuckets(getAppTokenMetadata());
     const buckets = res.getBucketsList();
 
     const bucketList = buckets.reduce((acc, bucket) => {
@@ -209,7 +222,7 @@ document.getElementById('list-directory').onclick = async () => {
     console.log('payload:', payload);
 
     console.log('fetching directory...');
-    const res = await client.listDirectory(payload);
+    const res = await client.listDirectory(payload, getAppTokenMetadata());
 
     const entriesList = res.getEntriesList();
 
@@ -252,7 +265,7 @@ document.getElementById('create-folder').onclick = async () => {
   console.log('creating folder...');
 
   try {
-    const res = await client.createFolder(payload);
+    const res = await client.createFolder(payload, getAppTokenMetadata());
 
     console.log('folder creted');
   } catch (error) {
@@ -277,7 +290,7 @@ document.getElementById('toggle-fuse-drive').onclick = async () => {
 
 document.getElementById('get-fuse-drive-status').onclick = async () => {
   try {
-    const res = await client.getFuseDriveStatus();
+    const res = await client.getFuseDriveStatus(null, getAppTokenMetadata());
     console.log('driveFuseMounted:', res.getFusedrivemounted());
   } catch (error) {
     console.error(error);
@@ -294,7 +307,7 @@ document.getElementById('share-bucket').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const res = await client.shareBucket(payload);
+    const res = await client.shareBucket(payload, getAppTokenMetadata());
 
     const threadInfo = res.getThreadinfo();
 
@@ -329,7 +342,7 @@ document.getElementById('join-bucket').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const res = await client.joinBucket(payload);
+    const res = await client.joinBucket(payload, getAppTokenMetadata());
     console.log('result', res.getResult());
   } catch (error) {
     console.error(error);
@@ -349,7 +362,7 @@ document.getElementById('recover-keys-by-passphrase').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    await client.recoverKeysByPassphrase(payload);
+    await client.recoverKeysByPassphrase(payload, getAppTokenMetadata());
     console.log('keys recovered');
   } catch (error) {
     console.error(error);
@@ -367,7 +380,7 @@ document.getElementById('restore-key-pair-via-mnemonic').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const res = await client.restoreKeyPairViaMnemonic(payload);
+    const res = await client.restoreKeyPairViaMnemonic(payload, getAppTokenMetadata());
     console.log('result', res.getResult());
   } catch (error) {
     console.error(error);
@@ -388,7 +401,7 @@ document.getElementById('get-notifications').onclick = async () => {
     console.log('Getting notifications...');
     console.log('payload', payload);
 
-    const res = await client.getNotifications(payload);
+    const res = await client.getNotifications(payload, getAppTokenMetadata());
 
     const objectRes = {
       nextOffset: res.getNextoffset(),
@@ -452,7 +465,7 @@ document.getElementById('read-notification').onclick = async () => {
     console.log('Read notification...');
     console.log('payload', payload);
 
-    await client.readNotification(payload);
+    await client.readNotification(payload, getAppTokenMetadata());
 
     console.log('notification was read');
   } catch (error) {
@@ -465,7 +478,7 @@ document.getElementById('delete-keypair').onclick = async () => {
   console.log('deleting key pair...');
 
   try {
-    const res = await client.deleteKeyPair();
+    const res = await client.deleteKeyPair(getAppTokenMetadata());
     console.log(res);
   } catch (error) {
     console.error(error);
@@ -475,7 +488,7 @@ document.getElementById('delete-keypair').onclick = async () => {
 
 document.getElementById('get-public-key').onclick = async () => {
   try {
-    const res = await client.getPublicKey();
+    const res = await client.getPublicKey(getAppTokenMetadata());
 
     console.log({
       publicKey: res.getPublickey(),
@@ -487,7 +500,7 @@ document.getElementById('get-public-key').onclick = async () => {
 
 document.getElementById('delete-account').onclick = async () => {
   try {
-    await client.deleteAccount();
+    await client.deleteAccount(null, getAppTokenMetadata());
 
     console.log('account deleted');
   } catch (error) {
@@ -526,7 +539,7 @@ document.getElementById('toggle-bucket-backup').onclick = async () => {
       backup: !bucket.isBackupEnabled,
     };
 
-    const response = await client.toggleBucketBackup(payload);
+    const response = await client.toggleBucketBackup(payload, getAppTokenMetadata());
 
     console.log('response:', response);
 
@@ -539,7 +552,7 @@ document.getElementById('get-usage-info').onclick = async () => {
   try {
     console.log('getting usage info...');
 
-    const usageInfoRes = await client.getUsageInfo();
+    const usageInfoRes = await client.getUsageInfo(getAppTokenMetadata());
 
     const usageInfo = {
       localstorageused: usageInfoRes.getLocalstorageused(),
@@ -559,7 +572,7 @@ document.getElementById('get-stored-mnemonic').onclick = async () => {
   try {
     console.log('getting stored mnemonic...');
 
-    const res = await client.getStoredMnemonic();
+    const res = await client.getStoredMnemonic(getAppTokenMetadata());
 
     console.log('mnemonic :', res.getMnemonic());
   } catch (error) {
@@ -581,7 +594,7 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
   console.log("payload", payload);
 
   try {
-    const result = await client.getSharedWithMeFiles(payload);
+    const result = await client.getSharedWithMeFiles(payload, getAppTokenMetadata());
 
     console.log({
       nextOffset: result.getNextoffset(),
@@ -638,7 +651,7 @@ document.getElementById("share-files-via-public-key").onclick = async () => {
   console.log('payload', payload);
 
   try {
-    const result = await client.shareFilesViaPublicKey(payload);
+    const result = await client.shareFilesViaPublicKey(payload, getAppTokenMetadata());
     console.log(result);
   } catch (error) {
     console.log(error);
@@ -647,7 +660,7 @@ document.getElementById("share-files-via-public-key").onclick = async () => {
 
 document.getElementById('get-api-session-tokens').onclick = async () => {
   try {
-    const res = await client.getAPISessionTokens();
+    const res = await client.getAPISessionTokens(getAppTokenMetadata());
 
     console.log({
       hubToken: res.getHubtoken(),
@@ -673,7 +686,7 @@ document.getElementById('backup-keys-by-passphrase').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    await client.backupKeysByPassphrase(payload);
+    await client.backupKeysByPassphrase(payload, getAppTokenMetadata());
 
     console.log('Successfully keys backup');
   } catch (error) {
@@ -686,7 +699,7 @@ document.getElementById('get-recently-shared-with').onclick = async () => {
   console.log('getting recently shared with');
 
   try {
-    const res = await client.getRecentlySharedWith();
+    const res = await client.getRecentlySharedWith(getAppTokenMetadata());
     const membersList = res.getMembersList();
     const members = membersList.map((member) => ({
       address: member.getAddress(),
@@ -718,7 +731,7 @@ document.getElementById('generate-public-file-link').onclick = async () => {
   console.log('Generating public file link...');
   console.log('payload', payload);
   try {
-    const res = await client.generatePublicFileLink(payload);
+    const res = await client.generatePublicFileLink(payload, getAppTokenMetadata());
     const fileInfo = {
       link: res.getLink(),
       fileCid: res.getFilecid(),
@@ -742,7 +755,7 @@ document.getElementById('test-keys-passphrase').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    await client.testKeysPassphrase(payload);
+    await client.testKeysPassphrase(payload, getAppTokenMetadata());
     console.log('test success');
   } catch (error) {
     console.error(error);
@@ -758,7 +771,7 @@ document.getElementById('set-notifications-last-seen-at').onclick = async () => 
   console.log('payload', payload);
 
   try {
-    await client.setNotificationsLastSeenAt(payload);
+    await client.setNotificationsLastSeenAt(payload, getAppTokenMetadata());
     console.log('successfully updated notifications timestamp');
   } catch (error) {
     console.error(error);
@@ -777,7 +790,7 @@ document.getElementById('handle-files-invitation').onclick = async () => {
   console.log('payload', payload);
 
   try {
-    await client.handleFilesInvitation(payload);
+    await client.handleFilesInvitation(payload, getAppTokenMetadata());
     console.log('successfully updated notification invitation status');
   } catch (error) {
     console.error(error);
@@ -786,7 +799,7 @@ document.getElementById('handle-files-invitation').onclick = async () => {
 
 document.getElementById('generate-key-pair-withForce').onclick = async () => {
   try {
-    await client.generateKeyPairWithForce();
+    await client.generateKeyPairWithForce(getAppTokenMetadata());
 
     console.log('Keys was generated');
   } catch (error) {
@@ -803,7 +816,7 @@ document.getElementById('open-public-file').onclick = async () => {
       fileCid,
       password,
       filename,
-    });
+    }, getAppTokenMetadata());
 
     console.log('Location: ', res.getLocation());
   } catch (error) {
@@ -819,7 +832,7 @@ document.getElementById('search-files').onclick = async () => {
   console.log('searching files...');
   console.log('payload', payload);
   try {
-    const res = await client.searchFiles(payload);
+    const res = await client.searchFiles(payload, getAppTokenMetadata());
     const entriesList = res.getEntriesList();
     console.log('res', entriesList);
 
@@ -851,6 +864,21 @@ document.getElementById('search-files').onclick = async () => {
   }
 };
 
+document.getElementById('initialize-master-app-token').onclick = async () => {
+  try {
+    console.log('initializing master app token...');
+
+    const initializeMasterAppTokenRes = await client.initializeMasterAppToken();
+    const token = initializeMasterAppTokenRes.getApptoken();
+    console.log(token);
+
+    window.localStorage.setItem(appTokenStoreKey, token)
+    console.log('Stored app token in local storage')
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 document.getElementById("get-shared-by-me-files").onclick = async () => {
   const seek = document.getElementById("get-shared-by-me-seek").value;
   const limit = parseInt(document.getElementById("get-shared-by-me-limit").value, 10);
@@ -864,7 +892,7 @@ document.getElementById("get-shared-by-me-files").onclick = async () => {
   console.log("payload", payload);
 
   try {
-    const result = await client.getSharedByMeFiles(payload);
+    const result = await client.getSharedByMeFiles(payload,  getAppTokenMetadata());
 
     console.log({
       nextOffset: result.getNextoffset(),
