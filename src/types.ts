@@ -126,6 +126,8 @@ export interface SearchFilesPayload {
   query: string;
 }
 
+export interface InitializeMasterAppPayload {}
+
 export interface GetSharedByMeFilesPayload {
   seek: string;
   limit: number;

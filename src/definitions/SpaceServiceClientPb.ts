@@ -1592,5 +1592,85 @@ export class SpaceApiClient {
     this.methodInfoSearchFiles);
   }
 
+  methodInfoInitializeMasterAppToken = new grpcWeb.AbstractClientBase.MethodInfo(
+    space_pb.InitializeMasterAppTokenResponse,
+    (request: space_pb.InitializeMasterAppTokenRequest) => {
+      return request.serializeBinary();
+    },
+    space_pb.InitializeMasterAppTokenResponse.deserializeBinary
+  );
+
+  initializeMasterAppToken(
+    request: space_pb.InitializeMasterAppTokenRequest,
+    metadata: grpcWeb.Metadata | null): Promise<space_pb.InitializeMasterAppTokenResponse>;
+
+  initializeMasterAppToken(
+    request: space_pb.InitializeMasterAppTokenRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: space_pb.InitializeMasterAppTokenResponse) => void): grpcWeb.ClientReadableStream<space_pb.InitializeMasterAppTokenResponse>;
+
+  initializeMasterAppToken(
+    request: space_pb.InitializeMasterAppTokenRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: space_pb.InitializeMasterAppTokenResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/space.SpaceApi/InitializeMasterAppToken',
+        request,
+        metadata || {},
+        this.methodInfoInitializeMasterAppToken,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/InitializeMasterAppToken',
+    request,
+    metadata || {},
+    this.methodInfoInitializeMasterAppToken);
+  }
+
+  methodInfoGenerateAppToken = new grpcWeb.AbstractClientBase.MethodInfo(
+    space_pb.GenerateAppTokenResponse,
+    (request: space_pb.GenerateAppTokenRequest) => {
+      return request.serializeBinary();
+    },
+    space_pb.GenerateAppTokenResponse.deserializeBinary
+  );
+
+  generateAppToken(
+    request: space_pb.GenerateAppTokenRequest,
+    metadata: grpcWeb.Metadata | null): Promise<space_pb.GenerateAppTokenResponse>;
+
+  generateAppToken(
+    request: space_pb.GenerateAppTokenRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: space_pb.GenerateAppTokenResponse) => void): grpcWeb.ClientReadableStream<space_pb.GenerateAppTokenResponse>;
+
+  generateAppToken(
+    request: space_pb.GenerateAppTokenRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: space_pb.GenerateAppTokenResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/space.SpaceApi/GenerateAppToken',
+        request,
+        metadata || {},
+        this.methodInfoGenerateAppToken,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/GenerateAppToken',
+    request,
+    metadata || {},
+    this.methodInfoGenerateAppToken);
+  }
+
 }
 
