@@ -892,7 +892,7 @@ document.getElementById("get-shared-by-me-files").onclick = async () => {
   console.log("payload", payload);
 
   try {
-    const result = await client.getSharedByMeFiles(payload);
+    const result = await client.getSharedByMeFiles(payload,  getAppTokenMetadata());
 
     console.log({
       nextOffset: result.getNextoffset(),
