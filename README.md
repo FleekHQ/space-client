@@ -138,6 +138,36 @@ If the build fails, means that you have to update `src/client.ts` file with the 
 
 ## API
 
+### App Token Authorization
+
+Space Daemon uses a token mechanism to prevent unauthorized clients from calling its methods, as otherwise user keys and files would be exposed.
+
+When using a fresh instance of the daemon where no tokens have been generated, it is possible to call the `InitializeMasterAppToken` method, which generates a fully authorized token (it has permission to call any space-daemon method). This token must be sent through the metadata argument on each subsequent call, otherwise the daemon will return an authorization error.
+
+If you want to grant third-party apps access to a subset of methods after the master token was already generated, space-daemon provides the `GenerateAppToken` method. (WIP. will soon be implemented).
+
+#### App Token Authorization Example
+
+```javascript
+const initializeMasterAppTokenRes = await client.initializeMasterAppToken();
+const token = initializeMasterAppTokenRes.getApptoken();
+
+// token should be stored for later usage
+// ...
+
+// The authorized call
+await client.openFile(
+  {path: "some/path"},
+  {
+    metadata: {
+      authorization: `AppToken ${token}`,
+    },
+  },
+)
+```
+
+### Space Client API methods
+
 #### class SpaceClient(opts)
 
 Use this class to create space client instances able to interact with space-daemon
@@ -1263,6 +1293,34 @@ Search files/folder by name. Returns an EntryList with the results.
     const res = await client.searchFiles({ query: 'filename' });
 
     const entriesList = res.getEntriesList();
+
+    ...
+  };
+
+```
+
+#### .initializeMasterAppToken()
+
+Initializes the daemon with a master app token. This token is required in following requests otherwise they will fail with an unauthorized error. If the daemon already has a master app token, this call will throw.
+
+```js
+  client
+    .initializeMasterAppToken()
+    .then((res) => {
+      const token = res.getApptoken();
+
+      console.log('token:', token);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    const res = await client.initializeMasterAppToken();
+
+    const token = res.getApptoken();
 
     ...
   };
