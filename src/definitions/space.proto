@@ -535,8 +535,15 @@ message ToggleFuseRequest {
   bool mountDrive = 1;
 }
 
+enum FuseState {
+  UNSUPPORTED = 0;
+  NOT_INSTALLED = 1;
+  UNMOUNTED = 2;
+  MOUNTED = 3;
+}
+
 message FuseDriveResponse {
-  bool fuseDriveMounted = 1;
+  FuseState state = 1;
 }
 
 message ListBucketsRequest {}
