@@ -282,7 +282,7 @@ document.getElementById('toggle-fuse-drive').onclick = async () => {
 
   try {
     const res = await client.toggleFuseDrive(payload);
-    console.log('driveFuseMounted:', res.getFusedrivemounted());
+    console.log('driveFuseMounted:', res.getState());
   } catch (error) {
     console.error(error);
   }
@@ -291,7 +291,7 @@ document.getElementById('toggle-fuse-drive').onclick = async () => {
 document.getElementById('get-fuse-drive-status').onclick = async () => {
   try {
     const res = await client.getFuseDriveStatus(null, getAppTokenMetadata());
-    console.log('driveFuseMounted:', res.getFusedrivemounted());
+    console.log('driveFuseMounted:', res.getState());
   } catch (error) {
     console.error(error);
   }

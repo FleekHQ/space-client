@@ -532,6 +532,16 @@ Generate key pair with force
 #### `[WIP]` <em>.toggleFuseDrive({ mountDrive: boolean })</em>
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
+Fuse Status:
+```protobuf
+enum FuseState {
+  UNSUPPORTED = 0;
+  NOT_INSTALLED = 1;
+  UNMOUNTED = 2;
+  MOUNTED = 3;
+}
+```
+
 Toggle Fuse drive
 
 ```js
@@ -540,7 +550,7 @@ Toggle Fuse drive
       mountDrive: true || false,
     })
     .then((res) => {
-      console.log(res.getFusedrivemounted());
+      console.log(res.getState());
     })
     .catch((err) => {
       console.error(err);
@@ -560,13 +570,23 @@ Toggle Fuse drive
 #### `[WIP]` <em>.getFuseDriveStatus({})</em>
 > this method is still not supported by [space-daemon](https://github.com/FleekHQ/space-daemon)
 
+Fuse Status:
+```protobuf
+enum FuseState {
+  UNSUPPORTED = 0;
+  NOT_INSTALLED = 1;
+  UNMOUNTED = 2;
+  MOUNTED = 3;
+}
+```
+
 Get Fuse drive status
 
 ```js
   client
     .getFuseDriveStatus({})
     .then((res) => {
-      console.log(res.getFusedrivemounted());
+      console.log(res.getState());
     })
     .catch((err) => {
       console.error(err);
