@@ -39,6 +39,7 @@ goog.exportSymbol('proto.space.FileEventResponse', null, global);
 goog.exportSymbol('proto.space.FileMember', null, global);
 goog.exportSymbol('proto.space.FullPath', null, global);
 goog.exportSymbol('proto.space.FuseDriveResponse', null, global);
+goog.exportSymbol('proto.space.FuseState', null, global);
 goog.exportSymbol('proto.space.GenerateAppTokenRequest', null, global);
 goog.exportSymbol('proto.space.GenerateAppTokenResponse', null, global);
 goog.exportSymbol('proto.space.GenerateKeyPairRequest', null, global);
@@ -12163,7 +12164,7 @@ proto.space.FuseDriveResponse.prototype.toObject = function(opt_includeInstance)
  */
 proto.space.FuseDriveResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    fusedrivemounted: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+    state: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -12201,8 +12202,8 @@ proto.space.FuseDriveResponse.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setFusedrivemounted(value);
+      var value = /** @type {!proto.space.FuseState} */ (reader.readEnum());
+      msg.setState(value);
       break;
     default:
       reader.skipField();
@@ -12233,9 +12234,9 @@ proto.space.FuseDriveResponse.prototype.serializeBinary = function() {
  */
 proto.space.FuseDriveResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getFusedrivemounted();
-  if (f) {
-    writer.writeBool(
+  f = message.getState();
+  if (f !== 0.0) {
+    writer.writeEnum(
       1,
       f
     );
@@ -12244,20 +12245,20 @@ proto.space.FuseDriveResponse.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional bool fuseDriveMounted = 1;
- * @return {boolean}
+ * optional FuseState state = 1;
+ * @return {!proto.space.FuseState}
  */
-proto.space.FuseDriveResponse.prototype.getFusedrivemounted = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 1, false));
+proto.space.FuseDriveResponse.prototype.getState = function() {
+  return /** @type {!proto.space.FuseState} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {boolean} value
+ * @param {!proto.space.FuseState} value
  * @return {!proto.space.FuseDriveResponse} returns this
  */
-proto.space.FuseDriveResponse.prototype.setFusedrivemounted = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 1, value);
+proto.space.FuseDriveResponse.prototype.setState = function(value) {
+  return jspb.Message.setProto3EnumField(this, 1, value);
 };
 
 
@@ -16867,6 +16868,16 @@ proto.space.EventType = {
 proto.space.KeyBackupType = {
   PASSWORD: 0,
   ETH: 1
+};
+
+/**
+ * @enum {number}
+ */
+proto.space.FuseState = {
+  UNSUPPORTED: 0,
+  NOT_INSTALLED: 1,
+  UNMOUNTED: 2,
+  MOUNTED: 3
 };
 
 /**

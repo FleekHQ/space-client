@@ -1,7 +1,6 @@
-import * as jspb from 'google-protobuf'
+import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-
 
 export class SearchFilesRequest extends jspb.Message {
   getQuery(): string;
@@ -1358,8 +1357,8 @@ export namespace ToggleFuseRequest {
 }
 
 export class FuseDriveResponse extends jspb.Message {
-  getFusedrivemounted(): boolean;
-  setFusedrivemounted(value: boolean): FuseDriveResponse;
+  getState(): FuseState;
+  setState(value: FuseState): FuseDriveResponse;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FuseDriveResponse.AsObject;
@@ -1371,7 +1370,7 @@ export class FuseDriveResponse extends jspb.Message {
 
 export namespace FuseDriveResponse {
   export type AsObject = {
-    fusedrivemounted: boolean,
+    state: FuseState,
   }
 }
 
@@ -2013,6 +2012,12 @@ export enum EventType {
 export enum KeyBackupType { 
   PASSWORD = 0,
   ETH = 1,
+}
+export enum FuseState { 
+  UNSUPPORTED = 0,
+  NOT_INSTALLED = 1,
+  UNMOUNTED = 2,
+  MOUNTED = 3,
 }
 export enum NotificationType { 
   UNKNOWN = 0,
