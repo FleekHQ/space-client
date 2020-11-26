@@ -432,7 +432,7 @@ Backup keys by a passphrase
 ```js
   client
     .backupKeysByPassphrase({
-      type: 0, // 0 = PASSWORD; 1 = ETH
+      type: 0, // 0 = PASSWORD; 1 = GOOGLE; 2 = TWITTER; 3 = EMAIL
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     })
@@ -449,18 +449,19 @@ Backup keys by a passphrase
     await client.backupKeysByPassphrase({
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
-      type: 0, // 0 = PASSWORD; 1 = ETH
+      type: 0, // 0 = PASSWORD; 1 = GOOGLE; 2 = TWITTER; 3 = EMAIL
     });
   };
 ```
 
-#### .recoverKeysByPassphrase({ uuid: string, passphrase: string })
+#### .recoverKeysByPassphrase({ uuid: string, passphrase: string, type: number })
 
 Recovery keys by passphrase
 
 ```js
   client
     .recoverKeysByPassphrase({
+      type: 0, // 0 = PASSWORD; 1 = GOOGLE; 2 = TWITTER; 3 = EMAIL
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     })
@@ -475,6 +476,7 @@ Recovery keys by passphrase
 
   const asyncFunc = async () => {
     await client.recoverKeysByPassphrase({
+      type: 0, // 0 = PASSWORD; 1 = GOOGLE; 2 = TWITTER; 3 = EMAIL
       uuid: 'user-uuid',
       passphrase: 'my-passphrase',
     });

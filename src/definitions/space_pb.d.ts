@@ -1,6 +1,7 @@
-import * as jspb from "google-protobuf"
+import * as jspb from 'google-protobuf'
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
+
 
 export class SearchFilesRequest extends jspb.Message {
   getQuery(): string;
@@ -1049,6 +1050,9 @@ export class RecoverKeysByPassphraseRequest extends jspb.Message {
   getPassphrase(): string;
   setPassphrase(value: string): RecoverKeysByPassphraseRequest;
 
+  getType(): KeyBackupType;
+  setType(value: KeyBackupType): RecoverKeysByPassphraseRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RecoverKeysByPassphraseRequest.AsObject;
   static toObject(includeInstance: boolean, msg: RecoverKeysByPassphraseRequest): RecoverKeysByPassphraseRequest.AsObject;
@@ -1061,6 +1065,7 @@ export namespace RecoverKeysByPassphraseRequest {
   export type AsObject = {
     uuid: string,
     passphrase: string,
+    type: KeyBackupType,
   }
 }
 
@@ -1997,6 +2002,42 @@ export namespace GenerateAppTokenResponse {
   }
 }
 
+export class RemoveDirOrFileRequest extends jspb.Message {
+  getPath(): string;
+  setPath(value: string): RemoveDirOrFileRequest;
+
+  getBucket(): string;
+  setBucket(value: string): RemoveDirOrFileRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RemoveDirOrFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RemoveDirOrFileRequest): RemoveDirOrFileRequest.AsObject;
+  static serializeBinaryToWriter(message: RemoveDirOrFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RemoveDirOrFileRequest;
+  static deserializeBinaryFromReader(message: RemoveDirOrFileRequest, reader: jspb.BinaryReader): RemoveDirOrFileRequest;
+}
+
+export namespace RemoveDirOrFileRequest {
+  export type AsObject = {
+    path: string,
+    bucket: string,
+  }
+}
+
+export class RemoveDirOrFileResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RemoveDirOrFileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: RemoveDirOrFileResponse): RemoveDirOrFileResponse.AsObject;
+  static serializeBinaryToWriter(message: RemoveDirOrFileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RemoveDirOrFileResponse;
+  static deserializeBinaryFromReader(message: RemoveDirOrFileResponse, reader: jspb.BinaryReader): RemoveDirOrFileResponse;
+}
+
+export namespace RemoveDirOrFileResponse {
+  export type AsObject = {
+  }
+}
+
 export enum EventType { 
   ENTRY_ADDED = 0,
   ENTRY_DELETED = 1,
@@ -2011,7 +2052,9 @@ export enum EventType {
 }
 export enum KeyBackupType { 
   PASSWORD = 0,
-  ETH = 1,
+  GOOGLE = 1,
+  TWITTER = 2,
+  EMAIL = 3,
 }
 export enum FuseState { 
   UNSUPPORTED = 0,
