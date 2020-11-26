@@ -404,6 +404,28 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
   };
 ```
 
+#### .removeDirOrFile({ path: string, bucket?: string })
+
+Removes a file or a folder and its content. 
+If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
+
+```js
+  client
+    .removeDirOrFile({ path: '/', bucket: 'my-bucket' })
+    .then(() => {
+      console.log('Deleted file or folder');
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+  /* Or using Async/Await */
+
+  const asyncFunc = async () => {
+    await client.removeDirOrFile({ path: '/', bucket: 'my-bucket' });
+  };
+```
+
 #### `[WIP]` <em>.toggleBucketBackup({ bucket: string, backup: boolean }) </em>
 
 Toggles whether or not to back up the content of a bucket to Space.

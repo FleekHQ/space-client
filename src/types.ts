@@ -24,6 +24,11 @@ export interface CreateFolderPayload {
   bucket?: string;
 }
 
+export interface RemoveDirOrFilePayload {
+  path: string;
+  bucket?: string;
+}
+
 export interface BackupKeysByPassphrasePayload {
   uuid: string;
   type: 0 | 1 | 2 | 3;

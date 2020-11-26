@@ -7,6 +7,7 @@ import {
   CreateBucketPayload,
   AddItemsPayload,
   CreateFolderPayload,
+  RemoveDirOrFilePayload,
   BackupKeysByPassphrasePayload,
   RecoverKeysByPassphrasePayload,
   ToggleFusePayload,
@@ -45,6 +46,8 @@ import {
   AddItemsResponse,
   CreateFolderRequest,
   CreateFolderResponse,
+  RemoveDirOrFileResponse,
+  RemoveDirOrFileRequest,
   BackupKeysByPassphraseRequest,
   BackupKeysByPassphraseResponse,
   RecoverKeysByPassphraseRequest,
@@ -315,6 +318,33 @@ class SpaceClient {
             return;
           }
 
+          resolve(res);
+        },
+      );
+    });
+  }
+
+  removeDirOrFile(
+    payload: RemoveDirOrFilePayload,
+    metadata: grpcWeb.Metadata = {},
+  ): Promise<RemoveDirOrFileResponse> {
+    return new Promise((resolve, reject) => {
+      const request = new RemoveDirOrFileRequest();
+      const path = payload.path.replace(/^\//, '');
+
+      const bucket = payload.bucket === '' ? null : payload.bucket;
+
+      request.setPath(path);
+      request.setBucket(bucket || this.defaultBucket);
+
+      this.instance.removeDirOrFile(
+        request,
+        metadata,
+        (err: grpcWeb.Error, res: RemoveDirOrFileResponse) => {
+          if (err) {
+            reject(err);
+            return;
+          }
           resolve(res);
         },
       );
