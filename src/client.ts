@@ -353,6 +353,7 @@ class SpaceClient {
     return new Promise((resolve, reject) => {
       const request = new RecoverKeysByPassphraseRequest();
       request.setUuid(payload.uuid);
+      request.setType(payload.type);
       request.setPassphrase(payload.passphrase);
 
       this.instance.recoverKeysByPassphrase(

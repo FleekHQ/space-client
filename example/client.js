@@ -350,26 +350,6 @@ document.getElementById('join-bucket').onclick = async () => {
 }
 
 
-document.getElementById('recover-keys-by-passphrase').onclick = async () => {
-  const uuid = document.getElementById('recover-keys-by-passphrase-uuid').value;
-  const passphrase = document.getElementById('recover-keys-by-passphrase-passphrase').value;
-  const payload = {
-    uuid,
-    passphrase,
-  };
-
-  console.log('recovering keys by passphrase...');
-  console.log('payload', payload);
-
-  try {
-    await client.recoverKeysByPassphrase(payload, getAppTokenMetadata());
-    console.log('keys recovered');
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-
 document.getElementById('restore-key-pair-via-mnemonic').onclick = async () => {
   const mnemonic = document.getElementById('restore-key-pair-via-mnemonic-input').value;
   const payload = {
@@ -689,6 +669,28 @@ document.getElementById('backup-keys-by-passphrase').onclick = async () => {
     await client.backupKeysByPassphrase(payload, getAppTokenMetadata());
 
     console.log('Successfully keys backup');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('recover-keys-by-passphrase').onclick = async () => {
+  const uuid = document.getElementById('recover-keys-by-passphrase-uuid').value;
+  const type = document.getElementById('recover-keys-by-passphrase-passphrase-type').value;
+  const passphrase = document.getElementById('recover-keys-by-passphrase-passphrase').value;
+
+  const payload = {
+    uuid,
+    passphrase,
+    type: parseInt(type, 10),
+  };
+
+  console.log('recovering keys by passphrase...');
+  console.log('payload', payload);
+
+  try {
+    await client.recoverKeysByPassphrase(payload, getAppTokenMetadata());
+    console.log('keys recovered');
   } catch (error) {
     console.error(error);
   }

@@ -26,12 +26,13 @@ export interface CreateFolderPayload {
 
 export interface BackupKeysByPassphrasePayload {
   uuid: string;
-  type: 0 | 1;
+  type: 0 | 1 | 2 | 3;
   passphrase: string;
 }
 
 export interface RecoverKeysByPassphrasePayload {
   uuid: string;
+  type: 0 | 1 | 2 | 3;
   passphrase: string;
 }
 
