@@ -1,6 +1,6 @@
 {
   "name": "@fleekhq/space-client",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "jsnext:main": "dist/esm/index.js",
