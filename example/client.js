@@ -18,42 +18,44 @@ const getAppTokenMetadata = (metadata = {}) => {
   }
 }
 
-const notificationStream = client.notificationSubscribe(getAppTokenMetadata());
+try {
+  const notificationStream = client.notificationSubscribe(getAppTokenMetadata());
 
-notificationStream.on('data', (res) => {
-  console.log(`new notification: ${res.getNotification()}`);
-});
-
-const txlStream = client.txlSubscribe(getAppTokenMetadata());
-
-txlStream.on('data', (res) => {
-  console.log(`something changed on ${res.getBucket()} bucket`);
-});
-
-const subscribe = client.subscribe(getAppTokenMetadata());
-
-subscribe.on('data', (res) => {
-  const eventType = res.getType();
-  const entry = res.getEntry();
-  const bucket = res.getBucket();
-  const dbId = res.getDbid();
-
-  console.log('subscribe data:', {
-    dbId,
-    bucket,
-    eventType: eventType.toString(),
-    path: entry.getPath(),
-    name: entry.getName(),
-    isDir: entry.getIsdir(),
-    created: entry.getCreated(),
-    updated: entry.getUpdated(),
-    ipfsHash: entry.getIpfshash(),
-    sizeInBytes: entry.getSizeinbytes(),
-    fileExtension: entry.getFileextension(),
+  notificationStream.on('data', (res) => {
+    console.log(`new notification: ${res.getNotification()}`);
   });
-});
-
-
+  
+  const txlStream = client.txlSubscribe(getAppTokenMetadata());
+  
+  txlStream.on('data', (res) => {
+    console.log(`something changed on ${res.getBucket()} bucket`);
+  });
+  
+  const subscribe = client.subscribe(getAppTokenMetadata());
+  
+  subscribe.on('data', (res) => {
+    const eventType = res.getType();
+    const entry = res.getEntry();
+    const bucket = res.getBucket();
+    const dbId = res.getDbid();
+  
+    console.log('subscribe data:', {
+      dbId,
+      bucket,
+      eventType: eventType.toString(),
+      path: entry.getPath(),
+      name: entry.getName(),
+      isDir: entry.getIsdir(),
+      created: entry.getCreated(),
+      updated: entry.getUpdated(),
+      ipfsHash: entry.getIpfshash(),
+      sizeInBytes: entry.getSizeinbytes(),
+      fileExtension: entry.getFileextension(),
+    });
+  });  
+} catch(e) {
+  console.error('failed to subscribe', e);
+}
 
 document.getElementById("add-file").onclick = async () => {
   const bucket = document.getElementById('add-file-bucket').value;
@@ -273,6 +275,26 @@ document.getElementById('create-folder').onclick = async () => {
   }
 };
 
+document.getElementById('remove-dir-or-file').onclick = async () => {
+  const path = document.getElementById('remove-dir-or-file-path').value;
+  const bucket = document.getElementById('remove-dir-or-file-bucket').value;
+
+  const payload = {
+    path,
+    bucket,
+  };
+
+  console.log('payload', payload);
+  console.log('deleting file or folder...');
+
+  try {
+    const res = await client.removeDirOrFile(payload, getAppTokenMetadata());
+
+    console.log('file or folder removed');
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 document.getElementById('toggle-fuse-drive').onclick = async () => {
   const mountDrive = document.getElementById('toggle-fuse-drive-input').checked;
