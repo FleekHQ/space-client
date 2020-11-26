@@ -406,7 +406,7 @@ If you don't specify the `bucket` property, `client.defaultBucket` value is goin
 
 #### .removeDirOrFile({ path: string, bucket?: string })
 
-Removes a fil or a folder and its content. 
+Removes a file or a folder and its content. 
 If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
