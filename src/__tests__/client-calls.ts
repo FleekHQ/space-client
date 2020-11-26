@@ -14,6 +14,7 @@ client.instance = {
   openFile: jest.fn(),
   createBucket: jest.fn(),
   createFolder: jest.fn(),
+  removeDirOrFile: jest.fn(),
   createUsernameAndEmail: jest.fn(),
   getIdentityByUsername: jest.fn(),
   shareBucketViaEmail: jest.fn(),
@@ -115,6 +116,15 @@ it('createFolder makes the right requests', async () => {
   });
 
   expect(client.instance.createFolder).toHaveBeenCalledTimes(1);
+});
+
+it('removeDirOrFile makes the right requests', async () => {
+  client.removeDirOrFile({
+    bucket: 'my-bucket',
+    path: '/',
+  });
+
+  expect(client.instance.removeDirOrFile).toHaveBeenCalledTimes(1);
 });
 
 it('backupKeysByPassphrase makes the right requests', async () => {
