@@ -1,7 +1,6 @@
-import * as jspb from 'google-protobuf'
+import * as jspb from "google-protobuf"
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-
 
 export class SearchFilesRequest extends jspb.Message {
   getQuery(): string;
@@ -1289,6 +1288,46 @@ export namespace ShareFilesViaPublicKeyResponse {
   }
 }
 
+export class UnshareFilesViaPublicKeyRequest extends jspb.Message {
+  getPublickeysList(): Array<string>;
+  setPublickeysList(value: Array<string>): UnshareFilesViaPublicKeyRequest;
+  clearPublickeysList(): UnshareFilesViaPublicKeyRequest;
+  addPublickeys(value: string, index?: number): UnshareFilesViaPublicKeyRequest;
+
+  getPathsList(): Array<FullPath>;
+  setPathsList(value: Array<FullPath>): UnshareFilesViaPublicKeyRequest;
+  clearPathsList(): UnshareFilesViaPublicKeyRequest;
+  addPaths(value?: FullPath, index?: number): FullPath;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UnshareFilesViaPublicKeyRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UnshareFilesViaPublicKeyRequest): UnshareFilesViaPublicKeyRequest.AsObject;
+  static serializeBinaryToWriter(message: UnshareFilesViaPublicKeyRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnshareFilesViaPublicKeyRequest;
+  static deserializeBinaryFromReader(message: UnshareFilesViaPublicKeyRequest, reader: jspb.BinaryReader): UnshareFilesViaPublicKeyRequest;
+}
+
+export namespace UnshareFilesViaPublicKeyRequest {
+  export type AsObject = {
+    publickeysList: Array<string>,
+    pathsList: Array<FullPath.AsObject>,
+  }
+}
+
+export class UnshareFilesViaPublicKeyResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UnshareFilesViaPublicKeyResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UnshareFilesViaPublicKeyResponse): UnshareFilesViaPublicKeyResponse.AsObject;
+  static serializeBinaryToWriter(message: UnshareFilesViaPublicKeyResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UnshareFilesViaPublicKeyResponse;
+  static deserializeBinaryFromReader(message: UnshareFilesViaPublicKeyResponse, reader: jspb.BinaryReader): UnshareFilesViaPublicKeyResponse;
+}
+
+export namespace UnshareFilesViaPublicKeyResponse {
+  export type AsObject = {
+  }
+}
+
 export class GeneratePublicFileLinkRequest extends jspb.Message {
   getBucket(): string;
   setBucket(value: string): GeneratePublicFileLinkRequest;
@@ -1365,6 +1404,9 @@ export class FuseDriveResponse extends jspb.Message {
   getState(): FuseState;
   setState(value: FuseState): FuseDriveResponse;
 
+  getMountpath(): string;
+  setMountpath(value: string): FuseDriveResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): FuseDriveResponse.AsObject;
   static toObject(includeInstance: boolean, msg: FuseDriveResponse): FuseDriveResponse.AsObject;
@@ -1376,6 +1418,7 @@ export class FuseDriveResponse extends jspb.Message {
 export namespace FuseDriveResponse {
   export type AsObject = {
     state: FuseState,
+    mountpath: string,
   }
 }
 
@@ -1489,6 +1532,30 @@ export namespace InvitationAccept {
   }
 }
 
+export class RevokedInvitation extends jspb.Message {
+  getInviterpublickey(): string;
+  setInviterpublickey(value: string): RevokedInvitation;
+
+  getItempathsList(): Array<FullPath>;
+  setItempathsList(value: Array<FullPath>): RevokedInvitation;
+  clearItempathsList(): RevokedInvitation;
+  addItempaths(value?: FullPath, index?: number): FullPath;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RevokedInvitation.AsObject;
+  static toObject(includeInstance: boolean, msg: RevokedInvitation): RevokedInvitation.AsObject;
+  static serializeBinaryToWriter(message: RevokedInvitation, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RevokedInvitation;
+  static deserializeBinaryFromReader(message: RevokedInvitation, reader: jspb.BinaryReader): RevokedInvitation;
+}
+
+export namespace RevokedInvitation {
+  export type AsObject = {
+    inviterpublickey: string,
+    itempathsList: Array<FullPath.AsObject>,
+  }
+}
+
 export class Notification extends jspb.Message {
   getId(): string;
   setId(value: string): Notification;
@@ -1513,6 +1580,11 @@ export class Notification extends jspb.Message {
   setInvitationaccept(value?: InvitationAccept): Notification;
   hasInvitationaccept(): boolean;
   clearInvitationaccept(): Notification;
+
+  getRevokedinvitation(): RevokedInvitation | undefined;
+  setRevokedinvitation(value?: RevokedInvitation): Notification;
+  hasRevokedinvitation(): boolean;
+  clearRevokedinvitation(): Notification;
 
   getType(): NotificationType;
   setType(value: NotificationType): Notification;
@@ -1541,6 +1613,7 @@ export namespace Notification {
     invitationvalue?: Invitation.AsObject,
     usagealert?: UsageAlert.AsObject,
     invitationaccept?: InvitationAccept.AsObject,
+    revokedinvitation?: RevokedInvitation.AsObject,
     type: NotificationType,
     createdat: number,
     readat: number,
@@ -1551,6 +1624,7 @@ export namespace Notification {
     INVITATIONVALUE = 4,
     USAGEALERT = 5,
     INVITATIONACCEPT = 6,
+    REVOKEDINVITATION = 7,
   }
 }
 
@@ -2067,6 +2141,7 @@ export enum NotificationType {
   INVITATION = 1,
   USAGEALERT = 2,
   INVITATION_REPLY = 3,
+  REVOKED_INVITATION = 4,
 }
 export enum InvitationStatus { 
   PENDING = 0,

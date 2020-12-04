@@ -14,18 +14,101 @@
 import * as grpcWeb from 'grpc-web';
 
 import * as google_protobuf_empty_pb from 'google-protobuf/google/protobuf/empty_pb';
-import * as space_pb from './space_pb';
 
+import {
+  AddItemsRequest,
+  AddItemsResponse,
+  BackupKeysByPassphraseRequest,
+  BackupKeysByPassphraseResponse,
+  BucketBackupRestoreRequest,
+  BucketBackupRestoreResponse,
+  CreateBucketRequest,
+  CreateBucketResponse,
+  CreateFolderRequest,
+  CreateFolderResponse,
+  CreateLocalKeysBackupRequest,
+  CreateLocalKeysBackupResponse,
+  DeleteAccountRequest,
+  DeleteAccountResponse,
+  DeleteKeyPairRequest,
+  DeleteKeyPairResponse,
+  FileEventResponse,
+  FuseDriveResponse,
+  GenerateAppTokenRequest,
+  GenerateAppTokenResponse,
+  GenerateKeyPairRequest,
+  GenerateKeyPairResponse,
+  GeneratePublicFileLinkRequest,
+  GeneratePublicFileLinkResponse,
+  GetAPISessionTokensRequest,
+  GetAPISessionTokensResponse,
+  GetNotificationsRequest,
+  GetNotificationsResponse,
+  GetPublicKeyRequest,
+  GetPublicKeyResponse,
+  GetRecentlySharedWithRequest,
+  GetRecentlySharedWithResponse,
+  GetSharedByMeFilesRequest,
+  GetSharedByMeFilesResponse,
+  GetSharedWithMeFilesRequest,
+  GetSharedWithMeFilesResponse,
+  GetStoredMnemonicRequest,
+  GetStoredMnemonicResponse,
+  GetUsageInfoRequest,
+  GetUsageInfoResponse,
+  HandleFilesInvitationRequest,
+  HandleFilesInvitationResponse,
+  InitializeMasterAppTokenRequest,
+  InitializeMasterAppTokenResponse,
+  JoinBucketRequest,
+  JoinBucketResponse,
+  ListBucketsRequest,
+  ListBucketsResponse,
+  ListDirectoriesRequest,
+  ListDirectoriesResponse,
+  ListDirectoryRequest,
+  ListDirectoryResponse,
+  NotificationEventResponse,
+  OpenFileRequest,
+  OpenFileResponse,
+  OpenPublicFileRequest,
+  OpenPublicFileResponse,
+  ReadNotificationRequest,
+  ReadNotificationResponse,
+  RecoverKeysByLocalBackupRequest,
+  RecoverKeysByLocalBackupResponse,
+  RecoverKeysByPassphraseRequest,
+  RecoverKeysByPassphraseResponse,
+  RemoveDirOrFileRequest,
+  RemoveDirOrFileResponse,
+  RestoreKeyPairViaMnemonicRequest,
+  RestoreKeyPairViaMnemonicResponse,
+  SearchFilesRequest,
+  SearchFilesResponse,
+  SetNotificationsLastSeenAtRequest,
+  SetNotificationsLastSeenAtResponse,
+  ShareBucketRequest,
+  ShareBucketResponse,
+  ShareFilesViaPublicKeyRequest,
+  ShareFilesViaPublicKeyResponse,
+  TestKeysPassphraseRequest,
+  TestKeysPassphraseResponse,
+  TextileEventResponse,
+  ToggleBucketBackupRequest,
+  ToggleBucketBackupResponse,
+  ToggleFuseRequest,
+  UnshareFilesViaPublicKeyRequest,
+  UnshareFilesViaPublicKeyResponse} from './space_pb';
 
 export class SpaceApiClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  options_: null | { [index: string]: string; };
 
   constructor (hostname: string,
                credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+               options?: null | { [index: string]: string; }) {
     if (!options) options = {};
     if (!credentials) credentials = {};
     options['format'] = 'text';
@@ -37,32 +120,31 @@ export class SpaceApiClient {
   }
 
   methodInfoListDirectories = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ListDirectoriesResponse,
-    (request: space_pb.ListDirectoriesRequest) => {
+    ListDirectoriesResponse,
+    (request: ListDirectoriesRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ListDirectoriesResponse.deserializeBinary
+    ListDirectoriesResponse.deserializeBinary
   );
 
   listDirectories(
-    request: space_pb.ListDirectoriesRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ListDirectoriesResponse>;
+    request: ListDirectoriesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListDirectoriesResponse>;
 
   listDirectories(
-    request: space_pb.ListDirectoriesRequest,
+    request: ListDirectoriesRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ListDirectoriesResponse) => void): grpcWeb.ClientReadableStream<space_pb.ListDirectoriesResponse>;
+               response: ListDirectoriesResponse) => void): grpcWeb.ClientReadableStream<ListDirectoriesResponse>;
 
   listDirectories(
-    request: space_pb.ListDirectoriesRequest,
+    request: ListDirectoriesRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ListDirectoriesResponse) => void) {
+               response: ListDirectoriesResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ListDirectories',
+        new URL('/space.SpaceApi/ListDirectories', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoListDirectories,
@@ -77,32 +159,31 @@ export class SpaceApiClient {
   }
 
   methodInfoListDirectory = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ListDirectoryResponse,
-    (request: space_pb.ListDirectoryRequest) => {
+    ListDirectoryResponse,
+    (request: ListDirectoryRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ListDirectoryResponse.deserializeBinary
+    ListDirectoryResponse.deserializeBinary
   );
 
   listDirectory(
-    request: space_pb.ListDirectoryRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ListDirectoryResponse>;
+    request: ListDirectoryRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListDirectoryResponse>;
 
   listDirectory(
-    request: space_pb.ListDirectoryRequest,
+    request: ListDirectoryRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ListDirectoryResponse) => void): grpcWeb.ClientReadableStream<space_pb.ListDirectoryResponse>;
+               response: ListDirectoryResponse) => void): grpcWeb.ClientReadableStream<ListDirectoryResponse>;
 
   listDirectory(
-    request: space_pb.ListDirectoryRequest,
+    request: ListDirectoryRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ListDirectoryResponse) => void) {
+               response: ListDirectoryResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ListDirectory',
+        new URL('/space.SpaceApi/ListDirectory', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoListDirectory,
@@ -117,32 +198,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGenerateKeyPair = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GenerateKeyPairResponse,
-    (request: space_pb.GenerateKeyPairRequest) => {
+    GenerateKeyPairResponse,
+    (request: GenerateKeyPairRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GenerateKeyPairResponse.deserializeBinary
+    GenerateKeyPairResponse.deserializeBinary
   );
 
   generateKeyPair(
-    request: space_pb.GenerateKeyPairRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GenerateKeyPairResponse>;
+    request: GenerateKeyPairRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GenerateKeyPairResponse>;
 
   generateKeyPair(
-    request: space_pb.GenerateKeyPairRequest,
+    request: GenerateKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GenerateKeyPairResponse) => void): grpcWeb.ClientReadableStream<space_pb.GenerateKeyPairResponse>;
+               response: GenerateKeyPairResponse) => void): grpcWeb.ClientReadableStream<GenerateKeyPairResponse>;
 
   generateKeyPair(
-    request: space_pb.GenerateKeyPairRequest,
+    request: GenerateKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GenerateKeyPairResponse) => void) {
+               response: GenerateKeyPairResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GenerateKeyPair',
+        new URL('/space.SpaceApi/GenerateKeyPair', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGenerateKeyPair,
@@ -157,32 +237,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetStoredMnemonic = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetStoredMnemonicResponse,
-    (request: space_pb.GetStoredMnemonicRequest) => {
+    GetStoredMnemonicResponse,
+    (request: GetStoredMnemonicRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetStoredMnemonicResponse.deserializeBinary
+    GetStoredMnemonicResponse.deserializeBinary
   );
 
   getStoredMnemonic(
-    request: space_pb.GetStoredMnemonicRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetStoredMnemonicResponse>;
+    request: GetStoredMnemonicRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetStoredMnemonicResponse>;
 
   getStoredMnemonic(
-    request: space_pb.GetStoredMnemonicRequest,
+    request: GetStoredMnemonicRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetStoredMnemonicResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetStoredMnemonicResponse>;
+               response: GetStoredMnemonicResponse) => void): grpcWeb.ClientReadableStream<GetStoredMnemonicResponse>;
 
   getStoredMnemonic(
-    request: space_pb.GetStoredMnemonicRequest,
+    request: GetStoredMnemonicRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetStoredMnemonicResponse) => void) {
+               response: GetStoredMnemonicResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetStoredMnemonic',
+        new URL('/space.SpaceApi/GetStoredMnemonic', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetStoredMnemonic,
@@ -197,32 +276,31 @@ export class SpaceApiClient {
   }
 
   methodInfoRestoreKeyPairViaMnemonic = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.RestoreKeyPairViaMnemonicResponse,
-    (request: space_pb.RestoreKeyPairViaMnemonicRequest) => {
+    RestoreKeyPairViaMnemonicResponse,
+    (request: RestoreKeyPairViaMnemonicRequest) => {
       return request.serializeBinary();
     },
-    space_pb.RestoreKeyPairViaMnemonicResponse.deserializeBinary
+    RestoreKeyPairViaMnemonicResponse.deserializeBinary
   );
 
   restoreKeyPairViaMnemonic(
-    request: space_pb.RestoreKeyPairViaMnemonicRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.RestoreKeyPairViaMnemonicResponse>;
+    request: RestoreKeyPairViaMnemonicRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RestoreKeyPairViaMnemonicResponse>;
 
   restoreKeyPairViaMnemonic(
-    request: space_pb.RestoreKeyPairViaMnemonicRequest,
+    request: RestoreKeyPairViaMnemonicRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.RestoreKeyPairViaMnemonicResponse) => void): grpcWeb.ClientReadableStream<space_pb.RestoreKeyPairViaMnemonicResponse>;
+               response: RestoreKeyPairViaMnemonicResponse) => void): grpcWeb.ClientReadableStream<RestoreKeyPairViaMnemonicResponse>;
 
   restoreKeyPairViaMnemonic(
-    request: space_pb.RestoreKeyPairViaMnemonicRequest,
+    request: RestoreKeyPairViaMnemonicRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.RestoreKeyPairViaMnemonicResponse) => void) {
+               response: RestoreKeyPairViaMnemonicResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/RestoreKeyPairViaMnemonic',
+        new URL('/space.SpaceApi/RestoreKeyPairViaMnemonic', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoRestoreKeyPairViaMnemonic,
@@ -237,32 +315,31 @@ export class SpaceApiClient {
   }
 
   methodInfoDeleteKeyPair = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.DeleteKeyPairResponse,
-    (request: space_pb.DeleteKeyPairRequest) => {
+    DeleteKeyPairResponse,
+    (request: DeleteKeyPairRequest) => {
       return request.serializeBinary();
     },
-    space_pb.DeleteKeyPairResponse.deserializeBinary
+    DeleteKeyPairResponse.deserializeBinary
   );
 
   deleteKeyPair(
-    request: space_pb.DeleteKeyPairRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.DeleteKeyPairResponse>;
+    request: DeleteKeyPairRequest,
+    metadata: grpcWeb.Metadata | null): Promise<DeleteKeyPairResponse>;
 
   deleteKeyPair(
-    request: space_pb.DeleteKeyPairRequest,
+    request: DeleteKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.DeleteKeyPairResponse) => void): grpcWeb.ClientReadableStream<space_pb.DeleteKeyPairResponse>;
+               response: DeleteKeyPairResponse) => void): grpcWeb.ClientReadableStream<DeleteKeyPairResponse>;
 
   deleteKeyPair(
-    request: space_pb.DeleteKeyPairRequest,
+    request: DeleteKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.DeleteKeyPairResponse) => void) {
+               response: DeleteKeyPairResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/DeleteKeyPair',
+        new URL('/space.SpaceApi/DeleteKeyPair', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoDeleteKeyPair,
@@ -277,32 +354,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGenerateKeyPairWithForce = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GenerateKeyPairResponse,
-    (request: space_pb.GenerateKeyPairRequest) => {
+    GenerateKeyPairResponse,
+    (request: GenerateKeyPairRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GenerateKeyPairResponse.deserializeBinary
+    GenerateKeyPairResponse.deserializeBinary
   );
 
   generateKeyPairWithForce(
-    request: space_pb.GenerateKeyPairRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GenerateKeyPairResponse>;
+    request: GenerateKeyPairRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GenerateKeyPairResponse>;
 
   generateKeyPairWithForce(
-    request: space_pb.GenerateKeyPairRequest,
+    request: GenerateKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GenerateKeyPairResponse) => void): grpcWeb.ClientReadableStream<space_pb.GenerateKeyPairResponse>;
+               response: GenerateKeyPairResponse) => void): grpcWeb.ClientReadableStream<GenerateKeyPairResponse>;
 
   generateKeyPairWithForce(
-    request: space_pb.GenerateKeyPairRequest,
+    request: GenerateKeyPairRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GenerateKeyPairResponse) => void) {
+               response: GenerateKeyPairResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GenerateKeyPairWithForce',
+        new URL('/space.SpaceApi/GenerateKeyPairWithForce', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGenerateKeyPairWithForce,
@@ -317,32 +393,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetPublicKeyResponse,
-    (request: space_pb.GetPublicKeyRequest) => {
+    GetPublicKeyResponse,
+    (request: GetPublicKeyRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetPublicKeyResponse.deserializeBinary
+    GetPublicKeyResponse.deserializeBinary
   );
 
   getPublicKey(
-    request: space_pb.GetPublicKeyRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetPublicKeyResponse>;
+    request: GetPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetPublicKeyResponse>;
 
   getPublicKey(
-    request: space_pb.GetPublicKeyRequest,
+    request: GetPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetPublicKeyResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetPublicKeyResponse>;
+               response: GetPublicKeyResponse) => void): grpcWeb.ClientReadableStream<GetPublicKeyResponse>;
 
   getPublicKey(
-    request: space_pb.GetPublicKeyRequest,
+    request: GetPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetPublicKeyResponse) => void) {
+               response: GetPublicKeyResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetPublicKey',
+        new URL('/space.SpaceApi/GetPublicKey', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetPublicKey,
@@ -357,70 +432,67 @@ export class SpaceApiClient {
   }
 
   methodInfoSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.FileEventResponse,
+    FileEventResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    space_pb.FileEventResponse.deserializeBinary
+    FileEventResponse.deserializeBinary
   );
 
   subscribe(
     request: google_protobuf_empty_pb.Empty,
     metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
-      this.hostname_ +
-        '/space.SpaceApi/Subscribe',
+      new URL('/space.SpaceApi/Subscribe', this.hostname_).toString(),
       request,
       metadata || {},
       this.methodInfoSubscribe);
   }
 
   methodInfoTxlSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.TextileEventResponse,
+    TextileEventResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    space_pb.TextileEventResponse.deserializeBinary
+    TextileEventResponse.deserializeBinary
   );
 
   txlSubscribe(
     request: google_protobuf_empty_pb.Empty,
     metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
-      this.hostname_ +
-        '/space.SpaceApi/TxlSubscribe',
+      new URL('/space.SpaceApi/TxlSubscribe', this.hostname_).toString(),
       request,
       metadata || {},
       this.methodInfoTxlSubscribe);
   }
 
   methodInfoOpenFile = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.OpenFileResponse,
-    (request: space_pb.OpenFileRequest) => {
+    OpenFileResponse,
+    (request: OpenFileRequest) => {
       return request.serializeBinary();
     },
-    space_pb.OpenFileResponse.deserializeBinary
+    OpenFileResponse.deserializeBinary
   );
 
   openFile(
-    request: space_pb.OpenFileRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.OpenFileResponse>;
+    request: OpenFileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<OpenFileResponse>;
 
   openFile(
-    request: space_pb.OpenFileRequest,
+    request: OpenFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.OpenFileResponse) => void): grpcWeb.ClientReadableStream<space_pb.OpenFileResponse>;
+               response: OpenFileResponse) => void): grpcWeb.ClientReadableStream<OpenFileResponse>;
 
   openFile(
-    request: space_pb.OpenFileRequest,
+    request: OpenFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.OpenFileResponse) => void) {
+               response: OpenFileResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/OpenFile',
+        new URL('/space.SpaceApi/OpenFile', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoOpenFile,
@@ -435,32 +507,31 @@ export class SpaceApiClient {
   }
 
   methodInfoRemoveDirOrFile = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.RemoveDirOrFileResponse,
-    (request: space_pb.RemoveDirOrFileRequest) => {
+    RemoveDirOrFileResponse,
+    (request: RemoveDirOrFileRequest) => {
       return request.serializeBinary();
     },
-    space_pb.RemoveDirOrFileResponse.deserializeBinary
+    RemoveDirOrFileResponse.deserializeBinary
   );
 
   removeDirOrFile(
-    request: space_pb.RemoveDirOrFileRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.RemoveDirOrFileResponse>;
+    request: RemoveDirOrFileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RemoveDirOrFileResponse>;
 
   removeDirOrFile(
-    request: space_pb.RemoveDirOrFileRequest,
+    request: RemoveDirOrFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.RemoveDirOrFileResponse) => void): grpcWeb.ClientReadableStream<space_pb.RemoveDirOrFileResponse>;
+               response: RemoveDirOrFileResponse) => void): grpcWeb.ClientReadableStream<RemoveDirOrFileResponse>;
 
   removeDirOrFile(
-    request: space_pb.RemoveDirOrFileRequest,
+    request: RemoveDirOrFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.RemoveDirOrFileResponse) => void) {
+               response: RemoveDirOrFileResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/RemoveDirOrFile',
+        new URL('/space.SpaceApi/RemoveDirOrFile', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoRemoveDirOrFile,
@@ -475,32 +546,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGeneratePublicFileLink = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GeneratePublicFileLinkResponse,
-    (request: space_pb.GeneratePublicFileLinkRequest) => {
+    GeneratePublicFileLinkResponse,
+    (request: GeneratePublicFileLinkRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GeneratePublicFileLinkResponse.deserializeBinary
+    GeneratePublicFileLinkResponse.deserializeBinary
   );
 
   generatePublicFileLink(
-    request: space_pb.GeneratePublicFileLinkRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GeneratePublicFileLinkResponse>;
+    request: GeneratePublicFileLinkRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GeneratePublicFileLinkResponse>;
 
   generatePublicFileLink(
-    request: space_pb.GeneratePublicFileLinkRequest,
+    request: GeneratePublicFileLinkRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GeneratePublicFileLinkResponse) => void): grpcWeb.ClientReadableStream<space_pb.GeneratePublicFileLinkResponse>;
+               response: GeneratePublicFileLinkResponse) => void): grpcWeb.ClientReadableStream<GeneratePublicFileLinkResponse>;
 
   generatePublicFileLink(
-    request: space_pb.GeneratePublicFileLinkRequest,
+    request: GeneratePublicFileLinkRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GeneratePublicFileLinkResponse) => void) {
+               response: GeneratePublicFileLinkResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GeneratePublicFileLink',
+        new URL('/space.SpaceApi/GeneratePublicFileLink', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGeneratePublicFileLink,
@@ -515,32 +585,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetSharedWithMeFiles = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetSharedWithMeFilesResponse,
-    (request: space_pb.GetSharedWithMeFilesRequest) => {
+    GetSharedWithMeFilesResponse,
+    (request: GetSharedWithMeFilesRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetSharedWithMeFilesResponse.deserializeBinary
+    GetSharedWithMeFilesResponse.deserializeBinary
   );
 
   getSharedWithMeFiles(
-    request: space_pb.GetSharedWithMeFilesRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetSharedWithMeFilesResponse>;
+    request: GetSharedWithMeFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetSharedWithMeFilesResponse>;
 
   getSharedWithMeFiles(
-    request: space_pb.GetSharedWithMeFilesRequest,
+    request: GetSharedWithMeFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetSharedWithMeFilesResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetSharedWithMeFilesResponse>;
+               response: GetSharedWithMeFilesResponse) => void): grpcWeb.ClientReadableStream<GetSharedWithMeFilesResponse>;
 
   getSharedWithMeFiles(
-    request: space_pb.GetSharedWithMeFilesRequest,
+    request: GetSharedWithMeFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetSharedWithMeFilesResponse) => void) {
+               response: GetSharedWithMeFilesResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetSharedWithMeFiles',
+        new URL('/space.SpaceApi/GetSharedWithMeFiles', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetSharedWithMeFiles,
@@ -555,32 +624,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetSharedByMeFiles = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetSharedByMeFilesResponse,
-    (request: space_pb.GetSharedByMeFilesRequest) => {
+    GetSharedByMeFilesResponse,
+    (request: GetSharedByMeFilesRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetSharedByMeFilesResponse.deserializeBinary
+    GetSharedByMeFilesResponse.deserializeBinary
   );
 
   getSharedByMeFiles(
-    request: space_pb.GetSharedByMeFilesRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetSharedByMeFilesResponse>;
+    request: GetSharedByMeFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetSharedByMeFilesResponse>;
 
   getSharedByMeFiles(
-    request: space_pb.GetSharedByMeFilesRequest,
+    request: GetSharedByMeFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetSharedByMeFilesResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetSharedByMeFilesResponse>;
+               response: GetSharedByMeFilesResponse) => void): grpcWeb.ClientReadableStream<GetSharedByMeFilesResponse>;
 
   getSharedByMeFiles(
-    request: space_pb.GetSharedByMeFilesRequest,
+    request: GetSharedByMeFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetSharedByMeFilesResponse) => void) {
+               response: GetSharedByMeFilesResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetSharedByMeFiles',
+        new URL('/space.SpaceApi/GetSharedByMeFiles', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetSharedByMeFiles,
@@ -595,32 +663,31 @@ export class SpaceApiClient {
   }
 
   methodInfoOpenPublicFile = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.OpenPublicFileResponse,
-    (request: space_pb.OpenPublicFileRequest) => {
+    OpenPublicFileResponse,
+    (request: OpenPublicFileRequest) => {
       return request.serializeBinary();
     },
-    space_pb.OpenPublicFileResponse.deserializeBinary
+    OpenPublicFileResponse.deserializeBinary
   );
 
   openPublicFile(
-    request: space_pb.OpenPublicFileRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.OpenPublicFileResponse>;
+    request: OpenPublicFileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<OpenPublicFileResponse>;
 
   openPublicFile(
-    request: space_pb.OpenPublicFileRequest,
+    request: OpenPublicFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.OpenPublicFileResponse) => void): grpcWeb.ClientReadableStream<space_pb.OpenPublicFileResponse>;
+               response: OpenPublicFileResponse) => void): grpcWeb.ClientReadableStream<OpenPublicFileResponse>;
 
   openPublicFile(
-    request: space_pb.OpenPublicFileRequest,
+    request: OpenPublicFileRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.OpenPublicFileResponse) => void) {
+               response: OpenPublicFileResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/OpenPublicFile',
+        new URL('/space.SpaceApi/OpenPublicFile', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoOpenPublicFile,
@@ -635,51 +702,49 @@ export class SpaceApiClient {
   }
 
   methodInfoAddItems = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.AddItemsResponse,
-    (request: space_pb.AddItemsRequest) => {
+    AddItemsResponse,
+    (request: AddItemsRequest) => {
       return request.serializeBinary();
     },
-    space_pb.AddItemsResponse.deserializeBinary
+    AddItemsResponse.deserializeBinary
   );
 
   addItems(
-    request: space_pb.AddItemsRequest,
+    request: AddItemsRequest,
     metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
-      this.hostname_ +
-        '/space.SpaceApi/AddItems',
+      new URL('/space.SpaceApi/AddItems', this.hostname_).toString(),
       request,
       metadata || {},
       this.methodInfoAddItems);
   }
 
   methodInfoCreateFolder = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.CreateFolderResponse,
-    (request: space_pb.CreateFolderRequest) => {
+    CreateFolderResponse,
+    (request: CreateFolderRequest) => {
       return request.serializeBinary();
     },
-    space_pb.CreateFolderResponse.deserializeBinary
+    CreateFolderResponse.deserializeBinary
   );
 
   createFolder(
-    request: space_pb.CreateFolderRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.CreateFolderResponse>;
+    request: CreateFolderRequest,
+    metadata: grpcWeb.Metadata | null): Promise<CreateFolderResponse>;
 
   createFolder(
-    request: space_pb.CreateFolderRequest,
+    request: CreateFolderRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.CreateFolderResponse) => void): grpcWeb.ClientReadableStream<space_pb.CreateFolderResponse>;
+               response: CreateFolderResponse) => void): grpcWeb.ClientReadableStream<CreateFolderResponse>;
 
   createFolder(
-    request: space_pb.CreateFolderRequest,
+    request: CreateFolderRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.CreateFolderResponse) => void) {
+               response: CreateFolderResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/CreateFolder',
+        new URL('/space.SpaceApi/CreateFolder', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoCreateFolder,
@@ -694,32 +759,31 @@ export class SpaceApiClient {
   }
 
   methodInfoToggleFuseDrive = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.FuseDriveResponse,
-    (request: space_pb.ToggleFuseRequest) => {
+    FuseDriveResponse,
+    (request: ToggleFuseRequest) => {
       return request.serializeBinary();
     },
-    space_pb.FuseDriveResponse.deserializeBinary
+    FuseDriveResponse.deserializeBinary
   );
 
   toggleFuseDrive(
-    request: space_pb.ToggleFuseRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.FuseDriveResponse>;
+    request: ToggleFuseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<FuseDriveResponse>;
 
   toggleFuseDrive(
-    request: space_pb.ToggleFuseRequest,
+    request: ToggleFuseRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.FuseDriveResponse) => void): grpcWeb.ClientReadableStream<space_pb.FuseDriveResponse>;
+               response: FuseDriveResponse) => void): grpcWeb.ClientReadableStream<FuseDriveResponse>;
 
   toggleFuseDrive(
-    request: space_pb.ToggleFuseRequest,
+    request: ToggleFuseRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.FuseDriveResponse) => void) {
+               response: FuseDriveResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ToggleFuseDrive',
+        new URL('/space.SpaceApi/ToggleFuseDrive', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoToggleFuseDrive,
@@ -734,32 +798,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetFuseDriveStatus = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.FuseDriveResponse,
+    FuseDriveResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    space_pb.FuseDriveResponse.deserializeBinary
+    FuseDriveResponse.deserializeBinary
   );
 
   getFuseDriveStatus(
     request: google_protobuf_empty_pb.Empty,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.FuseDriveResponse>;
+    metadata: grpcWeb.Metadata | null): Promise<FuseDriveResponse>;
 
   getFuseDriveStatus(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.FuseDriveResponse) => void): grpcWeb.ClientReadableStream<space_pb.FuseDriveResponse>;
+               response: FuseDriveResponse) => void): grpcWeb.ClientReadableStream<FuseDriveResponse>;
 
   getFuseDriveStatus(
     request: google_protobuf_empty_pb.Empty,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.FuseDriveResponse) => void) {
+               response: FuseDriveResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetFuseDriveStatus',
+        new URL('/space.SpaceApi/GetFuseDriveStatus', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetFuseDriveStatus,
@@ -774,32 +837,31 @@ export class SpaceApiClient {
   }
 
   methodInfoCreateBucket = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.CreateBucketResponse,
-    (request: space_pb.CreateBucketRequest) => {
+    CreateBucketResponse,
+    (request: CreateBucketRequest) => {
       return request.serializeBinary();
     },
-    space_pb.CreateBucketResponse.deserializeBinary
+    CreateBucketResponse.deserializeBinary
   );
 
   createBucket(
-    request: space_pb.CreateBucketRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.CreateBucketResponse>;
+    request: CreateBucketRequest,
+    metadata: grpcWeb.Metadata | null): Promise<CreateBucketResponse>;
 
   createBucket(
-    request: space_pb.CreateBucketRequest,
+    request: CreateBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.CreateBucketResponse) => void): grpcWeb.ClientReadableStream<space_pb.CreateBucketResponse>;
+               response: CreateBucketResponse) => void): grpcWeb.ClientReadableStream<CreateBucketResponse>;
 
   createBucket(
-    request: space_pb.CreateBucketRequest,
+    request: CreateBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.CreateBucketResponse) => void) {
+               response: CreateBucketResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/CreateBucket',
+        new URL('/space.SpaceApi/CreateBucket', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoCreateBucket,
@@ -814,32 +876,31 @@ export class SpaceApiClient {
   }
 
   methodInfoBackupKeysByPassphrase = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.BackupKeysByPassphraseResponse,
-    (request: space_pb.BackupKeysByPassphraseRequest) => {
+    BackupKeysByPassphraseResponse,
+    (request: BackupKeysByPassphraseRequest) => {
       return request.serializeBinary();
     },
-    space_pb.BackupKeysByPassphraseResponse.deserializeBinary
+    BackupKeysByPassphraseResponse.deserializeBinary
   );
 
   backupKeysByPassphrase(
-    request: space_pb.BackupKeysByPassphraseRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.BackupKeysByPassphraseResponse>;
+    request: BackupKeysByPassphraseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<BackupKeysByPassphraseResponse>;
 
   backupKeysByPassphrase(
-    request: space_pb.BackupKeysByPassphraseRequest,
+    request: BackupKeysByPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.BackupKeysByPassphraseResponse) => void): grpcWeb.ClientReadableStream<space_pb.BackupKeysByPassphraseResponse>;
+               response: BackupKeysByPassphraseResponse) => void): grpcWeb.ClientReadableStream<BackupKeysByPassphraseResponse>;
 
   backupKeysByPassphrase(
-    request: space_pb.BackupKeysByPassphraseRequest,
+    request: BackupKeysByPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.BackupKeysByPassphraseResponse) => void) {
+               response: BackupKeysByPassphraseResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/BackupKeysByPassphrase',
+        new URL('/space.SpaceApi/BackupKeysByPassphrase', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoBackupKeysByPassphrase,
@@ -854,32 +915,31 @@ export class SpaceApiClient {
   }
 
   methodInfoRecoverKeysByPassphrase = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.RecoverKeysByPassphraseResponse,
-    (request: space_pb.RecoverKeysByPassphraseRequest) => {
+    RecoverKeysByPassphraseResponse,
+    (request: RecoverKeysByPassphraseRequest) => {
       return request.serializeBinary();
     },
-    space_pb.RecoverKeysByPassphraseResponse.deserializeBinary
+    RecoverKeysByPassphraseResponse.deserializeBinary
   );
 
   recoverKeysByPassphrase(
-    request: space_pb.RecoverKeysByPassphraseRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.RecoverKeysByPassphraseResponse>;
+    request: RecoverKeysByPassphraseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RecoverKeysByPassphraseResponse>;
 
   recoverKeysByPassphrase(
-    request: space_pb.RecoverKeysByPassphraseRequest,
+    request: RecoverKeysByPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.RecoverKeysByPassphraseResponse) => void): grpcWeb.ClientReadableStream<space_pb.RecoverKeysByPassphraseResponse>;
+               response: RecoverKeysByPassphraseResponse) => void): grpcWeb.ClientReadableStream<RecoverKeysByPassphraseResponse>;
 
   recoverKeysByPassphrase(
-    request: space_pb.RecoverKeysByPassphraseRequest,
+    request: RecoverKeysByPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.RecoverKeysByPassphraseResponse) => void) {
+               response: RecoverKeysByPassphraseResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/RecoverKeysByPassphrase',
+        new URL('/space.SpaceApi/RecoverKeysByPassphrase', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoRecoverKeysByPassphrase,
@@ -894,32 +954,31 @@ export class SpaceApiClient {
   }
 
   methodInfoTestKeysPassphrase = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.TestKeysPassphraseResponse,
-    (request: space_pb.TestKeysPassphraseRequest) => {
+    TestKeysPassphraseResponse,
+    (request: TestKeysPassphraseRequest) => {
       return request.serializeBinary();
     },
-    space_pb.TestKeysPassphraseResponse.deserializeBinary
+    TestKeysPassphraseResponse.deserializeBinary
   );
 
   testKeysPassphrase(
-    request: space_pb.TestKeysPassphraseRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.TestKeysPassphraseResponse>;
+    request: TestKeysPassphraseRequest,
+    metadata: grpcWeb.Metadata | null): Promise<TestKeysPassphraseResponse>;
 
   testKeysPassphrase(
-    request: space_pb.TestKeysPassphraseRequest,
+    request: TestKeysPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.TestKeysPassphraseResponse) => void): grpcWeb.ClientReadableStream<space_pb.TestKeysPassphraseResponse>;
+               response: TestKeysPassphraseResponse) => void): grpcWeb.ClientReadableStream<TestKeysPassphraseResponse>;
 
   testKeysPassphrase(
-    request: space_pb.TestKeysPassphraseRequest,
+    request: TestKeysPassphraseRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.TestKeysPassphraseResponse) => void) {
+               response: TestKeysPassphraseResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/TestKeysPassphrase',
+        new URL('/space.SpaceApi/TestKeysPassphrase', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoTestKeysPassphrase,
@@ -934,32 +993,31 @@ export class SpaceApiClient {
   }
 
   methodInfoCreateLocalKeysBackup = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.CreateLocalKeysBackupResponse,
-    (request: space_pb.CreateLocalKeysBackupRequest) => {
+    CreateLocalKeysBackupResponse,
+    (request: CreateLocalKeysBackupRequest) => {
       return request.serializeBinary();
     },
-    space_pb.CreateLocalKeysBackupResponse.deserializeBinary
+    CreateLocalKeysBackupResponse.deserializeBinary
   );
 
   createLocalKeysBackup(
-    request: space_pb.CreateLocalKeysBackupRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.CreateLocalKeysBackupResponse>;
+    request: CreateLocalKeysBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<CreateLocalKeysBackupResponse>;
 
   createLocalKeysBackup(
-    request: space_pb.CreateLocalKeysBackupRequest,
+    request: CreateLocalKeysBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.CreateLocalKeysBackupResponse) => void): grpcWeb.ClientReadableStream<space_pb.CreateLocalKeysBackupResponse>;
+               response: CreateLocalKeysBackupResponse) => void): grpcWeb.ClientReadableStream<CreateLocalKeysBackupResponse>;
 
   createLocalKeysBackup(
-    request: space_pb.CreateLocalKeysBackupRequest,
+    request: CreateLocalKeysBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.CreateLocalKeysBackupResponse) => void) {
+               response: CreateLocalKeysBackupResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/CreateLocalKeysBackup',
+        new URL('/space.SpaceApi/CreateLocalKeysBackup', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoCreateLocalKeysBackup,
@@ -974,32 +1032,31 @@ export class SpaceApiClient {
   }
 
   methodInfoRecoverKeysByLocalBackup = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.RecoverKeysByLocalBackupResponse,
-    (request: space_pb.RecoverKeysByLocalBackupRequest) => {
+    RecoverKeysByLocalBackupResponse,
+    (request: RecoverKeysByLocalBackupRequest) => {
       return request.serializeBinary();
     },
-    space_pb.RecoverKeysByLocalBackupResponse.deserializeBinary
+    RecoverKeysByLocalBackupResponse.deserializeBinary
   );
 
   recoverKeysByLocalBackup(
-    request: space_pb.RecoverKeysByLocalBackupRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.RecoverKeysByLocalBackupResponse>;
+    request: RecoverKeysByLocalBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<RecoverKeysByLocalBackupResponse>;
 
   recoverKeysByLocalBackup(
-    request: space_pb.RecoverKeysByLocalBackupRequest,
+    request: RecoverKeysByLocalBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.RecoverKeysByLocalBackupResponse) => void): grpcWeb.ClientReadableStream<space_pb.RecoverKeysByLocalBackupResponse>;
+               response: RecoverKeysByLocalBackupResponse) => void): grpcWeb.ClientReadableStream<RecoverKeysByLocalBackupResponse>;
 
   recoverKeysByLocalBackup(
-    request: space_pb.RecoverKeysByLocalBackupRequest,
+    request: RecoverKeysByLocalBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.RecoverKeysByLocalBackupResponse) => void) {
+               response: RecoverKeysByLocalBackupResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/RecoverKeysByLocalBackup',
+        new URL('/space.SpaceApi/RecoverKeysByLocalBackup', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoRecoverKeysByLocalBackup,
@@ -1014,32 +1071,31 @@ export class SpaceApiClient {
   }
 
   methodInfoShareBucket = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ShareBucketResponse,
-    (request: space_pb.ShareBucketRequest) => {
+    ShareBucketResponse,
+    (request: ShareBucketRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ShareBucketResponse.deserializeBinary
+    ShareBucketResponse.deserializeBinary
   );
 
   shareBucket(
-    request: space_pb.ShareBucketRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ShareBucketResponse>;
+    request: ShareBucketRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ShareBucketResponse>;
 
   shareBucket(
-    request: space_pb.ShareBucketRequest,
+    request: ShareBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ShareBucketResponse) => void): grpcWeb.ClientReadableStream<space_pb.ShareBucketResponse>;
+               response: ShareBucketResponse) => void): grpcWeb.ClientReadableStream<ShareBucketResponse>;
 
   shareBucket(
-    request: space_pb.ShareBucketRequest,
+    request: ShareBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ShareBucketResponse) => void) {
+               response: ShareBucketResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ShareBucket',
+        new URL('/space.SpaceApi/ShareBucket', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoShareBucket,
@@ -1054,32 +1110,31 @@ export class SpaceApiClient {
   }
 
   methodInfoJoinBucket = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.JoinBucketResponse,
-    (request: space_pb.JoinBucketRequest) => {
+    JoinBucketResponse,
+    (request: JoinBucketRequest) => {
       return request.serializeBinary();
     },
-    space_pb.JoinBucketResponse.deserializeBinary
+    JoinBucketResponse.deserializeBinary
   );
 
   joinBucket(
-    request: space_pb.JoinBucketRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.JoinBucketResponse>;
+    request: JoinBucketRequest,
+    metadata: grpcWeb.Metadata | null): Promise<JoinBucketResponse>;
 
   joinBucket(
-    request: space_pb.JoinBucketRequest,
+    request: JoinBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.JoinBucketResponse) => void): grpcWeb.ClientReadableStream<space_pb.JoinBucketResponse>;
+               response: JoinBucketResponse) => void): grpcWeb.ClientReadableStream<JoinBucketResponse>;
 
   joinBucket(
-    request: space_pb.JoinBucketRequest,
+    request: JoinBucketRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.JoinBucketResponse) => void) {
+               response: JoinBucketResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/JoinBucket',
+        new URL('/space.SpaceApi/JoinBucket', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoJoinBucket,
@@ -1094,32 +1149,31 @@ export class SpaceApiClient {
   }
 
   methodInfoShareFilesViaPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ShareFilesViaPublicKeyResponse,
-    (request: space_pb.ShareFilesViaPublicKeyRequest) => {
+    ShareFilesViaPublicKeyResponse,
+    (request: ShareFilesViaPublicKeyRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ShareFilesViaPublicKeyResponse.deserializeBinary
+    ShareFilesViaPublicKeyResponse.deserializeBinary
   );
 
   shareFilesViaPublicKey(
-    request: space_pb.ShareFilesViaPublicKeyRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ShareFilesViaPublicKeyResponse>;
+    request: ShareFilesViaPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ShareFilesViaPublicKeyResponse>;
 
   shareFilesViaPublicKey(
-    request: space_pb.ShareFilesViaPublicKeyRequest,
+    request: ShareFilesViaPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ShareFilesViaPublicKeyResponse) => void): grpcWeb.ClientReadableStream<space_pb.ShareFilesViaPublicKeyResponse>;
+               response: ShareFilesViaPublicKeyResponse) => void): grpcWeb.ClientReadableStream<ShareFilesViaPublicKeyResponse>;
 
   shareFilesViaPublicKey(
-    request: space_pb.ShareFilesViaPublicKeyRequest,
+    request: ShareFilesViaPublicKeyRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ShareFilesViaPublicKeyResponse) => void) {
+               response: ShareFilesViaPublicKeyResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ShareFilesViaPublicKey',
+        new URL('/space.SpaceApi/ShareFilesViaPublicKey', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoShareFilesViaPublicKey,
@@ -1133,33 +1187,71 @@ export class SpaceApiClient {
     this.methodInfoShareFilesViaPublicKey);
   }
 
-  methodInfoHandleFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.HandleFilesInvitationResponse,
-    (request: space_pb.HandleFilesInvitationRequest) => {
+  methodInfoUnshareFilesViaPublicKey = new grpcWeb.AbstractClientBase.MethodInfo(
+    UnshareFilesViaPublicKeyResponse,
+    (request: UnshareFilesViaPublicKeyRequest) => {
       return request.serializeBinary();
     },
-    space_pb.HandleFilesInvitationResponse.deserializeBinary
+    UnshareFilesViaPublicKeyResponse.deserializeBinary
+  );
+
+  unshareFilesViaPublicKey(
+    request: UnshareFilesViaPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null): Promise<UnshareFilesViaPublicKeyResponse>;
+
+  unshareFilesViaPublicKey(
+    request: UnshareFilesViaPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: UnshareFilesViaPublicKeyResponse) => void): grpcWeb.ClientReadableStream<UnshareFilesViaPublicKeyResponse>;
+
+  unshareFilesViaPublicKey(
+    request: UnshareFilesViaPublicKeyRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: UnshareFilesViaPublicKeyResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        new URL('/space.SpaceApi/UnshareFilesViaPublicKey', this.hostname_).toString(),
+        request,
+        metadata || {},
+        this.methodInfoUnshareFilesViaPublicKey,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/space.SpaceApi/UnshareFilesViaPublicKey',
+    request,
+    metadata || {},
+    this.methodInfoUnshareFilesViaPublicKey);
+  }
+
+  methodInfoHandleFilesInvitation = new grpcWeb.AbstractClientBase.MethodInfo(
+    HandleFilesInvitationResponse,
+    (request: HandleFilesInvitationRequest) => {
+      return request.serializeBinary();
+    },
+    HandleFilesInvitationResponse.deserializeBinary
   );
 
   handleFilesInvitation(
-    request: space_pb.HandleFilesInvitationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.HandleFilesInvitationResponse>;
+    request: HandleFilesInvitationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<HandleFilesInvitationResponse>;
 
   handleFilesInvitation(
-    request: space_pb.HandleFilesInvitationRequest,
+    request: HandleFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.HandleFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<space_pb.HandleFilesInvitationResponse>;
+               response: HandleFilesInvitationResponse) => void): grpcWeb.ClientReadableStream<HandleFilesInvitationResponse>;
 
   handleFilesInvitation(
-    request: space_pb.HandleFilesInvitationRequest,
+    request: HandleFilesInvitationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.HandleFilesInvitationResponse) => void) {
+               response: HandleFilesInvitationResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/HandleFilesInvitation',
+        new URL('/space.SpaceApi/HandleFilesInvitation', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoHandleFilesInvitation,
@@ -1174,51 +1266,49 @@ export class SpaceApiClient {
   }
 
   methodInfoNotificationSubscribe = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.NotificationEventResponse,
+    NotificationEventResponse,
     (request: google_protobuf_empty_pb.Empty) => {
       return request.serializeBinary();
     },
-    space_pb.NotificationEventResponse.deserializeBinary
+    NotificationEventResponse.deserializeBinary
   );
 
   notificationSubscribe(
     request: google_protobuf_empty_pb.Empty,
     metadata?: grpcWeb.Metadata) {
     return this.client_.serverStreaming(
-      this.hostname_ +
-        '/space.SpaceApi/NotificationSubscribe',
+      new URL('/space.SpaceApi/NotificationSubscribe', this.hostname_).toString(),
       request,
       metadata || {},
       this.methodInfoNotificationSubscribe);
   }
 
   methodInfoListBuckets = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ListBucketsResponse,
-    (request: space_pb.ListBucketsRequest) => {
+    ListBucketsResponse,
+    (request: ListBucketsRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ListBucketsResponse.deserializeBinary
+    ListBucketsResponse.deserializeBinary
   );
 
   listBuckets(
-    request: space_pb.ListBucketsRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ListBucketsResponse>;
+    request: ListBucketsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ListBucketsResponse>;
 
   listBuckets(
-    request: space_pb.ListBucketsRequest,
+    request: ListBucketsRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ListBucketsResponse) => void): grpcWeb.ClientReadableStream<space_pb.ListBucketsResponse>;
+               response: ListBucketsResponse) => void): grpcWeb.ClientReadableStream<ListBucketsResponse>;
 
   listBuckets(
-    request: space_pb.ListBucketsRequest,
+    request: ListBucketsRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ListBucketsResponse) => void) {
+               response: ListBucketsResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ListBuckets',
+        new URL('/space.SpaceApi/ListBuckets', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoListBuckets,
@@ -1233,32 +1323,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetNotifications = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetNotificationsResponse,
-    (request: space_pb.GetNotificationsRequest) => {
+    GetNotificationsResponse,
+    (request: GetNotificationsRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetNotificationsResponse.deserializeBinary
+    GetNotificationsResponse.deserializeBinary
   );
 
   getNotifications(
-    request: space_pb.GetNotificationsRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetNotificationsResponse>;
+    request: GetNotificationsRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetNotificationsResponse>;
 
   getNotifications(
-    request: space_pb.GetNotificationsRequest,
+    request: GetNotificationsRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetNotificationsResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetNotificationsResponse>;
+               response: GetNotificationsResponse) => void): grpcWeb.ClientReadableStream<GetNotificationsResponse>;
 
   getNotifications(
-    request: space_pb.GetNotificationsRequest,
+    request: GetNotificationsRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetNotificationsResponse) => void) {
+               response: GetNotificationsResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetNotifications',
+        new URL('/space.SpaceApi/GetNotifications', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetNotifications,
@@ -1273,32 +1362,31 @@ export class SpaceApiClient {
   }
 
   methodInfoReadNotification = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ReadNotificationResponse,
-    (request: space_pb.ReadNotificationRequest) => {
+    ReadNotificationResponse,
+    (request: ReadNotificationRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ReadNotificationResponse.deserializeBinary
+    ReadNotificationResponse.deserializeBinary
   );
 
   readNotification(
-    request: space_pb.ReadNotificationRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ReadNotificationResponse>;
+    request: ReadNotificationRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ReadNotificationResponse>;
 
   readNotification(
-    request: space_pb.ReadNotificationRequest,
+    request: ReadNotificationRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ReadNotificationResponse) => void): grpcWeb.ClientReadableStream<space_pb.ReadNotificationResponse>;
+               response: ReadNotificationResponse) => void): grpcWeb.ClientReadableStream<ReadNotificationResponse>;
 
   readNotification(
-    request: space_pb.ReadNotificationRequest,
+    request: ReadNotificationRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ReadNotificationResponse) => void) {
+               response: ReadNotificationResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ReadNotification',
+        new URL('/space.SpaceApi/ReadNotification', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoReadNotification,
@@ -1313,32 +1401,31 @@ export class SpaceApiClient {
   }
 
   methodInfoDeleteAccount = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.DeleteAccountResponse,
-    (request: space_pb.DeleteAccountRequest) => {
+    DeleteAccountResponse,
+    (request: DeleteAccountRequest) => {
       return request.serializeBinary();
     },
-    space_pb.DeleteAccountResponse.deserializeBinary
+    DeleteAccountResponse.deserializeBinary
   );
 
   deleteAccount(
-    request: space_pb.DeleteAccountRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.DeleteAccountResponse>;
+    request: DeleteAccountRequest,
+    metadata: grpcWeb.Metadata | null): Promise<DeleteAccountResponse>;
 
   deleteAccount(
-    request: space_pb.DeleteAccountRequest,
+    request: DeleteAccountRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.DeleteAccountResponse) => void): grpcWeb.ClientReadableStream<space_pb.DeleteAccountResponse>;
+               response: DeleteAccountResponse) => void): grpcWeb.ClientReadableStream<DeleteAccountResponse>;
 
   deleteAccount(
-    request: space_pb.DeleteAccountRequest,
+    request: DeleteAccountRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.DeleteAccountResponse) => void) {
+               response: DeleteAccountResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/DeleteAccount',
+        new URL('/space.SpaceApi/DeleteAccount', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoDeleteAccount,
@@ -1353,32 +1440,31 @@ export class SpaceApiClient {
   }
 
   methodInfoToggleBucketBackup = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.ToggleBucketBackupResponse,
-    (request: space_pb.ToggleBucketBackupRequest) => {
+    ToggleBucketBackupResponse,
+    (request: ToggleBucketBackupRequest) => {
       return request.serializeBinary();
     },
-    space_pb.ToggleBucketBackupResponse.deserializeBinary
+    ToggleBucketBackupResponse.deserializeBinary
   );
 
   toggleBucketBackup(
-    request: space_pb.ToggleBucketBackupRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.ToggleBucketBackupResponse>;
+    request: ToggleBucketBackupRequest,
+    metadata: grpcWeb.Metadata | null): Promise<ToggleBucketBackupResponse>;
 
   toggleBucketBackup(
-    request: space_pb.ToggleBucketBackupRequest,
+    request: ToggleBucketBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.ToggleBucketBackupResponse) => void): grpcWeb.ClientReadableStream<space_pb.ToggleBucketBackupResponse>;
+               response: ToggleBucketBackupResponse) => void): grpcWeb.ClientReadableStream<ToggleBucketBackupResponse>;
 
   toggleBucketBackup(
-    request: space_pb.ToggleBucketBackupRequest,
+    request: ToggleBucketBackupRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.ToggleBucketBackupResponse) => void) {
+               response: ToggleBucketBackupResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/ToggleBucketBackup',
+        new URL('/space.SpaceApi/ToggleBucketBackup', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoToggleBucketBackup,
@@ -1393,32 +1479,31 @@ export class SpaceApiClient {
   }
 
   methodInfoBucketBackupRestore = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.BucketBackupRestoreResponse,
-    (request: space_pb.BucketBackupRestoreRequest) => {
+    BucketBackupRestoreResponse,
+    (request: BucketBackupRestoreRequest) => {
       return request.serializeBinary();
     },
-    space_pb.BucketBackupRestoreResponse.deserializeBinary
+    BucketBackupRestoreResponse.deserializeBinary
   );
 
   bucketBackupRestore(
-    request: space_pb.BucketBackupRestoreRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.BucketBackupRestoreResponse>;
+    request: BucketBackupRestoreRequest,
+    metadata: grpcWeb.Metadata | null): Promise<BucketBackupRestoreResponse>;
 
   bucketBackupRestore(
-    request: space_pb.BucketBackupRestoreRequest,
+    request: BucketBackupRestoreRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.BucketBackupRestoreResponse) => void): grpcWeb.ClientReadableStream<space_pb.BucketBackupRestoreResponse>;
+               response: BucketBackupRestoreResponse) => void): grpcWeb.ClientReadableStream<BucketBackupRestoreResponse>;
 
   bucketBackupRestore(
-    request: space_pb.BucketBackupRestoreRequest,
+    request: BucketBackupRestoreRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.BucketBackupRestoreResponse) => void) {
+               response: BucketBackupRestoreResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/BucketBackupRestore',
+        new URL('/space.SpaceApi/BucketBackupRestore', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoBucketBackupRestore,
@@ -1433,32 +1518,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetUsageInfo = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetUsageInfoResponse,
-    (request: space_pb.GetUsageInfoRequest) => {
+    GetUsageInfoResponse,
+    (request: GetUsageInfoRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetUsageInfoResponse.deserializeBinary
+    GetUsageInfoResponse.deserializeBinary
   );
 
   getUsageInfo(
-    request: space_pb.GetUsageInfoRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetUsageInfoResponse>;
+    request: GetUsageInfoRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetUsageInfoResponse>;
 
   getUsageInfo(
-    request: space_pb.GetUsageInfoRequest,
+    request: GetUsageInfoRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetUsageInfoResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetUsageInfoResponse>;
+               response: GetUsageInfoResponse) => void): grpcWeb.ClientReadableStream<GetUsageInfoResponse>;
 
   getUsageInfo(
-    request: space_pb.GetUsageInfoRequest,
+    request: GetUsageInfoRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetUsageInfoResponse) => void) {
+               response: GetUsageInfoResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetUsageInfo',
+        new URL('/space.SpaceApi/GetUsageInfo', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetUsageInfo,
@@ -1473,32 +1557,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetAPISessionTokens = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetAPISessionTokensResponse,
-    (request: space_pb.GetAPISessionTokensRequest) => {
+    GetAPISessionTokensResponse,
+    (request: GetAPISessionTokensRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetAPISessionTokensResponse.deserializeBinary
+    GetAPISessionTokensResponse.deserializeBinary
   );
 
   getAPISessionTokens(
-    request: space_pb.GetAPISessionTokensRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetAPISessionTokensResponse>;
+    request: GetAPISessionTokensRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetAPISessionTokensResponse>;
 
   getAPISessionTokens(
-    request: space_pb.GetAPISessionTokensRequest,
+    request: GetAPISessionTokensRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetAPISessionTokensResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetAPISessionTokensResponse>;
+               response: GetAPISessionTokensResponse) => void): grpcWeb.ClientReadableStream<GetAPISessionTokensResponse>;
 
   getAPISessionTokens(
-    request: space_pb.GetAPISessionTokensRequest,
+    request: GetAPISessionTokensRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetAPISessionTokensResponse) => void) {
+               response: GetAPISessionTokensResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetAPISessionTokens',
+        new URL('/space.SpaceApi/GetAPISessionTokens', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetAPISessionTokens,
@@ -1513,32 +1596,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGetRecentlySharedWith = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GetRecentlySharedWithResponse,
-    (request: space_pb.GetRecentlySharedWithRequest) => {
+    GetRecentlySharedWithResponse,
+    (request: GetRecentlySharedWithRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GetRecentlySharedWithResponse.deserializeBinary
+    GetRecentlySharedWithResponse.deserializeBinary
   );
 
   getRecentlySharedWith(
-    request: space_pb.GetRecentlySharedWithRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GetRecentlySharedWithResponse>;
+    request: GetRecentlySharedWithRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GetRecentlySharedWithResponse>;
 
   getRecentlySharedWith(
-    request: space_pb.GetRecentlySharedWithRequest,
+    request: GetRecentlySharedWithRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GetRecentlySharedWithResponse) => void): grpcWeb.ClientReadableStream<space_pb.GetRecentlySharedWithResponse>;
+               response: GetRecentlySharedWithResponse) => void): grpcWeb.ClientReadableStream<GetRecentlySharedWithResponse>;
 
   getRecentlySharedWith(
-    request: space_pb.GetRecentlySharedWithRequest,
+    request: GetRecentlySharedWithRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GetRecentlySharedWithResponse) => void) {
+               response: GetRecentlySharedWithResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GetRecentlySharedWith',
+        new URL('/space.SpaceApi/GetRecentlySharedWith', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGetRecentlySharedWith,
@@ -1553,32 +1635,31 @@ export class SpaceApiClient {
   }
 
   methodInfoSetNotificationsLastSeenAt = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.SetNotificationsLastSeenAtResponse,
-    (request: space_pb.SetNotificationsLastSeenAtRequest) => {
+    SetNotificationsLastSeenAtResponse,
+    (request: SetNotificationsLastSeenAtRequest) => {
       return request.serializeBinary();
     },
-    space_pb.SetNotificationsLastSeenAtResponse.deserializeBinary
+    SetNotificationsLastSeenAtResponse.deserializeBinary
   );
 
   setNotificationsLastSeenAt(
-    request: space_pb.SetNotificationsLastSeenAtRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.SetNotificationsLastSeenAtResponse>;
+    request: SetNotificationsLastSeenAtRequest,
+    metadata: grpcWeb.Metadata | null): Promise<SetNotificationsLastSeenAtResponse>;
 
   setNotificationsLastSeenAt(
-    request: space_pb.SetNotificationsLastSeenAtRequest,
+    request: SetNotificationsLastSeenAtRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.SetNotificationsLastSeenAtResponse) => void): grpcWeb.ClientReadableStream<space_pb.SetNotificationsLastSeenAtResponse>;
+               response: SetNotificationsLastSeenAtResponse) => void): grpcWeb.ClientReadableStream<SetNotificationsLastSeenAtResponse>;
 
   setNotificationsLastSeenAt(
-    request: space_pb.SetNotificationsLastSeenAtRequest,
+    request: SetNotificationsLastSeenAtRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.SetNotificationsLastSeenAtResponse) => void) {
+               response: SetNotificationsLastSeenAtResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/SetNotificationsLastSeenAt',
+        new URL('/space.SpaceApi/SetNotificationsLastSeenAt', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoSetNotificationsLastSeenAt,
@@ -1593,32 +1674,31 @@ export class SpaceApiClient {
   }
 
   methodInfoSearchFiles = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.SearchFilesResponse,
-    (request: space_pb.SearchFilesRequest) => {
+    SearchFilesResponse,
+    (request: SearchFilesRequest) => {
       return request.serializeBinary();
     },
-    space_pb.SearchFilesResponse.deserializeBinary
+    SearchFilesResponse.deserializeBinary
   );
 
   searchFiles(
-    request: space_pb.SearchFilesRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.SearchFilesResponse>;
+    request: SearchFilesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<SearchFilesResponse>;
 
   searchFiles(
-    request: space_pb.SearchFilesRequest,
+    request: SearchFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.SearchFilesResponse) => void): grpcWeb.ClientReadableStream<space_pb.SearchFilesResponse>;
+               response: SearchFilesResponse) => void): grpcWeb.ClientReadableStream<SearchFilesResponse>;
 
   searchFiles(
-    request: space_pb.SearchFilesRequest,
+    request: SearchFilesRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.SearchFilesResponse) => void) {
+               response: SearchFilesResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/SearchFiles',
+        new URL('/space.SpaceApi/SearchFiles', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoSearchFiles,
@@ -1633,32 +1713,31 @@ export class SpaceApiClient {
   }
 
   methodInfoInitializeMasterAppToken = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.InitializeMasterAppTokenResponse,
-    (request: space_pb.InitializeMasterAppTokenRequest) => {
+    InitializeMasterAppTokenResponse,
+    (request: InitializeMasterAppTokenRequest) => {
       return request.serializeBinary();
     },
-    space_pb.InitializeMasterAppTokenResponse.deserializeBinary
+    InitializeMasterAppTokenResponse.deserializeBinary
   );
 
   initializeMasterAppToken(
-    request: space_pb.InitializeMasterAppTokenRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.InitializeMasterAppTokenResponse>;
+    request: InitializeMasterAppTokenRequest,
+    metadata: grpcWeb.Metadata | null): Promise<InitializeMasterAppTokenResponse>;
 
   initializeMasterAppToken(
-    request: space_pb.InitializeMasterAppTokenRequest,
+    request: InitializeMasterAppTokenRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.InitializeMasterAppTokenResponse) => void): grpcWeb.ClientReadableStream<space_pb.InitializeMasterAppTokenResponse>;
+               response: InitializeMasterAppTokenResponse) => void): grpcWeb.ClientReadableStream<InitializeMasterAppTokenResponse>;
 
   initializeMasterAppToken(
-    request: space_pb.InitializeMasterAppTokenRequest,
+    request: InitializeMasterAppTokenRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.InitializeMasterAppTokenResponse) => void) {
+               response: InitializeMasterAppTokenResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/InitializeMasterAppToken',
+        new URL('/space.SpaceApi/InitializeMasterAppToken', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoInitializeMasterAppToken,
@@ -1673,32 +1752,31 @@ export class SpaceApiClient {
   }
 
   methodInfoGenerateAppToken = new grpcWeb.AbstractClientBase.MethodInfo(
-    space_pb.GenerateAppTokenResponse,
-    (request: space_pb.GenerateAppTokenRequest) => {
+    GenerateAppTokenResponse,
+    (request: GenerateAppTokenRequest) => {
       return request.serializeBinary();
     },
-    space_pb.GenerateAppTokenResponse.deserializeBinary
+    GenerateAppTokenResponse.deserializeBinary
   );
 
   generateAppToken(
-    request: space_pb.GenerateAppTokenRequest,
-    metadata: grpcWeb.Metadata | null): Promise<space_pb.GenerateAppTokenResponse>;
+    request: GenerateAppTokenRequest,
+    metadata: grpcWeb.Metadata | null): Promise<GenerateAppTokenResponse>;
 
   generateAppToken(
-    request: space_pb.GenerateAppTokenRequest,
+    request: GenerateAppTokenRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: space_pb.GenerateAppTokenResponse) => void): grpcWeb.ClientReadableStream<space_pb.GenerateAppTokenResponse>;
+               response: GenerateAppTokenResponse) => void): grpcWeb.ClientReadableStream<GenerateAppTokenResponse>;
 
   generateAppToken(
-    request: space_pb.GenerateAppTokenRequest,
+    request: GenerateAppTokenRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: space_pb.GenerateAppTokenResponse) => void) {
+               response: GenerateAppTokenResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/space.SpaceApi/GenerateAppToken',
+        new URL('/space.SpaceApi/GenerateAppToken', this.hostname_).toString(),
         request,
         metadata || {},
         this.methodInfoGenerateAppToken,

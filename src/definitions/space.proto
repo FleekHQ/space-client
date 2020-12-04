@@ -14,216 +14,221 @@ option go_package = ".;pb";
 service SpaceApi {
   // Get all folder or files in the default bucket. It fetches all subdirectories too.
   rpc ListDirectories(ListDirectoriesRequest) returns (ListDirectoriesResponse) {
-    
+
   }
 
   // Get the folder or files in the path directory.
   // Unlike ListDirectories, this only returns immediate children at path.
   rpc ListDirectory(ListDirectoryRequest) returns (ListDirectoryResponse) {
-    
+
   }
 
   // Generate Key Pair for current account.
   // This will return error if daemon account already has keypairs
   rpc GenerateKeyPair(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-    
+
   }
 
   rpc GetStoredMnemonic(GetStoredMnemonicRequest) returns (GetStoredMnemonicResponse) {
-    
+
   }
 
   // Restores a keypair given a mnemonic.
   // This will override any existing key pair
   rpc RestoreKeyPairViaMnemonic(RestoreKeyPairViaMnemonicRequest) returns (RestoreKeyPairViaMnemonicResponse) {
-    
+
   }
 
   rpc DeleteKeyPair(DeleteKeyPairRequest) returns (DeleteKeyPairResponse) {
-    
+
   }
 
   // Force Generation of KeyPair. This will override existing keys stored in daemon.
   rpc GenerateKeyPairWithForce(GenerateKeyPairRequest) returns (GenerateKeyPairResponse) {
-    
+
   }
 
   rpc GetPublicKey(GetPublicKeyRequest) returns (GetPublicKeyResponse) {
-    
+
   }
 
   // Subscribe to file events. This streams responses to the caller
   rpc Subscribe(google.protobuf.Empty) returns (stream FileEventResponse) {
-    
+
   }
 
   // Subscribe to textile events. This streams responses to the caller
   rpc TxlSubscribe(google.protobuf.Empty) returns (stream TextileEventResponse) {
-    
+
   }
 
   // Open a file in the daemon.
   // Daemon keeps track of all open files and closes them if no activity is noticed after a while
   rpc OpenFile(OpenFileRequest) returns (OpenFileResponse) {
-    
+
   }
 
   // Removes a file or dir from a bucket
   rpc RemoveDirOrFile(RemoveDirOrFileRequest) returns (RemoveDirOrFileResponse) {
-    
+
   }
 
   // Generates a copy of the file that's accessible through IPFS gateways
   rpc GeneratePublicFileLink(GeneratePublicFileLinkRequest) returns (GeneratePublicFileLinkResponse) {
-    
+
   }
 
   // Gets the files that are shared with this recipient
   rpc GetSharedWithMeFiles(GetSharedWithMeFilesRequest) returns (GetSharedWithMeFilesResponse) {
-    
+
   }
 
   // Gets the files that are shared by the sender
   rpc GetSharedByMeFiles(GetSharedByMeFilesRequest) returns (GetSharedByMeFilesResponse) {
-    
+
   }
 
   // Open an encrypted public shared file in the daemon.
   // This requires the decryption key and file hash/cid to work
   rpc OpenPublicFile(OpenPublicFileRequest) returns (OpenPublicFileResponse) {
-    
+
   }
 
   // Adds items (files/folders) to be uploaded to the bucket.
   rpc AddItems(AddItemsRequest) returns (stream AddItemsResponse) {
-    
+
   }
 
   // Creates a folder/directory at the specified path
   rpc CreateFolder(CreateFolderRequest) returns (CreateFolderResponse) {
-    
+
   }
 
   // Toggle FUSE drive to be mounted or unmounted
   rpc ToggleFuseDrive(ToggleFuseRequest) returns (FuseDriveResponse) {
-    
+
   }
 
   // Get status of FUSE drive. If mounted or unmounted
   rpc GetFuseDriveStatus(google.protobuf.Empty) returns (FuseDriveResponse) {
-    
+
   }
 
   // Create a new bucket owned by current user (aka keypair)
   rpc CreateBucket(CreateBucketRequest) returns (CreateBucketResponse) {
-    
+
   }
 
   // Backup Key by Passphrase
   rpc BackupKeysByPassphrase(BackupKeysByPassphraseRequest) returns (BackupKeysByPassphraseResponse) {
-    
+
   }
 
   // Recover Keys by Passphrase
   rpc RecoverKeysByPassphrase(RecoverKeysByPassphraseRequest) returns (RecoverKeysByPassphraseResponse) {
-    
+
   }
 
   // Tests a passphrase to see if it matches the one previously used
   rpc TestKeysPassphrase(TestKeysPassphraseRequest) returns (TestKeysPassphraseResponse) {
-    
+
   }
 
   rpc CreateLocalKeysBackup(CreateLocalKeysBackupRequest) returns (CreateLocalKeysBackupResponse) {
-    
+
   }
 
   rpc RecoverKeysByLocalBackup(RecoverKeysByLocalBackupRequest) returns (RecoverKeysByLocalBackupResponse) {
-    
+
   }
 
   // Share bucket
   rpc ShareBucket(ShareBucketRequest) returns (ShareBucketResponse) {
-    
+
   }
 
   // Join bucket
   rpc JoinBucket(JoinBucketRequest) returns (JoinBucketResponse) {
-    
+
   }
 
   // Share bucket via public key using Textile Hub inboxing
   rpc ShareFilesViaPublicKey(ShareFilesViaPublicKeyRequest) returns (ShareFilesViaPublicKeyResponse) {
-    
+
+  }
+
+  // Remove public keys for shared files in buckets
+  rpc UnshareFilesViaPublicKey(UnshareFilesViaPublicKeyRequest) returns (UnshareFilesViaPublicKeyResponse) {
+
   }
 
   rpc HandleFilesInvitation(HandleFilesInvitationRequest) returns (HandleFilesInvitationResponse) {
-    
+
   }
 
   rpc NotificationSubscribe(google.protobuf.Empty) returns (stream NotificationEventResponse) {
-    
+
   }
 
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse) {
-    
+
   }
 
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {
-    
+
   }
 
 
   rpc ReadNotification(ReadNotificationRequest) returns (ReadNotificationResponse) {
-    
+
   }
 
   rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse) {
-    
+
   }
 
   rpc ToggleBucketBackup(ToggleBucketBackupRequest) returns (ToggleBucketBackupResponse) {
-    
+
   }
 
   rpc BucketBackupRestore(BucketBackupRestoreRequest) returns (BucketBackupRestoreResponse) {
-    
+
   }
 
   rpc GetUsageInfo(GetUsageInfoRequest) returns (GetUsageInfoResponse) {
-    
+
   }
 
   rpc GetAPISessionTokens(GetAPISessionTokensRequest) returns (GetAPISessionTokensResponse) {
-    
+
   }
 
   // Returns a list of addresses / public keys of clients to which files where shared or received, ordered by date
   rpc GetRecentlySharedWith(GetRecentlySharedWithRequest) returns (GetRecentlySharedWithResponse) {
-    
+
   }
 
   // This will set the last read timestamp for the user so that the client
   // can check if newer notifications are present for UX
   rpc SetNotificationsLastSeenAt(SetNotificationsLastSeenAtRequest) returns (SetNotificationsLastSeenAtResponse) {
-    
+
   }
 
   // Search for files across all users bucket
   rpc SearchFiles(SearchFilesRequest) returns (SearchFilesResponse) {
-    
+
   }
 
   // Initialize master app token
   // App tokens are used to authorize scoped access to a range of methods
   // Master token can only be generated once and has access to all methods
   rpc InitializeMasterAppToken(InitializeMasterAppTokenRequest) returns (InitializeMasterAppTokenResponse) {
-    
+
   }
 
   // Generates an app token with scoped access.
   rpc GenerateAppToken(GenerateAppTokenRequest) returns (GenerateAppTokenResponse) {
-    
+
   }
 }
 
@@ -517,6 +522,7 @@ message ShareFilesViaPublicKeyRequest {
   repeated string publicKeys = 1;
   repeated FullPath paths = 2;
 }
+
 message FullPath {
   string dbId = 1; // optional field to specify shared with me file
   string bucket = 2;
@@ -524,6 +530,13 @@ message FullPath {
 }
 
 message ShareFilesViaPublicKeyResponse {}
+
+message UnshareFilesViaPublicKeyRequest {
+  repeated string publicKeys = 1;
+  repeated FullPath paths = 2;
+}
+
+message UnshareFilesViaPublicKeyResponse {}
 
 message GeneratePublicFileLinkRequest {
   string bucket = 1;
@@ -552,6 +565,7 @@ enum FuseState {
 
 message FuseDriveResponse {
   FuseState state = 1;
+  string mountPath = 2;
 }
 
 message ListBucketsRequest {}
@@ -565,6 +579,7 @@ enum NotificationType {
   INVITATION = 1;
   USAGEALERT = 2;
   INVITATION_REPLY = 3;
+  REVOKED_INVITATION = 4;
 }
 
 enum InvitationStatus {
@@ -590,6 +605,11 @@ message InvitationAccept {
   string invitationID = 2;
 }
 
+message RevokedInvitation {
+  string inviterPublicKey = 1;
+  repeated FullPath itemPaths = 5;
+}
+
 message Notification {
   string ID = 1; // underlying message id from textile
   string subject = 2;
@@ -598,10 +618,11 @@ message Notification {
     Invitation invitationValue = 4;
     UsageAlert usageAlert = 5;
     InvitationAccept invitationAccept = 6;
+    RevokedInvitation revokedInvitation = 7;
   }
-  NotificationType type = 7;
-  int64 createdAt = 8;
-  int64 readAt = 9;
+  NotificationType type = 8;
+  int64 createdAt = 9;
+  int64 readAt = 10;
 }
 
 message HandleFilesInvitationRequest {
