@@ -24,21 +24,21 @@ try {
   notificationStream.on('data', (res) => {
     console.log(`new notification: ${res.getNotification()}`);
   });
-  
+
   const txlStream = client.txlSubscribe(getAppTokenMetadata());
-  
+
   txlStream.on('data', (res) => {
     console.log(`something changed on ${res.getBucket()} bucket`);
   });
-  
+
   const subscribe = client.subscribe(getAppTokenMetadata());
-  
+
   subscribe.on('data', (res) => {
     const eventType = res.getType();
     const entry = res.getEntry();
     const bucket = res.getBucket();
     const dbId = res.getDbid();
-  
+
     console.log('subscribe data:', {
       dbId,
       bucket,
@@ -52,7 +52,7 @@ try {
       sizeInBytes: entry.getSizeinbytes(),
       fileExtension: entry.getFileextension(),
     });
-  });  
+  });
 } catch(e) {
   console.error('failed to subscribe', e);
 }
@@ -598,12 +598,15 @@ document.getElementById("get-shared-with-me-files").onclick = async () => {
   try {
     const result = await client.getSharedWithMeFiles(payload, getAppTokenMetadata());
 
+
     console.log({
       nextOffset: result.getNextoffset(),
       items: result.getItemsList().map((item) => {
         const entry = item.getEntry();
+        const sharedBy = item.getSharedby();
 
         return {
+          sharedBy,
           dbId: item.getDbid(),
           bucket: item.getBucket(),
           path: entry.getPath(),

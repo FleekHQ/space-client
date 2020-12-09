@@ -439,6 +439,9 @@ export class SharedListDirectoryEntry extends jspb.Message {
   getIspubliclink(): boolean;
   setIspubliclink(value: boolean): SharedListDirectoryEntry;
 
+  getSharedby(): string;
+  setSharedby(value: string): SharedListDirectoryEntry;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SharedListDirectoryEntry.AsObject;
   static toObject(includeInstance: boolean, msg: SharedListDirectoryEntry): SharedListDirectoryEntry.AsObject;
@@ -453,6 +456,7 @@ export namespace SharedListDirectoryEntry {
     dbid: string,
     bucket: string,
     ispubliclink: boolean,
+    sharedby: string,
   }
 }
 

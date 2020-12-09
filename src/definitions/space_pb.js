@@ -5356,7 +5356,8 @@ proto.space.SharedListDirectoryEntry.toObject = function(includeInstance, msg) {
     entry: (f = msg.getEntry()) && proto.space.ListDirectoryEntry.toObject(includeInstance, f),
     dbid: jspb.Message.getFieldWithDefault(msg, 2, ""),
     bucket: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    ispubliclink: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
+    ispubliclink: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+    sharedby: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -5409,6 +5410,10 @@ proto.space.SharedListDirectoryEntry.deserializeBinaryFromReader = function(msg,
     case 4:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setIspubliclink(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSharedby(value);
       break;
     default:
       reader.skipField();
@@ -5465,6 +5470,13 @@ proto.space.SharedListDirectoryEntry.serializeBinaryToWriter = function(message,
   if (f) {
     writer.writeBool(
       4,
+      f
+    );
+  }
+  f = message.getSharedby();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -5559,6 +5571,24 @@ proto.space.SharedListDirectoryEntry.prototype.getIspubliclink = function() {
  */
 proto.space.SharedListDirectoryEntry.prototype.setIspubliclink = function(value) {
   return jspb.Message.setProto3BooleanField(this, 4, value);
+};
+
+
+/**
+ * optional string sharedBy = 5;
+ * @return {string}
+ */
+proto.space.SharedListDirectoryEntry.prototype.getSharedby = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.space.SharedListDirectoryEntry} returns this
+ */
+proto.space.SharedListDirectoryEntry.prototype.setSharedby = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
