@@ -173,7 +173,7 @@ Use this class to create space client instances able to interact with space-daem
 
 Options:
 
-- `opts.url`: <em>**(string, required)**</em> space dameon url + port (`https://0.0.0.0:9998`)
+- `opts.url`: <em>**(string, required)**</em> space daemon url + port (`https://0.0.0.0:9998`)
 - `opts.defaultBucket?`: <em>**(string, optional)**</em> change the default bucket. This value is used when you don't pass the bucket param on some of the methods below. if you don't pass this property, `personal` bucket is going to be used as default value (`personal` bucket is created by default when you run space-daemon for the first time).
 - `opts.options?`: <em>**(object, optional)**</em> [grpc-web](https://github.com/grpc/grpc-web) client options.
 - `opts.credentials?`: <em>**(object, optional)**</em> [grpc-web](https://github.com/grpc/grpc-web) client credentials.
@@ -707,7 +707,7 @@ Returns all the buckets available
 
 #### .shareBucket({ bucket?: string })
 
-Shares a bucket. Returns a promis that resolves to the threadInfo (required to join a bucket).
+Shares a bucket. Returns a promise that resolves to the threadInfo (required to join a bucket).
 If you don't specify the `bucket` property, `client.defaultBucket` value is going to be used instead.
 
 ```js
@@ -822,9 +822,9 @@ Mark a notification as read.
 
 ```js
   client
-    .readNotifcation({ ID: '1234' })
+    .readNotification({ ID: '1234' })
     .then(() => {
-      console.log('notifcation was marked as read');
+      console.log('notification was marked as read');
     })
     .catch((err) => {
       console.error(err);
@@ -835,7 +835,7 @@ Mark a notification as read.
   const asyncFunc = async () => {
     const res = await client.readNotification({ ID: '1234' });
 
-    console.log('notifcation was marked as read');
+    console.log('notification was marked as read');
     ...
   };
 ```
@@ -927,7 +927,7 @@ Delete an account.
 
 ```js
   client.deleteAccount().then((res) => {
-    console.log('account delted');
+    console.log('account deleted');
   })
   .catch((err) => {
     console.error(err);
@@ -938,7 +938,7 @@ Delete an account.
   const asyncFunc = async () => {
     await client.deleteAccount();
 
-    console.log('account delted');
+    console.log('account deleted');
   };
 ```
 
@@ -968,7 +968,7 @@ Deletes the Key Pair
 
 #### .getUsageInfo()
 
-Fetches account storage usage info such as amount of space used locally and in Space, alongside bandwith quotas and limits.
+Fetches account storage usage info such as amount of space used locally and in Space, alongside bandwidth quotas and limits.
 
 ```js
   client
